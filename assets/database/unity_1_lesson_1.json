@@ -1,0 +1,88 @@
+[
+    {
+        "questionSpanish": "¿Cómo se dice Negro?",
+        "questionKichwa": "",
+        "correctAnswer": "Yana",
+        "audioPath": "",
+        "imagePath": "Yana",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Yana",
+            "Suku",
+            "Waylla"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice Rojo?",
+        "questionKichwa": "",
+        "correctAnswer": "Puka",
+        "audioPath": "",
+        "imagePath": "Puka",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Paku",
+            "Yurak",
+            "Puka"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice Blanco?",
+        "questionKichwa": "",
+        "correctAnswer": "Yurak",
+        "audioPath": "",
+        "imagePath": "Yurak",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Killpu",
+            "Yurak",
+            "Chawa Ankas"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice Amarillo?",
+        "questionKichwa": "",
+        "correctAnswer": "Killu",
+        "audioPath": "",
+        "imagePath": "Killu",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Killu",
+            "Yana",
+            "Yanalla Waylla"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice Azul?",
+        "questionKichwa": "",
+        "correctAnswer": "Ankas",
+        "audioPath": "",
+        "imagePath": "Ankas",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Maywa",
+            "Ankas",
+            "Waminsi"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuchar y Traducir:",
+        "questionKichwa": "",
+        "correctAnswer": "Huevo",
+        "audioPath": "Lulun.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Leche", "Huevo", "Pan"],
+        "words": [],
+        "correctOrder": []
+    }
+]

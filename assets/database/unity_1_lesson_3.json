@@ -1,0 +1,18 @@
+[
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "Maykan wiwata Yana kan?",
+        "correctAnswer": "Añankuka yanami kan",
+        "audioPath": "",
+        "imagePath": "Añankuka yanami kan",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Añankuka yanami kan",
+            "Apankuraka killpumi kan",
+            "Pishkuka ankasmi kan"
+        ],
+        "words": [],
+        "correctOrder": []
+        
+    }
+]

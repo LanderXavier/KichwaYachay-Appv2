@@ -1,0 +1,76 @@
+[
+    {
+        "questionSpanish": "¿Cómo se dice Perro?",
+        "questionKichwa": "",
+        "correctAnswer": "Allku",
+        "audioPath": "",
+        "imagePath": "Allku",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Allku",
+            "Misi",
+            "Kulta"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice Pez?",
+        "questionKichwa": "",
+        "correctAnswer": "Challwa",
+        "audioPath": "",
+        "imagePath": "Challwa",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Challwa",
+            "Misi",
+            "Walchaka"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice Pato?",
+        "questionKichwa": "",
+        "correctAnswer": "Kulta",
+        "audioPath": "",
+        "imagePath": "Kulta",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Kulta",
+            "Churu",
+            "Amaru"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice Gato?",
+        "questionKichwa": "",
+        "correctAnswer": "Misi",
+        "audioPath": "",
+        "imagePath": "Misi",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Misi",
+            "Kulta",
+            "Amaru"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "El perro es negro",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": [
+            "kan",
+            "yanami",
+            "Allkuka"],
+        "correctOrder": ["Allkuka", "yanami", "kan"]
+    }
+]

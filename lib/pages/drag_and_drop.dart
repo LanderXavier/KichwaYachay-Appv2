@@ -1,203 +1,190 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-void main() => runApp(const DragAndDrop());
+void main() => runApp(const WordOrderingGame());
 
-class DragAndDrop extends StatelessWidget {
-  const DragAndDrop({Key? key}) : super(key: key);
+class WordOrderingGame extends StatelessWidget {
+  const WordOrderingGame({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Matching Game",
-      home: DragAndDropHomePage(),
+      title: "Ordene las palabras correctamente",
+      home: WordOrderingHomePage(),
     );
   }
 }
 
-class DragAndDropHomePage extends StatefulWidget {
-  const DragAndDropHomePage({Key? key}) : super(key: key);
+class WordOrderingHomePage extends StatefulWidget {
+  const WordOrderingHomePage({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _DragAndDropHomePageState createState() => _DragAndDropHomePageState();
+  _WordOrderingHomePageState createState() => _WordOrderingHomePageState();
 }
 
-class _DragAndDropHomePageState extends State<DragAndDropHomePage> {
-  late List<ItemModel> items;
-  late List<ItemModel> items2;
-
-  late int score;
-  late bool gameOver;
+class _WordOrderingHomePageState extends State<WordOrderingHomePage> {
+  List<String> targetWords = [];
+  List<String> scrambledWords = [];
+  List<String> userOrder = [];
+  bool gameOver = false;
 
   @override
   void initState() {
     super.initState();
-    initGame();
+    _loadQuestionData();
   }
 
-  initGame() {
-    gameOver = false;
-    score = 0;
-    items = [
-      ItemModel(
-          icon: FontAwesomeIcons.mugSaucer, name: "Coffee", value: "Coffee"),
-      ItemModel(icon: FontAwesomeIcons.dog, name: "Dog", value: "Dog"),
-      ItemModel(icon: FontAwesomeIcons.cat, name: "Cat", value: "Cat"),
-      ItemModel(
-          icon: FontAwesomeIcons.cakeCandles, name: "Cake", value: "Cake"),
-      ItemModel(icon: FontAwesomeIcons.bus, name: "Bus", value: "Bus"),
-    ];
-    items2 = List<ItemModel>.from(items);
-    items.shuffle();
-    items2.shuffle();
+  // Cargar los datos JSON desde el archivo
+  Future<void> _loadQuestionData() async {
+    final String response = await rootBundle.loadString('assets/database/your_questions.json');
+    final List<dynamic> data = json.decode(response);
+
+    // Aquí tomamos solo el primer objeto del JSON como ejemplo
+    var questionData = data[0]; // Suponiendo que quieres cargar la primera pregunta
+    
+    setState(() {
+      targetWords = List<String>.from(questionData['correctOrder']);
+      scrambledWords = List<String>.from(targetWords)..shuffle();
+      userOrder = [];
+      gameOver = false; // Aseguramos que el estado del juego se reinicia
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (items.isEmpty) gameOver = true;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
+        title: const Text(''),
         centerTitle: true,
-        title: const Text('Matching Game'),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: <Widget>[
-            const SizedBox(
-              height: 30.0,
-            ),
-            Text.rich(TextSpan(children: [
-              const TextSpan(
-                  text: "Score: ",
-                  style: TextStyle(color: Colors.black, fontSize: 20.0)),
-              TextSpan(
-                  text: "$score",
-                  style: const TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                  ))
-            ])),
-            const SizedBox(
-              height: 30.0,
-            ),
-            if (!gameOver)
-              Row(
-                children: <Widget>[
-                  Column(
-                      children: items.map((item) {
-                    return Container(
-                      margin: const EdgeInsets.all(8.0),
-                      child: Draggable<ItemModel>(
-                        data: item,
-                        childWhenDragging: Icon(
-                          item.icon,
-                          color: Colors.grey,
-                          size: 50.0,
-                        ),
-                        feedback: Icon(
-                          item.icon,
-                          color: Colors.teal,
-                          size: 50,
-                        ),
-                        child: Icon(
-                          item.icon,
-                          color: Colors.teal,
-                          size: 50,
-                        ),
-                      ),
-                    );
-                  }).toList()),
-                  const Spacer(),
-                  Column(
-                      children: items2.map((item) {
-                    return DragTarget<ItemModel>(
-                      onAccept: (receivedItem) {
-                        if (item.value == receivedItem.value) {
-                          setState(() {
-                            items.remove(receivedItem);
-                            items2.remove(item);
-                            score += 10;
-                            item.accepting = false;
-                          });
-                        } else {
-                          setState(() {
-                            score -= 5;
-                            item.accepting = false;
-                          });
-                        }
-                      },
-                      onLeave: (receivedItem) {
-                        setState(() {
-                          item.accepting = false;
-                        });
-                      },
-                      onWillAccept: (receivedItem) {
-                        setState(() {
-                          item.accepting = true;
-                        });
-                        return true;
-                      },
-                      builder: (context, acceptedItems, rejectedItem) =>
-                          Container(
-                        color: item.accepting ? Colors.red : Colors.teal,
-                        height: 50,
-                        width: 100,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(8.0),
-                        child: Text(
-                          item.name,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.0),
-                        ),
-                      ),
-                    );
-                  }).toList()),
-                ],
-              ),
-            if (gameOver)
+          children: [
+            if (!gameOver) ...[
               const Text(
-                "GameOver",
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                ),
+                '',
+                style: TextStyle(fontSize: 18.0),
               ),
-            if (gameOver)
-              Center(
-                child: ElevatedButton(
-                  // textColor: Colors.white,
-                  // color: Colors.pink,
-                  child: const Text("New Game"),
-                  onPressed: () {
-                    initGame();
-                    setState(() {});
-                  },
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: scrambledWords.map((word) {
+                  return Draggable<String>(  // Hacer que cada palabra sea arrastrable
+                    data: word,
+                    childWhenDragging: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.grey,
+                      ),
+                      child: Text(
+                        word,
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                    ),
+                    feedback: Material(
+                      color: Colors.transparent,
+                      child: Text(
+                        word,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.teal,
+                      ),
+                      child: Text(
+                        word,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 20),
+              DragTarget<String>(  // Área de destino para las palabras ordenadas
+                onAccept: (word) {
+                  setState(() {
+                    userOrder.add(word);
+                    scrambledWords.remove(word);
+
+                    if (userOrder.length == targetWords.length) {
+                      gameOver = true;
+                    }
+                  });
+                },
+                builder: (context, acceptedData, rejectedData) {
+                  return Container(
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Row(
+                      children: userOrder.map((word) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            word,
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                },
+              ),
+            ] else ...[
+              Text(
+                userOrder.join(" ") == targetWords.join(" ")
+                    ? "Well done! You ordered the words correctly."
+                    : "Oops! Try again!",
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
                 ),
-              )
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _loadQuestionData();
+                  });
+                },
+                child: const Text("Play Again"),
+              ),
+            ],
           ],
         ),
       ),
     );
   }
-}
-
-class ItemModel {
-  final String name;
-  final String value;
-  final IconData icon;
-  bool accepting;
-
-  ItemModel(
-      {required this.name,
-      required this.value,
-      required this.icon,
-      this.accepting = false});
 }

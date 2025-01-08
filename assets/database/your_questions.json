@@ -1,0 +1,13 @@
+[
+    {
+        "questionSpanish": "¿Cómo se dice maiz Negro?",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "Yana",
+        "questionType": "drag_and_drop",
+        "optionList":[],
+        "words": ["sara","yana"],
+        "correctOrder": ["yana","sara"]
+    }
+]

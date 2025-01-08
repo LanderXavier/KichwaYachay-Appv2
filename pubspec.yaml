@@ -115,6 +115,9 @@ flutter:
     #       # Unity 3
     - assets/database/unity_3_lesson_1.json
     # - assets/database/unity_3_lesson_2.json
+     #       # Unity 4
+    - assets/database/unity_4_lesson_1.json
+    - assets/database/unity_4_lesson_2.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

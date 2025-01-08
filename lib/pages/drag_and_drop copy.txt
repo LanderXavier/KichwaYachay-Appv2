@@ -1,4 +1,4 @@
- // Drag and drop
+// Drag and drop
   List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
     List<String> availableWords = List.from(words); // Lista para las palabras disponibles
     List<String> draggedWords = []; // Lista para las palabras arrastradas
@@ -102,41 +102,34 @@
       ),
 
       const SizedBox(height: 20),
-//BOTON DE VERIFICAR
+
+      // Botón para verificar el orden
       ElevatedButton(
-  onPressed: () {
-    bool isCorrect = draggedWords.length == correctOrder.length &&
-        List.generate(correctOrder.length, (i) => draggedWords[i] == correctOrder[i])
-            .every((element) => element);
-    print("Palabras arrastradas: $draggedWords");
-    print("Orden correcto: $correctOrde");
+        onPressed: () {
+          bool isCorrect = draggedWords.length == correctOrder.length &&
+              List.generate(correctOrder.length, (i) => draggedWords[i] == correctOrder[i])
+                  .every((element) => element);
+                    print("Palabras arrastradas: $draggedWords");
+                    print("Orden correcto: $correctOrde");
 
-    // Muestra el resultado
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(isCorrect ? '¡Correcto!' : 'Inténtalo de nuevo'),
-        content: Text(isCorrect
-            ? '¡Has ordenado correctamente las palabras!'
-            : 'El orden no es correcto. Por favor, inténtalo de nuevo.'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              if (!isCorrect) {
-                setState(() {
-                  draggedWords.clear(); // Limpia las palabras arrastradas
-                });
-              }
-            },
-            child: const Text('OK'),
-          ),
-        ],
+          // Muestra el resultado
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(isCorrect ? '¡Correcto!' : 'Inténtalo de nuevo'),
+              content: Text(isCorrect
+                  ? '¡Has ordenado correctamente las palabras!'
+                  : 'El orden no es correcto. Por favor, inténtalo de nuevo.'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        },
+        child: const Text('Verificar'),
       ),
-    );
-  },
-  child: const Text('Verificar'),
-),
-
     ];
   }

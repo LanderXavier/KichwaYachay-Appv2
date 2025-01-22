@@ -1,12 +1,12 @@
 class Question {
-  String questionSpanish = '';
-  String questionKichwa = '';
-  String questionType = '';
-  late String correctAnswer = '';
+  String questionSpanish;
+  String questionKichwa;
+  String questionType;
+  late String correctAnswer;
   String selectedOption = 'Skipped';
   bool isCorrect = false;
-  String audioPath = '';
-  String imagePath = '';
+  String audioPath;
+  String imagePath;
   List<dynamic> optionList = [];
   List<dynamic>? words;
   List<dynamic>? correctOrder;
@@ -16,7 +16,9 @@ class Question {
         questionKichwa = json['questionKichwa'],
         questionType = json['questionType'],
         correctAnswer = json['correctAnswer'],
-        optionList = json['optionList'],
+        optionList = List<String>.from(json['optionList']),
         audioPath = json['audioPath'],
-        imagePath = json['imagePath'];
+        imagePath = json['imagePath'],
+        words = json['words'] != null ? List<String>.from(json['words']) : null,
+        correctOrder = json['correctOrder'] != null ? List<String>.from(json['correctOrder']) : null;
 }

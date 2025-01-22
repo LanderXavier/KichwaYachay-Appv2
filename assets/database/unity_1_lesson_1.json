@@ -1,15 +1,19 @@
 [
-        {
-            "questionSpanish": "¿Cómo se dice maiz Negro?",
-            "questionKichwa": "",
-            "correctAnswer": "",
-            "audioPath": "",
-            "imagePath": "Yana",
-            "questionType": "drag_and_drop",
-            "optionList":[],
-            "words": ["sara","yana"],
-            "correctOrder": ["yana","sara"]
-        },
+    {
+        "questionSpanish": "¿Cómo se dice Negro?",
+        "questionKichwa": "",
+        "correctAnswer": "Yana",
+        "audioPath": "",
+        "imagePath": "Yana",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Yana",
+            "Suku",
+            "Waylla"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
     {
         "questionSpanish": "¿Cómo se dice Rojo?",
         "questionKichwa": "",

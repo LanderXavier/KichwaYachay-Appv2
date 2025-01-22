@@ -1,26 +1,17 @@
 [
     {
-        "questionSpanish": "Traducir:",
-        "questionKichwa": "Payka yakutami upyan",
-        "correctAnswer": "",
+        "questionSpanish": "Atikka mapa kanchu",
+        "questionKichwa": "",
+        "correctAnswer": "Ari",
         "audioPath": "",
-        "imagePath": "",
-        "questionType": "translate",
-        "optionList": [],
+        "imagePath": "assets/images/dirty_child.png",
+        "questionType": "flashcard_question",
+        "optionList": ["Ari", "Mana"],
         "words": [
-            "ella",
-            "come",
-            "bebe",
-            "pan",
-            "agua"
+            "assets/images/dirty_child.png:mapa",
+            "assets/images/clean_child.png:chuya"
         ],
-        "correctOrder": [
-            true,
-            false,
-            true,
-            false,
-            true
-        ]
+        "correctOrder": []
     },
     {
         "questionSpanish": "¿Cuál de los siguientes es agua?",

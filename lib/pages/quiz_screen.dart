@@ -32,6 +32,8 @@
     List<String> _wordsList = [];
     // Audio Player
     final player = AudioPlayer();
+    // Flashcard Variables
+    String? _selectedFlashcardAnswer; 
 
     @override
     void initState() {
@@ -370,6 +372,135 @@
       }
     }
 
+// FLASHCARDS
+
+void _showQuestionDialog(BuildContext context, String questionText, String imagePath) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Pregunta"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Mostrar la imagen
+            Image.asset(
+              imagePath, // Ruta de la imagen
+              height: 150,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 20),
+            // Mostrar la pregunta
+            Text(
+              questionText,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+            },
+            child: const Text("Cerrar"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+// Construcción del contenido para las preguntas con botón adicional
+List<Widget> _buildFlashcards(Question question) {
+  final words = question.words ?? [];
+
+  return [
+    const SizedBox(height: 10),
+    const Text(
+      'Mira las flashcards:',
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 16),
+    ),
+    const SizedBox(height: 10),
+    Expanded(
+      child: ListView.builder(
+        itemCount: words.length,
+        itemBuilder: (context, index) {
+          final parts = words[index].split(':');
+          final imagePath = parts[0];
+          final label = parts[1];
+
+          return Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey[400]!),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      imagePath,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      label,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    ),
+
+    const SizedBox(height: 20),
+        // Botón dinámico basado en "questionSpanish"
+    ElevatedButton(
+      onPressed: () {
+        _showQuestionDialog(context, question.questionSpanish, question.imagePath); // Mostrar imagen y pregunta
+      },
+      child: const Text("Mostrar pregunta"), // Texto del botón
+    ),
+
+    
+    const SizedBox(height: 20),
+
+    // Opciones de respuesta
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: question.optionList.map((option) {
+        final isSelected = _selectedFlashcardAnswer == option; // Verificar si esta opción está seleccionada
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: isSelected ? Colors.green : Colors.blue, // Cambia el color si está seleccionada
+              onPrimary: Colors.white, // Color del texto
+            ),
+            onPressed: () {
+              setState(() {
+                _selectedFlashcardAnswer = option; // Guardar la respuesta seleccionada
+              });
+              print("Seleccionado: $option");
+            },
+            child: Text(option),
+          ),
+        );
+      }).toList(),
+    ),
+  ];
+}
+
+
     // Function to check weather the answer is correct or not
     // Points will be added according to the number of correct answers
     // NOTE: Replace the print statements to another function which can take count of the punctuation
@@ -426,7 +557,22 @@
         } else {
           print('Respuesta incorrecta');
         }
+      
+      // Flashcard Handler (Asegúrate de que este es el tipo de pregunta adecuado)
+
+      }  else if (_currentQuestion.questionType == 'flashcard_question') {
+      if (_selectedFlashcardAnswer == _currentQuestion.correctAnswer) {
+        print('Respuesta correcta');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Respuesta correcta')),
+        );
+      } else {
+        print('Respuesta incorrecta');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Respuesta Incorrecta')),
+        );
       }
+    }
 
       _nextQuestion();
     }
@@ -509,6 +655,9 @@
               if (_currentQuestion.questionType == 'drag_and_drop')
                 ..._buildMatch(
                     _currentQuestion.words,_currentQuestion.correctOrder),
+              // Carga la rutina de flashcards
+              if (_currentQuestion.questionType == 'flashcard_question') 
+                ..._buildFlashcards(_currentQuestion),
             ],
           ),
         ),

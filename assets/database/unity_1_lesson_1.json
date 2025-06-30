@@ -5,15 +5,48 @@
         "correctAnswer": "Yana",
         "audioPath": "",
         "imagePath": "Yana",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Yana",
+        "questionType": "drag_and_drop",
+        "optionList":[
+
+        ],
+        "words": [
+            "Allku.png",
+            "Suku",
+            "Waylla",
             "Suku",
             "Waylla"
         ],
-        "words": [],
-        "correctOrder": []
+        "correctOrder": [
+            "Allku.png",
+            "Suku",
+            "Waylla",
+            "Suku",
+            "Waylla"
+        ]
     },
+{
+  "questionSpanish": "Ordena correctamente",
+  "questionKichwa": "",
+  "correctAnswer": "",
+  "audioPath": "",
+  "imagePath": "",
+  "questionType": "complete",
+  "optionList": ["", "", "", ""],
+  "words": [
+    "Juan",
+    "juega",
+    "al",
+    "futbol"
+  ],
+  "correctOrder": [
+    "Juan",
+    "juega",
+    "al",
+    "futbol"
+  ]
+},
+     
+
     {
         "questionSpanish": "¿Cómo se dice Rojo?",
         "questionKichwa": "",

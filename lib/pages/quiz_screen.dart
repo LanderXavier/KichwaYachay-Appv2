@@ -70,9 +70,22 @@ import 'package:flutter/material.dart';
     }
 
     // Opción Múltiple
-    List<Column> _buildMultipleChoice(
+    List<Widget> _buildMultipleChoice(
         List<String> options, Function(int?) onChanged) {
-      return options.asMap().entries.map((entry) {
+      List<Widget> widgets = [];
+      if (_currentQuestion.imagePath.isNotEmpty) {
+        widgets.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Image.asset(
+              'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+              height: 140,
+              fit: BoxFit.contain,
+            ),
+          ),
+        );
+      }
+      widgets.addAll(options.asMap().entries.map((entry) {
         return Column(
           children: [
             RadioListTile<int>(
@@ -99,7 +112,8 @@ import 'package:flutter/material.dart';
             const Divider(height: 50),
           ],
         );
-      }).toList();
+      }));
+      return widgets;
     }
 
     // Seleccionar
@@ -186,29 +200,73 @@ import 'package:flutter/material.dart';
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            ...options.asMap().entries.map((entry) {
-              return Column(
-                children: [
-                  RadioListTile<int>(
-                    title: Text(
-                      options[entry.key],
-                      style: const TextStyle(color: Colors.black, fontSize: 20),
-                      textAlign: TextAlign.left,
-                    ),
-                    value: entry.key,
-                    groupValue: _selectedMultipleChoice,
-                    onChanged: (int? value) {
-                      setState(() {
-                        _selectedMultipleChoice = value!;
-                      });
-                      onChanged(value);
-                    },
+            const SizedBox(height: 30),
+            // Opciones en cuadrícula 2x2, grandes y centradas
+            Center(
+              child: SizedBox(
+                width: 400, // ancho fijo para centrar
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 24,
+                    crossAxisSpacing: 24,
+                    childAspectRatio: 1,
                   ),
-                  const Divider(height: 16),
-                ],
-              );
-            }).toList(),
+                  itemCount: options.length,
+                  itemBuilder: (context, index) {
+                    final option = options[index];
+                    final isImage = option.endsWith('.png') || option.endsWith('.jpg') || option.endsWith('.jpeg');
+                    final isSelected = _selectedMultipleChoice == index;
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(24),
+                      onTap: () {
+                        setState(() {
+                          _selectedMultipleChoice = index;
+                        });
+                        onChanged(index);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: isSelected ? Colors.blue[300] : Colors.blue[50],
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          border: Border.all(
+                            color: isSelected ? Colors.blueAccent : Colors.transparent,
+                            width: 3,
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(16),
+                        child: isImage
+                            ? Image.asset(
+                                'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
+                                fit: BoxFit.contain,
+                                height: 90,
+                                width: 90,
+                              )
+                            : Text(
+                                option,
+                                style: TextStyle(
+                                  color: isSelected ? Colors.white : Colors.blue[900],
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ];
@@ -466,36 +524,6 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
       ),
     ),
     const SizedBox(height: 20),
-    ElevatedButton(
-      onPressed: () {
-        bool isCorrect = _draggedWords.length == optionLabels.length &&
-            List.generate(optionLabels.length, (i) => _draggedWords[i] == correctOrder[i])
-                .every((element) => element);
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(isCorrect ? '¡Correcto!' : 'Inténtalo de nuevo'),
-            content: Text(isCorrect
-                ? '¡Has ordenado correctamente las palabras!'
-                : 'El orden no es correcto. Por favor, inténtalo de nuevo.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  if (!isCorrect) {
-                    setState(() {
-                      _draggedWords = List.filled(optionLabels.length, '');
-                    });
-                  }
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      },
-      child: const Text('Verificar'),
-    ),
   ];
 }
 
@@ -693,90 +721,106 @@ List<Widget> _buildFlashcards(Question question) {
     // Points will be added according to the number of correct answers
     // NOTE: Replace the print statements to another function which can take count of the punctuation
     void _checkAnswer() {
+      bool isCorrect = false;
       // Multiple Choice Handler
       if (_currentQuestion.questionType == 'multiple_choice') {
         int correctOptionIndex =
             _currentQuestion.optionList.indexOf(_currentQuestion.correctAnswer);
-        if (_selectedMultipleChoice == correctOptionIndex) {
-          print('Respuesta correcta');
-        } else {
-          print('Respuesta incorrecta');
-        }
+        isCorrect = _selectedMultipleChoice == correctOptionIndex;
+        if (!isCorrect) {
+      setState(() {
+        _selectedMultipleChoice = -1;
+      });
+    }
         // Translate Handler
       } else if (_currentQuestion.questionType == 'translate') {
-        bool isCorrect = false;
-        // print("Selected: $_selectedTranslate");
-        // print("Correct: ${_currentQuestion.correctOrder}");
-        if (_listEquals(_selectedTranslate, _currentQuestion.correctOrder)) {
-          isCorrect = true;
-        }
-        if (isCorrect) {
-          print('Respuesta correcta');
-        } else {
-          print('Respuesta incorrecta');
-        }
+        isCorrect = _listEquals(_selectedTranslate, _currentQuestion.correctOrder);
+        if (!isCorrect) {
+      setState(() {
+        _selectedTranslate = List.generate(_currentQuestion.words.length, (index) => false);
+      });
+    }
       } else if (_currentQuestion.questionType == 'vertical_sort') {
-        bool isCorrect = false;
-        // print("Selected: $_wordsList");
-        // print("Correct: ${_currentQuestion.correctOrder}");
-        if (_listEquals(_wordsList, _currentQuestion.correctOrder)) {
-          isCorrect = true;
-        }
-        if (isCorrect) {
-          print('Respuesta correcta');
-        } else {
-          print('Respuesta incorrecta');
-        }
+        isCorrect = _listEquals(_wordsList, _currentQuestion.correctOrder);
+        if (!isCorrect) {
+      setState(() {
+        _wordsList = List.from(_currentQuestion.words);
+      });
+    }
         // Listen and Translate Handler
       } else if (_currentQuestion.questionType == 'listen_and_translate') {
         int correctOptionIndex =
             _currentQuestion.optionList.indexOf(_currentQuestion.correctAnswer);
-        if (_selectedMultipleChoice == correctOptionIndex) {
-          print('Respuesta correcta');
-        } else {
-          print('Respuesta incorrecta');
-        }
+        isCorrect = _selectedMultipleChoice == correctOptionIndex;
+        if (!isCorrect) {
+      setState(() {
+        _selectedMultipleChoice = -1;
+      });
+    }
         // Drag and Drop Handler
       } else if (_currentQuestion.questionType == 'drag_and_drop') {
-        // Si todos los elementos son texto (no imágenes), comparar el orden de las palabras
-        bool hasOnlyText = _currentQuestion.words.every((w) => !(w.endsWith('.png') || w.endsWith('.jpg') || w.endsWith('.jpeg')));
-        if (hasOnlyText) {
-          bool isCorrect = _draggedWords.length == _currentQuestion.correctOrder.length &&
-              List.generate(_currentQuestion.correctOrder.length, (i) => _draggedWords[i] == _currentQuestion.correctOrder[i])
-                  .every((element) => element);
-          if (isCorrect) {
-            print('Respuesta correcta');
-          } else {
-            print('Respuesta incorrecta');
-          }
-        } else {
-          // Lógica anterior para imágenes o mixto
-          int correctOptionIndex =
-              _currentQuestion.optionList.indexOf(_currentQuestion.correctAnswer);
-          if (_selectedMultipleChoice == correctOptionIndex) {
-            print('Respuesta correcta');
-          } else {
-            print('Respuesta incorrecta');
-          }
-        }
-      
-      // Flashcard Handler (Asegúrate de que este es el tipo de pregunta adecuado)
+        isCorrect = _draggedWords.length == _currentQuestion.correctOrder.length &&
+            List.generate(_currentQuestion.correctOrder.length, (i) => _draggedWords[i] == _currentQuestion.correctOrder[i])
+                .every((element) => element);
+        if (!isCorrect) {
+      setState(() {
+        _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+      });
+    }
+        // Flashcard Handler
+      } else if (_currentQuestion.questionType == 'flashcard_question') {
+        isCorrect = _selectedFlashcardAnswer == _currentQuestion.correctAnswer;
+        if (!isCorrect) {
+      setState(() {
+        _selectedFlashcardAnswer = null;
+      });
+    }
+      } else if (_currentQuestion.questionType == 'complete') {
+        isCorrect = _draggedWords.length == _currentQuestion.correctOrder.length &&
+            List.generate(_currentQuestion.correctOrder.length, (i) => _draggedWords[i] == _currentQuestion.correctOrder[i])
+                .every((element) => element);
+        if (!isCorrect) {
+      setState(() {
+        _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+      });
+    }
+      }
 
-      }  else if (_currentQuestion.questionType == 'flashcard_question') {
-      if (_selectedFlashcardAnswer == _currentQuestion.correctAnswer) {
-        print('Respuesta correcta');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Respuesta correcta')),
+      // Mostrar feedback y solo avanzar si es correcto
+      if (isCorrect) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('¡Correcto!'),
+            content: const Text('¡Respuesta correcta!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _nextQuestion();
+                },
+                child: const Text('Siguiente'),
+              ),
+            ],
+          ),
         );
       } else {
-        print('Respuesta incorrecta');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Respuesta Incorrecta')),
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Inténtalo de nuevo'),
+            content: const Text('La respuesta no es correcta. Por favor, inténtalo de nuevo.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
         );
       }
-    }
-
-      _nextQuestion();
     }
 
     void _nextQuestion() {
@@ -886,6 +930,16 @@ List<Widget> _buildComplete(List<String> optionList, List<String> words, List<St
   }
   int blankIndex = 0;
   return [
+    // Mostrar imagen si existe
+    if (_currentQuestion.imagePath.isNotEmpty)
+      Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: Image.asset(
+          'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+          height: 140,
+          fit: BoxFit.contain,
+        ),
+      ),
     const SizedBox(height: 20),
     Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -1020,36 +1074,6 @@ List<Widget> _buildComplete(List<String> optionList, List<String> words, List<St
       }).toList(),
     ),
     const SizedBox(height: 20),
-    ElevatedButton(
-      onPressed: () {
-        bool isCorrect = _draggedWords.length == correctOrder.length &&
-            List.generate(correctOrder.length, (i) => _draggedWords[i] == correctOrder[i])
-                .every((element) => element);
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(isCorrect ? '¡Correcto!' : 'Inténtalo de nuevo'),
-            content: Text(isCorrect
-                ? '¡Has completado correctamente la frase!'
-                : 'La frase no es correcta. Por favor, inténtalo de nuevo.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  if (!isCorrect) {
-                    setState(() {
-                      _draggedWords = List.filled(correctOrder.length, '');
-                    });
-                  }
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      },
-      child: const Text('Verificar'),
-    ),
   ];
 }
 }

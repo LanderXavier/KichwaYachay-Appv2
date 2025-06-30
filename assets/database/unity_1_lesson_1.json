@@ -10,13 +10,13 @@
 
         ],
         "words": [
-            "Allku",
+            "Allku.png",
             "Ankas",
             "Curi"
            
         ],
         "correctOrder": [
-            "Allku",
+            "Allku.png",
             "Ankas",
             "Curi"
            
@@ -24,10 +24,11 @@
     },
 {
   "questionSpanish": "Ordena correctamente",
+
   "questionKichwa": "",
   "correctAnswer": "",
   "audioPath": "",
-  "imagePath": "",
+  "imagePath": "Allku.png",
   "questionType": "complete",
   "optionList": ["", "", "", ""],
   "words": [
@@ -50,7 +51,7 @@
         "questionKichwa": "",
         "correctAnswer": "Puka",
         "audioPath": "",
-        "imagePath": "Puka",
+        "imagePath": "huevo.png",
         "questionType": "multiple_choice",
         "optionList": [
             "Paku",
@@ -108,11 +109,11 @@
     {
         "questionSpanish": "Escuchar y Traducir:",
         "questionKichwa": "",
-        "correctAnswer": "Huevo",
+        "correctAnswer": "Allku.png",
         "audioPath": "Lulun.mp3",
-        "imagePath": "Allku.png",
+        "imagePath": "",
         "questionType": "listen_and_translate",
-        "optionList": ["Leche", "Huevo", "Pan"],
+        "optionList": ["Leche", "Allku.png", "Pan"],
         "words": [],
         "correctOrder": []
     }

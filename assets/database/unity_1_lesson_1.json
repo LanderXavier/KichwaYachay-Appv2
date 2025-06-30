@@ -10,18 +10,16 @@
 
         ],
         "words": [
-            "Allku.png",
-            "Suku",
-            "Waylla",
-            "Suku",
-            "Waylla"
+            "Allku",
+            "Ankas",
+            "Curi"
+           
         ],
         "correctOrder": [
-            "Allku.png",
-            "Suku",
-            "Waylla",
-            "Suku",
-            "Waylla"
+            "Allku",
+            "Ankas",
+            "Curi"
+           
         ]
     },
 {
@@ -112,7 +110,7 @@
         "questionKichwa": "",
         "correctAnswer": "Huevo",
         "audioPath": "Lulun.mp3",
-        "imagePath": "",
+        "imagePath": "Allku.png",
         "questionType": "listen_and_translate",
         "optionList": ["Leche", "Huevo", "Pan"],
         "words": [],

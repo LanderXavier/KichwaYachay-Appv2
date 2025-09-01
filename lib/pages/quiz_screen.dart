@@ -599,14 +599,28 @@ void _showQuestionDialog(BuildContext context, String questionText, String image
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Mostrar la imagen
-            Image.asset(
-              imagePath, // Ruta de la imagen
+            // Contenedor con tamaño fijo y proporción constante
+            Container(
+              width: 150,
               height: 150,
-              fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Color.fromARGB(255, 103, 202, 226)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: AspectRatio(
+                  aspectRatio: 1, // Siempre cuadrado 1:1
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain, // encaja sin recortar
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            // Mostrar la pregunta
+            // Texto de la pregunta
             Text(
               questionText,
               textAlign: TextAlign.center,
@@ -617,7 +631,7 @@ void _showQuestionDialog(BuildContext context, String questionText, String image
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+              Navigator.of(context).pop();
             },
             child: const Text("Cerrar"),
           ),
@@ -631,60 +645,110 @@ void _showQuestionDialog(BuildContext context, String questionText, String image
 List<Widget> _buildFlashcards(Question question) {
   final words = question.words;
 
+
   return [
     const SizedBox(height: 10),
     const Text(
       'Mira las flashcards:',
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 16),
+      style: TextStyle(fontSize: 22
+      , fontWeight: FontWeight.bold, color: Colors.black),
+    
     ),
     const SizedBox(height: 10),
-    Expanded(
-      child: ListView.builder(
-        itemCount: words.length,
-        itemBuilder: (context, index) {
-          final parts = words[index].split(':');
-          final imagePath = parts[0];
-          final label = parts[1];
+Expanded(
+  child: Scrollbar(
+    thumbVisibility: true, // scrollbar siempre visible
+    thickness: 6,
+    radius: const Radius.circular(20),
+    child: ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      itemCount: words.length,
+      itemBuilder: (context, index) {
+        final parts = words[index].split(':');
+        final imagePath = parts[0];
+        final label = parts[1];
 
-          return Column(
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 90),
+          child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey[400]!),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: Color.fromARGB(255, 187, 247, 251), width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.blue.withOpacity(0.10),
+                      blurRadius: 16,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
-                    Image.asset(
-                      imagePath,
-                      height: 150,
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: AspectRatio(
+                        aspectRatio: 1, // siempre cuadrado 1:1
+                        child: Image.asset(
+                          imagePath,
+                          fit: BoxFit.contain, // encaja sin recortar
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 18),
                     Text(
                       label,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          );
-        },
-      ),
-    ),
+              const SizedBox(height: 10),
 
-    const SizedBox(height: 20),
-        // Botón dinámico basado en "questionSpanish"
+              // 👇 Contador de tarjetas
+              Text(
+                "Flashcard ${index + 1} de ${words.length}",
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ),
+  ),
+),
+
+
+    const SizedBox(height: 10),
+        // Botón dinámico basado en "questionKichwa"
     ElevatedButton(
       onPressed: () {
-        _showQuestionDialog(context, question.questionSpanish, question.imagePath); // Mostrar imagen y pregunta
+        _showQuestionDialog(context, question.questionKichwa, question.imagePath);
       },
-      child: const Text("Mostrar pregunta"), // Texto del botón
+      child: const Text(
+        "Mostrar pregunta",
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF1989F1),
+        foregroundColor: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        elevation: 4,
+        shadowColor: Colors.deepPurpleAccent,
+      ),
     ),
 
     
@@ -833,6 +897,7 @@ List<Widget> _buildFlashcards(Question question) {
               _selectedMultipleChoice = -1; // Reinicia si usas selección múltiple
               // Reiniciar _draggedWords para el nuevo ejercicio
               _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+              _selectedFlashcardAnswer = null;
         } else {
           // Agregar alguna lógica adicional cuando se han recorrido todas las preguntas
           print('Se han recorrido todas las preguntas');
@@ -865,8 +930,8 @@ List<Widget> _buildFlashcards(Question question) {
               const SizedBox(
                 height: 50,
               ),
-              // Asegurarse de que la pregunta no esté vacía
-              if (_currentQuestion.questionKichwa.isNotEmpty)
+              // Asegurarse de que la pregunta no esté vacía y no mostrarla en flashcards
+              if (_currentQuestion.questionKichwa.isNotEmpty && _currentQuestion.questionType != 'flashcard_question')
                 Text(
                   _currentQuestion.questionKichwa,
                   style: const TextStyle(color: Colors.black, fontSize: 20),

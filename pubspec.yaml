@@ -108,6 +108,7 @@ flutter:
     - assets/database/unity_1_lesson_1.json
     - assets/database/unity_1_lesson_2.json
     - assets/database/unity_1_lesson_3.json
+    - assets/database/unity_1_lesson_4.json
     #       # Unity 2
     - assets/database/unity_2_lesson_1.json
     - assets/database/unity_2_lesson_2.json

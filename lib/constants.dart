@@ -36,7 +36,7 @@ class Constants {
         ),
       ],
       topic: "Unidad 1",
-      time: "3 Lecciones",
+      time: "4 Lecciones",
       points: "15",
       image: "assets/images/course-1.png",
       unity: 1,
@@ -93,7 +93,6 @@ class Constants {
       unity: 4,
       lesson: const LessonScreen(unity: 3),
     ),
-    
   ];
 // Lista de Cursos: Intermedio
   // static List<TopicModel> topicsIntermedio = [
@@ -225,6 +224,13 @@ class Constants {
       lessonIndex: "3",
       imagePath: "assets/images/lesson.png",
       title: "Lección 03",
+      duration: "5 minutos",
+    ),
+    LessonModel(
+      unityIndex: 1,
+      lessonIndex: "4",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 04",
       duration: "5 minutos",
     ),
     // UNITY 2

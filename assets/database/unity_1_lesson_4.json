@@ -1,0 +1,25 @@
+[
+  {
+    "questionSpanish": "Relaciona los números en kichwa con su valor",
+    "questionKichwa": "Yupaykuna: paktachiy",
+    "correctAnswer": "",
+    "audioPath": "",
+    "imagePath": "",
+    "questionType": "matching",
+    "words": [
+      "shuk",
+      "ishkay",
+      "kimsa",
+      "chusku",
+      "pichka"
+    ],
+    "optionList": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correctOrder": []
+  }
+]

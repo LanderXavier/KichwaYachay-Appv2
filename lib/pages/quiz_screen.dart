@@ -69,82 +69,105 @@ import 'package:flutter/material.dart';
           List.generate(_currentQuestion.optionList.length, (index) => false);
     }
 
-    // Opción Múltiple
-    List<Widget> _buildMultipleChoice(
-        List<String> options, Function(int?) onChanged) {
-      List<Widget> widgets = [];
-      if (_currentQuestion.imagePath.isNotEmpty) {
-        widgets.add(
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Image.asset(
-              'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
-              height: 140,
-              fit: BoxFit.contain,
-            ),
+// Función auxiliar para validar si un string es ruta de imagen
+bool isImage(String path) {
+  return path.toLowerCase().endsWith('.png') ||
+      path.toLowerCase().endsWith('.jpg') ||
+      path.toLowerCase().endsWith('.jpeg');
+}
+
+List<Widget> _buildMultipleChoice(
+    List<String> options, Function(int?) onChanged) {
+  List<Widget> widgets = [];
+
+  // Validación de la imagen/palabra de la pregunta
+  if (_currentQuestion.imagePath.isNotEmpty) {
+    final img = _currentQuestion.imagePath;
+    if (isImage(img)) {
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Image.asset(
+            'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$img',
+            height: 140,
+            fit: BoxFit.contain,
           ),
-        );
-      }
-      widgets.addAll(options.asMap().entries.map((entry) {
-        return Column(
-          children: [
-            RadioListTile<int>(
-              title: Text(
-                options[entry.key],
-                style: const TextStyle(color: Colors.black, fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              value: entry.key,
-              groupValue: _selectedMultipleChoice,
-              // Imágen, activar cuando se tengan todas las imágenes sobre las opciones.
-              // Alternativamente, se puede ingresar una sola imágen fuera del RadioListTile
-              // La imágen que se usaría sería la que está en el Json
-              // secondary: Image(
-              //     image: AssetImage(
-              //         'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${options[entry.key]}.png')),
-              onChanged: (int? value) {
-                setState(() {
-                  _selectedMultipleChoice = value!;
-                });
-                onChanged(value);
-              },
-            ),
-            const Divider(height: 50),
-          ],
-        );
-      }));
-      return widgets;
+        ),
+      );
+    } else {
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Text(
+            img,
+            style: const TextStyle(fontSize: 22, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
     }
+  }
+
+  // Opciones (texto o imágenes)
+  widgets.addAll(options.asMap().entries.map((entry) {
+    return Column(
+      children: [
+        RadioListTile<int>(
+          title: isImage(entry.value)
+              ? Image.asset(
+                  'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${entry.value}',
+                  height: 60,
+                  fit: BoxFit.contain,
+                )
+              : Text(
+                  entry.value,
+                  style: const TextStyle(color: Colors.black, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+          value: entry.key,
+          groupValue: _selectedMultipleChoice,
+          onChanged: (int? value) {
+            setState(() {
+              _selectedMultipleChoice = value!;
+            });
+            onChanged(value);
+          },
+        ),
+        const Divider(height: 50),
+      ],
+    );
+  }));
+
+  return widgets;
+}
 
     // Seleccionar
     List<Widget> _buildSelectAndSort(
         List<String> shuffledWords, List<String> correctWords) {
-      // Initialize _selectedWords with all false values if it's not initialized yet
       if (_selectedTranslate.length != shuffledWords.length) {
         _selectedTranslate =
             List.generate(shuffledWords.length, (index) => false);
       }
       return [
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         const Text(
           'Selecciona las palabras correctas:',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         ...shuffledWords.asMap().entries.map((entry) {
+          final word = shuffledWords[entry.key];
+          final isImage = word.endsWith('.png') || word.endsWith('.jpg') || word.endsWith('.jpeg');
           return CheckboxListTile(
-            title: Text(shuffledWords[entry.key]),
+            title: isImage
+                ? Image.asset(
+                    'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$word',
+                    height: 60,
+                    fit: BoxFit.contain,
+                  )
+                : Text(word, style: const TextStyle(fontSize: 18)),
             value: _selectedTranslate[entry.key],
-            // secondary: Image.asset(
-            //   'images/unity_${widget.unity}/lesson_${widget.lesson}/${shuffledWords[entry.key]}.png',
-            //   height: 10.0,
-            //   width: 10.0,
-            // ),
             onChanged: (value) {
               setState(() {
                 _selectedTranslate[entry.key] = value!;

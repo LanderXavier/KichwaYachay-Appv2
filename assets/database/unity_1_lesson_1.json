@@ -44,14 +44,28 @@
     "futbol"
   ]
 },
-     
+        {
+        "questionSpanish": "¿Cuál es el color Puka?",
+        "questionKichwa": "",
+        "correctAnswer": "Puka.png",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Killu.png",
+            "Yurak.png",
+            "Puka.png"
+        ],
+        "words": [],
+        "correctOrder": []
+        },
 
     {
-        "questionSpanish": "¿Cómo se dice Rojo?",
+        "questionSpanish": "¿Cómo se dice Blanco?",
         "questionKichwa": "",
-        "correctAnswer": "Puka",
+        "correctAnswer": "Yurak",
         "audioPath": "",
-        "imagePath": "huevo.png",
+        "imagePath": "Yurak.png",
         "questionType": "multiple_choice",
         "optionList": [
             "Paku",
@@ -61,27 +75,13 @@
         "words": [],
         "correctOrder": []
     },
-    {
-        "questionSpanish": "¿Cómo se dice Blanco?",
-        "questionKichwa": "",
-        "correctAnswer": "Yurak",
-        "audioPath": "",
-        "imagePath": "Yurak",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Killpu",
-            "Yurak",
-            "Chawa Ankas"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
+
     {
         "questionSpanish": "¿Cómo se dice Amarillo?",
         "questionKichwa": "",
         "correctAnswer": "Killu",
         "audioPath": "",
-        "imagePath": "Killu",
+        "imagePath": "Killu.png",
         "questionType": "multiple_choice",
         "optionList": [
             "Killu",
@@ -96,7 +96,7 @@
         "questionKichwa": "",
         "correctAnswer": "Ankas",
         "audioPath": "",
-        "imagePath": "Ankas",
+        "imagePath": "Ankas.png",
         "questionType": "multiple_choice",
         "optionList": [
             "Maywa",

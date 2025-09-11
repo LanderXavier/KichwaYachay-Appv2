@@ -1,4 +1,21 @@
 [
+
+
+    {
+        "questionSpanish": "Ordena las palabras para formar la frase: Él bebe agua.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": [
+            "Payka",
+            "upyan",
+            "yakuta"],
+        "correctOrder": ["Payka", "yakuta", "upyan"]
+    },
+
     {
         "questionSpanish": "",
         "questionKichwa": "Atikka mapa kanchu",

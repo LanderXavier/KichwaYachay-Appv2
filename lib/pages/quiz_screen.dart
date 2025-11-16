@@ -104,125 +104,77 @@ import 'package:flutter/material.dart';
     // Opción Múltiple
     List<Widget> _buildMultipleChoice(
         List<String> options, Function(int?) onChanged) {
-      // Devuelve una lista con un Column que contiene (opcional) la imagen de la pregunta
-      // y una cuadrícula con las opciones (texto o imagen) estilizadas.
-      return [
-        if (_currentQuestion.imagePath.isNotEmpty)
+      List<Widget> widgets = [];
+      if (_currentQuestion.imagePath.isNotEmpty) {
+        widgets.add(
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
-            child: _safeImage(
+            child: Image.asset(
               'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
               height: 140,
               fit: BoxFit.contain,
             ),
           ),
-        Column(
+        );
+      }
+      widgets.addAll(options.asMap().entries.map((entry) {
+        return Column(
           children: [
-            Center(
-              child: SizedBox(
-                width: double.infinity,
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: 1.6,
-                  ),
-                  itemCount: options.length,
-                  itemBuilder: (context, idx) {
-                    final option = options[idx];
-                    final isImage = option.endsWith('.png') || option.endsWith('.jpg') || option.endsWith('.jpeg');
-                    final selected = _selectedMultipleChoice == idx;
-                    return InkWell(
-                      borderRadius: BorderRadius.circular(16),
-                      onTap: () {
-                        setState(() {
-                          _selectedMultipleChoice = idx;
-                          if (_selectedOptions.length <= idx) {
-                            _selectedOptions = List.generate(options.length, (i) => false);
-                          }
-                          for (int i = 0; i < _selectedOptions.length; i++) _selectedOptions[i] = false;
-                          _selectedOptions[idx] = true;
-                        });
-                        onChanged(idx);
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 180),
-                        decoration: BoxDecoration(
-                          color: selected ? Colors.blue[400] : Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: selected ? Colors.blueAccent : Colors.grey.shade300, width: selected ? 3 : 1),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 6,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        child: Center(
-                          child: isImage
-                              ? _safeImage(
-                                  'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
-                                  fit: BoxFit.contain,
-                                  height: 80,
-                                  width: 80,
-                                )
-                              : Text(
-                                  option,
-                                  style: TextStyle(
-                                    color: selected ? Colors.white : Colors.black87,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+            RadioListTile<int>(
+              title: Text(
+                options[entry.key],
+                style: const TextStyle(color: Colors.black, fontSize: 20),
+                textAlign: TextAlign.center,
               ),
+              value: entry.key,
+              groupValue: _selectedMultipleChoice,
+              // Imágen, activar cuando se tengan todas las imágenes sobre las opciones.
+              // Alternativamente, se puede ingresar una sola imágen fuera del RadioListTile
+              // La imágen que se usaría sería la que está en el Json
+              // secondary: Image(
+              //     image: AssetImage(
+              //         'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${options[entry.key]}.png')),
+              onChanged: (int? value) {
+                setState(() {
+                  _selectedMultipleChoice = value!;
+                });
+                onChanged(value);
+              },
             ),
-            const SizedBox(height: 8),
+            const Divider(height: 50),
           ],
-        ),
-      ];
+        );
+      }));
+      return widgets;
     }
 
     // Seleccionar
     List<Widget> _buildSelectAndSort(
         List<String> shuffledWords, List<String> correctWords) {
-      // Initialize _selectedWords with all false values if it's not initialized yet
       if (_selectedTranslate.length != shuffledWords.length) {
         _selectedTranslate =
             List.generate(shuffledWords.length, (index) => false);
       }
       return [
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         const Text(
           'Selecciona las palabras correctas:',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         ...shuffledWords.asMap().entries.map((entry) {
+          final word = shuffledWords[entry.key];
+          final isImage = word.endsWith('.png') || word.endsWith('.jpg') || word.endsWith('.jpeg');
           return CheckboxListTile(
-            title: Text(shuffledWords[entry.key]),
+            title: isImage
+                ? Image.asset(
+                    'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$word',
+                    height: 60,
+                    fit: BoxFit.contain,
+                  )
+                : Text(word, style: const TextStyle(fontSize: 18)),
             value: _selectedTranslate[entry.key],
-            // secondary: Image.asset(
-            //   'images/unity_${widget.unity}/lesson_${widget.lesson}/${shuffledWords[entry.key]}.png',
-            //   height: 10.0,
-            //   width: 10.0,
-            // ),
             onChanged: (value) {
               setState(() {
                 _selectedTranslate[entry.key] = value!;
@@ -701,13 +653,27 @@ void _showQuestionDialog(BuildContext context, String questionText, String image
           mainAxisSize: MainAxisSize.min,
           children: [
             // Mostrar la imagen
-            _safeImage(
+            Image.asset(
               imagePath, // Ruta de la imagen
               height: 150,
-              fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Color.fromARGB(255, 103, 202, 226)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: AspectRatio(
+                  aspectRatio: 1, // Siempre cuadrado 1:1
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain, // encaja sin recortar
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            // Mostrar la pregunta
+            // Texto de la pregunta
             Text(
               questionText,
               textAlign: TextAlign.center,
@@ -718,7 +684,7 @@ void _showQuestionDialog(BuildContext context, String questionText, String image
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+              Navigator.of(context).pop();
             },
             child: const Text("Cerrar"),
           ),
@@ -732,35 +698,50 @@ void _showQuestionDialog(BuildContext context, String questionText, String image
 List<Widget> _buildFlashcards(Question question) {
   final words = question.words;
 
+
   return [
     const SizedBox(height: 10),
     const Text(
       'Mira las flashcards:',
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 16),
+      style: TextStyle(fontSize: 22
+      , fontWeight: FontWeight.bold, color: Colors.black),
+    
     ),
     const SizedBox(height: 10),
-    Expanded(
-      child: ListView.builder(
-        itemCount: words.length,
-        itemBuilder: (context, index) {
-          final parts = words[index].split(':');
-          final imagePath = parts[0];
-          final label = parts[1];
+Expanded(
+  child: Scrollbar(
+    thumbVisibility: true, // scrollbar siempre visible
+    thickness: 6,
+    radius: const Radius.circular(20),
+    child: ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      itemCount: words.length,
+      itemBuilder: (context, index) {
+        final parts = words[index].split(':');
+        final imagePath = parts[0];
+        final label = parts[1];
 
-          return Column(
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 90),
+          child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey[400]!),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: Color.fromARGB(255, 187, 247, 251), width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.blue.withOpacity(0.10),
+                      blurRadius: 16,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
-                    _safeImage(
+                    Image.asset(
                       imagePath,
                       height: 150,
                       fit: BoxFit.cover,
@@ -768,24 +749,54 @@ List<Widget> _buildFlashcards(Question question) {
                     const SizedBox(height: 10),
                     Text(
                       label,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          );
-        },
-      ),
-    ),
+              const SizedBox(height: 10),
 
-    const SizedBox(height: 20),
-        // Botón dinámico basado en "questionSpanish"
+              // 👇 Contador de tarjetas
+              Text(
+                "Flashcard ${index + 1} de ${words.length}",
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ),
+  ),
+),
+
+
+    const SizedBox(height: 10),
+        // Botón dinámico basado en "questionKichwa"
     ElevatedButton(
       onPressed: () {
-        _showQuestionDialog(context, question.questionSpanish, question.imagePath); // Mostrar imagen y pregunta
+        _showQuestionDialog(context, question.questionKichwa, question.imagePath);
       },
-      child: const Text("Mostrar pregunta"), // Texto del botón
+      child: const Text(
+        "Mostrar pregunta",
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF1989F1),
+        foregroundColor: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        elevation: 4,
+        shadowColor: Colors.deepPurpleAccent,
+      ),
     ),
 
     
@@ -931,11 +942,9 @@ List<Widget> _buildFlashcards(Question question) {
           _currentQuestion = widget.questions[_questionIndex];
           _selectedOptions =
               List.generate(_currentQuestion.optionList.length, (index) => false);
-          _selectedMultipleChoice = -1; // Reinicia si usas selección múltiple
-          _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
-          _selectedTranslate = List.generate(_currentQuestion.words.length, (index) => false);
-          _wordsList = List.from(_currentQuestion.words);
-          _selectedFlashcardAnswer = null;
+              _selectedMultipleChoice = -1; // Reinicia si usas selección múltiple
+              // Reiniciar _draggedWords para el nuevo ejercicio
+              _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
         } else {
           // Cuando se terminan las preguntas, mostrar diálogo con opciones
           WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -1008,8 +1017,8 @@ List<Widget> _buildFlashcards(Question question) {
               const SizedBox(
                 height: 50,
               ),
-              // Asegurarse de que la pregunta no esté vacía
-              if (_currentQuestion.questionKichwa.isNotEmpty)
+              // Asegurarse de que la pregunta no esté vacía y no mostrarla en flashcards
+              if (_currentQuestion.questionKichwa.isNotEmpty && _currentQuestion.questionType != 'flashcard_question')
                 Text(
                   _currentQuestion.questionKichwa,
                   style: const TextStyle(color: Colors.black, fontSize: 20),

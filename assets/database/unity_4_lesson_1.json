@@ -1,7 +1,24 @@
 [
+
+
     {
-        "questionSpanish": "Atikka mapa kanchu",
+        "questionSpanish": "Ordena las palabras para formar la frase: Él bebe agua.",
         "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": [
+            "Payka",
+            "upyan",
+            "yakuta"],
+        "correctOrder": ["Payka", "yakuta", "upyan"]
+    },
+
+    {
+        "questionSpanish": "",
+        "questionKichwa": "Atikka mapa kanchu",
         "correctAnswer": "Ari",
         "audioPath": "",
         "imagePath": "assets/images/dirty_child.png",
@@ -13,6 +30,22 @@
         ],
         "correctOrder": []
     },
+    {
+        "questionSpanish": "",
+        "questionKichwa": "Cuchi chuya kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "assets/images/cuchi_clean.jpg",
+        "questionType": "flashcard_question",
+        "optionList": ["Ari", "Mana"],
+        "words": [
+            "assets/images/cuchi.jpg:mapa",
+            "assets/images/cuchi_clean.jpg:chuya",
+            "assets/images/cuchi_clean.jpg:chuya"
+        ],
+        "correctOrder": []
+    },
+
     {
         "questionSpanish": "¿Cuál de los siguientes es agua?",
         "questionKichwa": "",

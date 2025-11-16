@@ -1,76 +1,69 @@
 [
     {
-        "questionSpanish": "¿Cómo se dice Perro?",
+        "questionSpanish": "¿Cuál es un perro?",
         "questionKichwa": "",
-        "correctAnswer": "Allku",
-        "audioPath": "",
-        "imagePath": "Allku",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Allku",
-            "Misi",
-            "Kulta"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Cómo se dice Pez?",
-        "questionKichwa": "",
-        "correctAnswer": "Challwa",
-        "audioPath": "",
-        "imagePath": "Challwa",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Challwa",
-            "Misi",
-            "Walchaka"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Cómo se dice Pato?",
-        "questionKichwa": "",
-        "correctAnswer": "Kulta",
-        "audioPath": "",
-        "imagePath": "Kulta",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Kulta",
-            "Churu",
-            "Amaru"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Cómo se dice Gato?",
-        "questionKichwa": "",
-        "correctAnswer": "Misi",
-        "audioPath": "",
-        "imagePath": "Misi",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Misi",
-            "Kulta",
-            "Amaru"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "El perro es negro",
-        "questionKichwa": "",
-        "correctAnswer": "",
+        "correctAnswer": ["U1_L2_Q1_1.png"],
         "audioPath": "",
         "imagePath": "",
-        "questionType": "vertical_sort",
-        "optionList": [],
-        "words": [
-            "kan",
-            "yanami",
-            "Allkuka"],
-        "correctOrder": ["Allkuka", "yanami", "kan"]
+        "questionType": "multiple_choice",
+        "optionList": ["U1_L2_Q1_1.png", "U1_L2_Q1_2.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál es una vaca?",
+        "questionKichwa": "",
+        "correctAnswer": ["U1_L2_Q1_2.png"],
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["U1_L2_Q1_2.png", "U1_L2_Q1_1.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Ordena Correctamente: El perro es negro",
+        "questionKichwa": "",
+        "correctAnswer": ["Allkuka yana kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_1.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["kan","yana","Allkuka"],
+        "correctOrder": ["Allkuka","yana","kan"]
+    },
+    {
+        "questionSpanish": "Ordena Correctamente: La serpiente es roja",
+        "questionKichwa": "",
+        "correctAnswer": ["Amaruka pukami kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_2.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["pukami", "kan","Amaruka"],
+        "correctOrder": ["Amaruka", "pukami", "kan"]
+    },
+     {
+        "questionSpanish": "Ordena Correctamente: La vaca es amarilla",
+        "questionKichwa": "",
+        "correctAnswer": ["Wakra killu kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_3.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["killu", "kan", "Wakaka"],
+        "correctOrder": ["Wakra", "killu", "kan"]
+    },
+     {
+        "questionSpanish": "Ordena Correctamente: El gato es blanco",
+        "questionKichwa": "",
+        "correctAnswer": ["Wakra killu kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_4.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["ka", "yurak","kan"],
+        "correctOrder": ["ka", "yurak","kan"]
     }
 ]
+

@@ -1,120 +1,47 @@
 [
     {
-        "questionSpanish": "¿Cómo se dice Negro?",
+        "questionSpanish": "¿Cuál es blanco?",
         "questionKichwa": "",
-        "correctAnswer": "Yana",
+        "correctAnswer": "U1_L1_Q1_1.png",
         "audioPath": "",
-        "imagePath": "Yana",
-        "questionType": "drag_and_drop",
-        "optionList":[
-
-        ],
-        "words": [
-            "Allku.png",
-            "Ankas",
-            "Curi"
-           
-        ],
-        "correctOrder": [
-            "Allku.png",
-            "Ankas",
-            "Curi"
-           
-        ]
-    },
-{
-  "questionSpanish": "Ordena correctamente",
-
-  "questionKichwa": "",
-  "correctAnswer": "",
-  "audioPath": "",
-  "imagePath": "Allku.png",
-  "questionType": "complete",
-  "optionList": ["", "", "", ""],
-  "words": [
-    "Juan",
-    "juega",
-    "al",
-    "futbol"
-  ],
-  "correctOrder": [
-    "Juan",
-    "juega",
-    "al",
-    "futbol"
-  ]
-},
-     
-
-    {
-        "questionSpanish": "¿Cómo se dice Rojo?",
-        "questionKichwa": "",
-        "correctAnswer": "Puka",
-        "audioPath": "",
-        "imagePath": "huevo.png",
+        "imagePath": "",
         "questionType": "multiple_choice",
-        "optionList": [
-            "Paku",
-            "Yurak",
-            "Puka"
-        ],
+        "optionList": ["U1_L1_Q1_2.png","U1_L1_Q1_1.png"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "¿Cómo se dice Blanco?",
+        "questionSpanish": "¿Cuál es negro?",
         "questionKichwa": "",
-        "correctAnswer": "Yurak",
+        "correctAnswer": "U1_L1_Q1_2.png",
         "audioPath": "",
-        "imagePath": "Yurak",
+        "imagePath": "",
         "questionType": "multiple_choice",
-        "optionList": [
-            "Killpu",
-            "Yurak",
-            "Chawa Ankas"
-        ],
+        "optionList": ["U1_L1_Q1_2.png","U1_L1_Q1_1.png"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "¿Cómo se dice Amarillo?",
+        "questionSpanish": "Escuchar y Traducir",
         "questionKichwa": "",
-        "correctAnswer": "Killu",
-        "audioPath": "",
-        "imagePath": "Killu",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Killu",
-            "Yana",
-            "Yanalla Waylla"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Cómo se dice Azul?",
-        "questionKichwa": "",
-        "correctAnswer": "Ankas",
-        "audioPath": "",
-        "imagePath": "Ankas",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Maywa",
-            "Ankas",
-            "Waminsi"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "Escuchar y Traducir:",
-        "questionKichwa": "",
-        "correctAnswer": "Allku.png",
-        "audioPath": "Lulun.mp3",
+        "correctAnswer": ["es negro"],
+        "audioPath": "U1_L1_Q1.mp3",
         "imagePath": "",
         "questionType": "listen_and_translate",
-        "optionList": ["Leche", "Allku.png", "Pan"],
+        "optionList": ["es blanco","es negro","es rojo"],
         "words": [],
         "correctOrder": []
-    }
+        
+    },
+    {
+        "questionSpanish": "Escuchar y Traducir",
+        "questionKichwa": "",
+        "correctAnswer": ["es blanco"],
+        "audioPath": "U1_L1_Q2.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["es blanco","es negro","es rojo"],
+        "words": [],
+        "correctOrder": []
+        }
 ]

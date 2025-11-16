@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
   import 'package:language_learning_ui/constants.dart';
   import 'package:language_learning_ui/models/question_model.dart';
+  import 'package:language_learning_ui/pages/lesson_screen.dart';
   import 'package:audioplayers/audioplayers.dart';
 
   class QuizScreen extends StatefulWidget {
@@ -32,8 +33,39 @@ import 'package:flutter/material.dart';
     List<String> _wordsList = [];
     // Audio Player
     final player = AudioPlayer();
+    // Scroll controller & key for auto-scroll during drag in match view
+    final ScrollController _matchScrollController = ScrollController();
+    final GlobalKey _matchScrollKey = GlobalKey();
     // Flashcard Variables
     String? _selectedFlashcardAnswer; 
+    // Helper: carga segura de imágenes mostrando un espacio en blanco si no existe el asset
+    Widget _safeImage(String path, {double? height, double? width, BoxFit fit = BoxFit.cover}) {
+      if (path.isEmpty) return SizedBox(height: height, width: width);
+        // Chequeo asíncrono del AssetManifest para evitar que Flutter intente
+        // cargar un asset que no existe (lo que lanza FlutterError y hace rethrow).
+        return FutureBuilder<String>(
+          future: DefaultAssetBundle.of(context).loadString('AssetManifest.json'),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              // Mientras cargamos el manifiesto, reservamos el espacio.
+              return SizedBox(height: height, width: width);
+            }
+            final manifest = snapshot.data!;
+            // El manifiesto contiene rutas en formato JSON, así que buscamos la ruta.
+            if (!manifest.contains('"$path"') && !manifest.contains(path)) {
+              return SizedBox(height: height, width: width);
+            }
+            // Si existe en el manifiesto, cargamos la imagen con errorBuilder por seguridad.
+            return Image.asset(
+              path,
+              height: height,
+              width: width,
+              fit: fit,
+              errorBuilder: (context, error, stackTrace) => SizedBox(height: height, width: width),
+            );
+          },
+        );
+    }
     Widget _buildMatchItem(String value) {
   bool isImage = value.endsWith('.png') || value.endsWith('.jpg') || value.endsWith('.jpeg');
   return Container(
@@ -45,10 +77,10 @@ import 'package:flutter/material.dart';
       color: Colors.blue[100],
       borderRadius: BorderRadius.circular(8),
     ),
-    child: isImage
+        child: isImage
         ? ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
+            child: _safeImage(
               'assets/database/images/$value',
               fit: BoxFit.cover,
               width: 100,
@@ -72,48 +104,94 @@ import 'package:flutter/material.dart';
     // Opción Múltiple
     List<Widget> _buildMultipleChoice(
         List<String> options, Function(int?) onChanged) {
-      List<Widget> widgets = [];
-      if (_currentQuestion.imagePath.isNotEmpty) {
-        widgets.add(
+      // Devuelve una lista con un Column que contiene (opcional) la imagen de la pregunta
+      // y una cuadrícula con las opciones (texto o imagen) estilizadas.
+      return [
+        if (_currentQuestion.imagePath.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
-            child: Image.asset(
+            child: _safeImage(
               'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
               height: 140,
               fit: BoxFit.contain,
             ),
           ),
-        );
-      }
-      widgets.addAll(options.asMap().entries.map((entry) {
-        return Column(
+        Column(
           children: [
-            RadioListTile<int>(
-              title: Text(
-                options[entry.key],
-                style: const TextStyle(color: Colors.black, fontSize: 20),
-                textAlign: TextAlign.center,
+            Center(
+              child: SizedBox(
+                width: double.infinity,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: 1.6,
+                  ),
+                  itemCount: options.length,
+                  itemBuilder: (context, idx) {
+                    final option = options[idx];
+                    final isImage = option.endsWith('.png') || option.endsWith('.jpg') || option.endsWith('.jpeg');
+                    final selected = _selectedMultipleChoice == idx;
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
+                        setState(() {
+                          _selectedMultipleChoice = idx;
+                          if (_selectedOptions.length <= idx) {
+                            _selectedOptions = List.generate(options.length, (i) => false);
+                          }
+                          for (int i = 0; i < _selectedOptions.length; i++) _selectedOptions[i] = false;
+                          _selectedOptions[idx] = true;
+                        });
+                        onChanged(idx);
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 180),
+                        decoration: BoxDecoration(
+                          color: selected ? Colors.blue[400] : Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: selected ? Colors.blueAccent : Colors.grey.shade300, width: selected ? 3 : 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(12),
+                        child: Center(
+                          child: isImage
+                              ? _safeImage(
+                                  'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
+                                  fit: BoxFit.contain,
+                                  height: 80,
+                                  width: 80,
+                                )
+                              : Text(
+                                  option,
+                                  style: TextStyle(
+                                    color: selected ? Colors.white : Colors.black87,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-              value: entry.key,
-              groupValue: _selectedMultipleChoice,
-              // Imágen, activar cuando se tengan todas las imágenes sobre las opciones.
-              // Alternativamente, se puede ingresar una sola imágen fuera del RadioListTile
-              // La imágen que se usaría sería la que está en el Json
-              // secondary: Image(
-              //     image: AssetImage(
-              //         'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${options[entry.key]}.png')),
-              onChanged: (int? value) {
-                setState(() {
-                  _selectedMultipleChoice = value!;
-                });
-                onChanged(value);
-              },
             ),
-            const Divider(height: 50),
+            const SizedBox(height: 8),
           ],
-        );
-      }));
-      return widgets;
+        ),
+      ];
     }
 
     // Seleccionar
@@ -165,7 +243,7 @@ import 'package:flutter/material.dart';
             if (_currentQuestion.imagePath.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
-                child: Image.asset(
+                child: _safeImage(
                   'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
                   height: 140,
                   fit: BoxFit.contain,
@@ -246,7 +324,7 @@ import 'package:flutter/material.dart';
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(16),
                         child: isImage
-                            ? Image.asset(
+                            ? _safeImage(
                                 'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
                                 fit: BoxFit.contain,
                                 height: 90,
@@ -300,6 +378,8 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
     const SizedBox(height: 20),
     Expanded(
       child: SingleChildScrollView(
+        key: _matchScrollKey,
+        controller: _matchScrollController,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -316,14 +396,10 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Draggable<String>(
                       data: word,
-                      feedback: Material(
+                        feedback: Material(
                         color: Colors.transparent,
                         child: isImage
-                            ? Image.asset(
-                                getImagePath(word),
-                                width: 100,
-                                height: 100,
-                              )
+                            ? _safeImage(getImagePath(word), width: 100, height: 100, fit: BoxFit.cover)
                             : Container(
                                 width: 100,
                                 height: 100,
@@ -348,7 +424,7 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: isImage
+                          child: isImage
                           ? Container(
                               width: 100,
                               height: 100,
@@ -357,7 +433,7 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
                                 color: Colors.blue[100],
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Image.asset(
+                              child: _safeImage(
                                 getImagePath(word),
                                 fit: BoxFit.cover,
                               ),
@@ -406,6 +482,31 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
                           _draggedWords[index] = data;
                         });
                       },
+                      onMove: (details) {
+                        // Auto-scroll when dragging near top/bottom edges.
+                        // Use the RenderBox local coordinates and jumpTo for immediate effect.
+                        try {
+                          if (!_matchScrollController.hasClients) return;
+                          final box = _matchScrollKey.currentContext?.findRenderObject() as RenderBox?;
+                          if (box == null) return;
+                          // Pointer relative to the scrollable box
+                          final local = box.globalToLocal(details.offset);
+                          final height = box.size.height;
+                          const edgeMargin = 120.0; // mayor margen para detectar borde
+                          const scrollStep = 120.0; // paso más grande para bajar de forma fiable
+                          final maxScroll = _matchScrollController.position.maxScrollExtent;
+                          double newOffset = _matchScrollController.offset;
+                          if (local.dy < edgeMargin) {
+                            newOffset = (_matchScrollController.offset - scrollStep).clamp(0.0, maxScroll) as double;
+                            _matchScrollController.jumpTo(newOffset);
+                          } else if (local.dy > height - edgeMargin) {
+                            newOffset = (_matchScrollController.offset + scrollStep).clamp(0.0, maxScroll) as double;
+                            _matchScrollController.jumpTo(newOffset);
+                          }
+                        } catch (e) {
+                          // ignore errors if layout not ready
+                        }
+                      },
                       builder: (context, candidateData, rejectedData) {
                         return Column(
                           children: [
@@ -428,7 +529,7 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
                                           ? Stack(
                                               children: [
                                                 Positioned.fill(
-                                                  child: Image.asset(
+                                                  child: _safeImage(
                                                     getImagePath(_draggedWords[index]),
                                                     fit: BoxFit.cover,
                                                   ),
@@ -600,7 +701,7 @@ void _showQuestionDialog(BuildContext context, String questionText, String image
           mainAxisSize: MainAxisSize.min,
           children: [
             // Mostrar la imagen
-            Image.asset(
+            _safeImage(
               imagePath, // Ruta de la imagen
               height: 150,
               fit: BoxFit.cover,
@@ -659,7 +760,7 @@ List<Widget> _buildFlashcards(Question question) {
                 ),
                 child: Column(
                   children: [
-                    Image.asset(
+                    _safeImage(
                       imagePath,
                       height: 150,
                       fit: BoxFit.cover,
@@ -830,12 +931,54 @@ List<Widget> _buildFlashcards(Question question) {
           _currentQuestion = widget.questions[_questionIndex];
           _selectedOptions =
               List.generate(_currentQuestion.optionList.length, (index) => false);
-              _selectedMultipleChoice = -1; // Reinicia si usas selección múltiple
-              // Reiniciar _draggedWords para el nuevo ejercicio
-              _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+          _selectedMultipleChoice = -1; // Reinicia si usas selección múltiple
+          _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+          _selectedTranslate = List.generate(_currentQuestion.words.length, (index) => false);
+          _wordsList = List.from(_currentQuestion.words);
+          _selectedFlashcardAnswer = null;
         } else {
-          // Agregar alguna lógica adicional cuando se han recorrido todas las preguntas
-          print('Se han recorrido todas las preguntas');
+          // Cuando se terminan las preguntas, mostrar diálogo con opciones
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => AlertDialog(
+                title: const Text('Lección terminada'),
+                content: const Text('Has terminado la lección. ¿Qué deseas hacer?'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      // Repetir: reiniciar el quiz desde el inicio
+                      setState(() {
+                        _questionIndex = 0;
+                        _currentQuestion = widget.questions[_questionIndex];
+                        _selectedOptions = List.generate(_currentQuestion.optionList.length, (index) => false);
+                        _selectedMultipleChoice = -1;
+                        _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+                        _selectedTranslate = List.generate(_currentQuestion.words.length, (index) => false);
+                        _wordsList = List.from(_currentQuestion.words);
+                        _selectedFlashcardAnswer = null;
+                      });
+                      Navigator.of(context).pop(); // cerrar diálogo
+                    },
+                    child: const Text('Repetir'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // cerrar diálogo
+                      // Asegurar que volvemos a la pantalla de selección de lección
+                      // Primero vaciamos hasta la ruta inicial y luego navegamos a LessonScreen
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LessonScreen(unity: widget.unity),
+                      ));
+                    },
+                    child: const Text('Regresar'),
+                  ),
+                ],
+              ),
+            );
+          });
         }
       });
     }
@@ -916,9 +1059,44 @@ List<Widget> _buildFlashcards(Question question) {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _checkAnswer,
-          child: const Icon(Icons.check),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: _checkAnswer,
+              child: const Icon(Icons.check),
+              heroTag: 'check',
+            ),
+            const SizedBox(width: 16),
+            FloatingActionButton(
+              onPressed: () async {
+    final shouldSkip = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('¿Seguro que quieres saltar esta actividad?'),
+        content: const Text('No se guardará tu respuesta.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Saltar'),
+          ),
+        ],
+      ),
+    );
+    if (shouldSkip == true) {
+      _nextQuestion();
+    }
+  },
+              child: const Icon(Icons.skip_next),
+              backgroundColor: Colors.orange,
+              heroTag: 'skip',
+              tooltip: 'Saltar',
+            ),
+          ],
         ),
       );
     }
@@ -934,7 +1112,7 @@ List<Widget> _buildComplete(List<String> optionList, List<String> words, List<St
     if (_currentQuestion.imagePath.isNotEmpty)
       Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
-        child: Image.asset(
+        child: _safeImage(
           'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
           height: 140,
           fit: BoxFit.contain,

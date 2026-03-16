@@ -9,6 +9,62 @@
         "optionList": ["U1_L2_Q2_1.png", "U1_L2_Q2_4.png", "U1_L2_Q2_3.png"],
         "words": [],
         "correctOrder": []
+    },
+
+    {
+    "questionSpanish": "",
+    "questionKichwa": "Mayhan allkutak puka kan?",
+    "correctAnswer": ["U1_L3_Q2.png"],
+    "audioPath": "",
+    "imagePath": "",
+    "questionType": "multiple_choice",
+    "optionList": ["U1_L2_Q2_1.png", "U1_L3_Q2.png"],
+    "words": [],
+    "correctOrder": []
+    },
+
+    {
+    "questionSpanish": "",
+    "questionKichwa": "Mayhan mishutak yuraq kan?",
+    "correctAnswer": ["U1_L2_Q2_4.png"],
+    "audioPath": "",
+    "imagePath": "",
+    "questionType": "multiple_choice",
+    "optionList": ["U1_L3_Q2.png", "U1_L2_Q2_4.png"],
+    "words": [],
+    "correctOrder": []
+    }, 
         
+    {
+        "questionSpanish": "Ordena Correctamente",
+        "questionKichwa": "",
+        "correctAnswer": ["wiwa killuta"],
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["killuta", "wiwa"],
+        "correctOrder": ["wiwa", "Killuta"]
+    },
+    {
+        "questionSpanish": "Relacione",
+        "questionKichwa": "",
+        "correctAnswer": ["allku", "kan","misi","maykan","yana","blanco"],
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "drag_and_drop",
+        "optionList": [],
+        "words": ["perro",
+                  "es",
+                  "gato",
+                  "cual",
+                  "negro",
+                  "blanco"],
+        "correctOrder": ["allku",
+                  "kan",
+                  "misi",
+                  "maykan",
+                  "yana",
+                  "yirak"]
     }
 ]

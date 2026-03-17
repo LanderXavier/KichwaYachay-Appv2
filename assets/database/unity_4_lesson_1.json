@@ -1,107 +1,211 @@
 [
     {
-        "questionSpanish": "Atikka mapa kanchu",
-        "questionKichwa": "",
+        "questionSpanish": "Elegir entre “ari”(si) o “mana”(no)",
+        "questionKichwa": "Allkuka killuchu kan",
+        "correctAnswer": "Ari (sí)",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q1.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari (sí)", "Mana (no)"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Elegir",
+        "questionKichwa": "Killu allkuka urkupichu kan.",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q2.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Elegir",
+        "questionKichwa": "Yana warmi wakraka urkupichu kan.",
         "correctAnswer": "Ari",
         "audioPath": "",
-        "imagePath": "assets/images/dirty_child.png",
-        "questionType": "flashcard_question",
+        "imagePath": "U4_L1_Q3.png",
+        "questionType": "multiple_choice",
         "optionList": ["Ari", "Mana"],
-        "words": [
-            "assets/images/dirty_child.png:mapa",
-            "assets/images/clean_child.png:chuya"
-        ],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Cuál de los siguientes es agua?",
-        "questionKichwa": "",
-        "correctAnswer": "Yaku",
-        "audioPath": "",
-        "imagePath": "Yaku",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Yaku",
-            "Ñuñu",
-            "Tanta"
-        ],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "¿Cuál de los siguientes es pan?",
-        "questionKichwa": "",
-        "correctAnswer": "Tanta",
+        "questionSpanish": "Elegir",
+        "questionKichwa": "Puka warmi wakraka hatunllaktapichu kan.",
+        "correctAnswer": "Mana",
         "audioPath": "",
-        "imagePath": "Tanta",
+        "imagePath": "U4_L1_Q4.png",
         "questionType": "multiple_choice",
-        "optionList": [
-            "Tanta",
-            "Yaku",
-            "Lulun"
-        ],
+        "optionList": ["Ari", "Mana"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "¿Cuál de los siguientes es leche?",
-        "questionKichwa": "",
-        "correctAnswer": "Ñuñu",
+        "questionSpanish": "Elegir",
+        "questionKichwa": "Yurak warmi wakraka ayllullaktapichu kan.",
+        "correctAnswer": "Ari",
         "audioPath": "",
-        "imagePath": "Ñuñu",
+        "imagePath": "U4_L1_Q5.png",
         "questionType": "multiple_choice",
-        "optionList": [
-            "Ñuñu",
-            "Lulun",
-            "Yaku"
-        ],
+        "optionList": ["Ari", "Mana"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "Traducir:",
-        "questionKichwa": "Ñukaka tantatami mikuni",
+        "questionSpanish": "Elegir",
+        "questionKichwa": "Puka purutuka ayllullaktapichu tiyan.",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q6.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Elegir",
+        "questionKichwa": "Puka purutuka hatunllaktapi tiyanchu kan.",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q6.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Ordena las palabras",
+        "questionKichwa": "",
         "correctAnswer": "",
         "audioPath": "",
-        "imagePath": "",
-        "questionType": "translate",
+        "imagePath": "U4_L1_Q7.png",
+        "questionType": "vertical_sort",
         "optionList": [],
-        "words": [
-            "como",
-            "yo",
-            "tu",
-            "agua",
-            "pan"
-        ],
-        "correctOrder": [
-            true,
-            true,
-            false,
-            false,
-            true
-        ]
+        "words": ["wakraka","Yana","wasipichu","warmi","kan"],
+        "correctOrder": ["Yana","warmi","wakraka","wasipichu","kan"]
     },
     {
-        "questionSpanish": "Escuchar y Traducir:",
+        "questionSpanish": "Ordena las palabras",
         "questionKichwa": "",
-        "correctAnswer": "Huevo",
-        "audioPath": "Lulun.mp3",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q8.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["allyu","Yana","tantaka","kan","llaktapichu"],
+        "correctOrder": ["Yana","tantaka","allyu","llaktapichu","kan"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q9.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["kan","sisaka","tantaka","urkupichu","puka"],
+        "correctOrder": ["puka","sisaka","urkupichu","kan"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q10.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["aychaka","tiyanchu","puka","wasipi"],
+        "correctOrder": ["puka","aychaka","wasipi","tiyanchu"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q7.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["wasipichu","warmi","kan","yana","wakraka"],
+        "correctOrder": ["yana","warmi","wakraka","wasipichu","kan"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q8.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["tiyanchu","tantaka","yana","allyullaktap"],
+        "correctOrder": ["yana","tantaka","allyullaktap","tiyanchu"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q9.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["tiyanchu","puka","sisaka","urkupi"],
+        "correctOrder": ["puka","sisaka","urkupi","tiyanchu"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L1_Q10.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["tiyanchu","puka","wasipi","aychaka"],
+        "correctOrder": ["puka","aychaka","wasipi","tiyanchu"]
+    },
+    {
+        "questionSpanish": "Escuche y elija la respuesta correcta",
+        "questionKichwa": "Killu allkuka urkupichu kan.",
+        "correctAnswer": "Ari",
+        "audioPath": "U4_L1_P1.mp3",
         "imagePath": "",
         "questionType": "listen_and_translate",
-        "optionList": ["Leche", "Huevo", "Pan"],
-        "words": [
-            "como",
-            "yo",
-            "tu",
-            "agua",
-            "pan"
-        ],
-        "correctOrder": [
-            true,
-            true,
-            false,
-            false,
-            true
-        ]
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuche y elija la respuesta correcta",
+        "questionKichwa": "Killu allkuka urkupichu kan.",
+        "correctAnswer": "Mana",
+        "audioPath": "U4_L1_P2.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuche y elija la respuesta correcta",
+        "questionKichwa": "Yana wakraka urkupichu kan.",
+        "correctAnswer": "Ari",
+        "audioPath": "U4_L1_P3.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuche y elija la respuesta correcta",
+        "questionKichwa": "Puka purutuka hatunllaktapi tiyanchu.",
+        "correctAnswer": "Mana",
+        "audioPath": "U4_L1_P4.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
     }
 ]

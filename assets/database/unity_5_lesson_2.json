@@ -1,0 +1,79 @@
+[
+    {
+        "questionSpanish": "Traducir",
+        "questionKichwa": "Maymantak paykunaka rinkuna.",
+        "correctAnswer": "Paykunaka wasiman pichankapak rinkuna, Payka yachanawasiman rinkuna",
+        "audioPath": "",
+        "imagePath": "U5_L1_Q4.png",
+        "questionType": "drag_and_drop",
+        "optionList": [""],
+        "words": ["Payka yachanawasiman rinkuna", "U5_L2_Q2", "Paykunaka wasiman pichankapak rinkuna", "U5_L2_Q1"],
+        "correctOrder": ["Paykunaka wasiman pichankapak rinkuna", "U5_L2_Q1", "Payka yachanawasiman rinkuna", "U5_L2_Q2"]
+    },
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "",
+        "correctAnswer": "Puñuna uku, Yanuna uku, Mikuna wasi, Yachana wasi",
+        "audioPath": "",
+        "imagePath": "U5_L1_Q4.png",
+        "questionType": "drag_and_drop",
+        "optionList": [""],
+        "words": ["Puñuna uku", "U5_L1_Q2", "Yanuna uku", "U5_L2_Q2_3", "Mikuna wasi", "U5_L1_Q2_2", "Yachana wasi", "U5_L1_Q2_1"],
+        "correctOrder": ["Puñuna uku", "U5_L1_Q2", "Yanuna uku", "U5_L2_Q2_3", "Mikuna wasi", "U5_L1_Q2_2", "Yachana wasi", "U5_L1_Q2_1"]
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Deliaka paypa puñuna ukupimi puñun",
+        "correctAnswer": "Delia duerme en su cuarto",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["Delia duerme en la escuela","Delia duerme en su cuarto","Delia está en la cocina"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Traducir: Ellos están en la cocina.",
+        "questionKichwa": "",
+        "correctAnswer": "Paykunaka yanuna ukupimi kankuna",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["Paykunaka mikuna wasipimi kankuna","Paykunaka yanuna ukupimi kankuna","Paykunaka puñuna ukupimi kankuna"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cómo se dice en kichwa la siguiente frase?",
+        "questionKichwa": "Wayra se lava las manos",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U5_L2_Q5.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["arman","Wayra","makikuna","ta","ka","mi"],
+        "correctOrder": ["Wayra","ka","makikuna","ta","mi","arman"]
+    },
+    {
+        "questionSpanish": "Selecciona la oración que escuchas",
+        "questionKichwa": "kankunaka wasitami pichankichik",
+        "correctAnswer": "Kankunaka wasitami pichankichik",
+        "audioPath": "U5_L2_P1.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Kankuna wasitami pichanchik","Kankunaka wasitami pichankichik"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Selecciona la oración que escuchas",
+        "questionKichwa": "Sisaka puñuna ukupimi kan",
+        "correctAnswer": "",
+        "audioPath": "U5_L2_P2.mp3",
+        "imagePath": "",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["está","el","Sisa","en","dormitorio"],
+        "correctOrder": ["Sisa","está","en","el","dormitorio"]
+    }
+]

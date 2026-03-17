@@ -1,0 +1,111 @@
+[
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "matching",
+        "words": [
+            "Mana yachanichu","Mana yachanchikchu","Mana yachankichu","Mana yachanchu"],
+        "optionList": [
+            "No sé","No sabes","No sabemos","No sabe"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "matching",
+        "words": [
+            "Wayraka shuk antawatami charin","Wayraka mana antawata charinchu"],
+        "optionList": [
+            "Wayra tiene un carro","Wayra no tiene un carro"],
+        "correctOrder": []
+    },
+    [
+        {"speaker": "Rumi" ,
+        "bot": "Imanalla Maya" ,
+        "translation": "" ,
+        "audio": "U6_L2_P1.mp3"},
+        {"speaker": "Maya" ,
+        "bot": "Imanalla Rumi" ,
+        "translation": "" ,
+        "audio": "U6_L2_P1_1.mp3"},
+        {"speaker": "Rumi" ,
+        "bot": "Kanka misita charinkichu" ,
+        "translation": "¿Tú tienes gato?" ,
+        "audio": "U6_L2_P1_2.mp3"},
+        {"speaker": "Maya" ,
+        "bot": "Ñukaka mana misita charinichu" ,
+        "translation": "Yo no tengo gato." ,
+        "audio": "U6_L2_P1_3.mp3"},
+        {"speaker": "Rumi" ,
+        "bot": "Kanka allkuta charinkichu" ,
+        "translation": "¿Tú tienes perro?" ,
+        "audio": "U6_L2_P1_4.mp3"},
+        {"speaker": "Maya" ,
+        "bot": "Ari, ñukaka allkutami charini." ,
+        "translation": "" ,
+        "audio": "U6_L2_P1_5.mp3"},
+        {"speaker": "Rumi" ,
+        "bot": "Kayakaman Maya" ,
+        "translation": "" ,
+        "audio": "U6_L2_P1_6.mp3"},
+        {"speaker": "Maya" ,
+        "bot": "Kayakaman Rumi" ,
+        "translation": "" ,
+        "audio": "U6_L2_P1_7.mp3"}
+    ],
+    {
+        "questionSpanish": "Responde las preguntas según el audio: ¿Maya tiene perro?",
+        "questionKichwa": "Mayaka allkuta charinchu ",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L2_Q3.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Maya tiene gato?",
+        "questionKichwa": "Mayaka misita charinchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L2_Q4.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Ari","Mana"],
+        "words": [],
+        "correctOrder":[]
+    },
+    {
+        "questionSpanish": "Selecciona la oración que mejor describe la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "Sisaka shuk misitami charin",
+        "audioPath": "",
+        "imagePath": "U6_L2_Q5.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Sisaka mana misita chanrinchu",
+            "Sisaka shuk misitami charin"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Selecciona la oración que mejor describe la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "Sisaka mana allkuta charinchu",
+        "audioPath": "",
+        "imagePath": "U6_L2_Q6.jpg",
+        "questionType": "multiple_choice",
+        "optionList": ["Sisaka shuk allkutami charin", "Sisaka mana allkuta charinchu"],
+        "words": [],
+        "correctOrder": []
+    }
+]

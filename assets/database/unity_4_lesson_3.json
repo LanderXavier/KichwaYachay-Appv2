@@ -1,0 +1,298 @@
+[
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Maymantak rinki.",
+        "correctAnswer": "Hatunllaktaman rini.",
+        "audioPath": "U4_L3_P1.mp3",
+        "imagePath": "U4_L3_Q1.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Urkuman shamuni.", "Wasimanta shamuni.","Hatunllaktaman rini."],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Maymantatak shamunki.",
+        "correctAnswer": "Hatunllaktaman rini.",
+        "audioPath": "U4_L3_P2.mp3",
+        "imagePath": "U4_L3_Q2.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Yachana wasimanta shamuni.", "Misimanta shamunki.","Allimi kani."],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "May___ rin",
+        "questionKichwa": "",
+        "correctAnswer": "manta",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q2.png",
+        "questionType": "multiple_choice",
+        "optionList": ["manta", "man"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Qué morfema se utiliza para realizar preguntas?",
+        "questionKichwa": "",
+        "correctAnswer": "tak",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q3.png",
+        "questionType": "multiple_choice",
+        "optionList": ["ta","ka", "tak"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿De dónde vienes?",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q2.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["manta","nki","shamu","May","tak"],
+        "correctOrder": ["May","manta","tak","shamu","nki"]
+    },
+    {
+        "questionSpanish": "¿Hacia dónde te vas?",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q1.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["ri","nki","man","May","tak"],
+        "correctOrder": ["May","man","tak","ri","nki"]
+    },
+    {
+        "questionSpanish": "Yo soy un perro.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q4.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["kani","allkumi","Ñukaka","shuk"],
+        "correctOrder": ["Ñukaka","shuk","allkumi","kani"]
+    },
+    {
+        "questionSpanish": "Yo estoy bien.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q5.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["kani","Ñukaka","allimi"],
+        "correctOrder": ["Ñukaka","allimi","kani"]
+    },
+    {
+        "questionSpanish": "Tu eres un perro.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q4.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["allkumi","kanki","shuk","Kanka"],
+        "correctOrder": ["Kanka","shuk","allkumi","kanki"]
+    },
+    {
+        "questionSpanish": "Él/ella está bien.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q5.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["allkumi","Payka","kan"],
+        "correctOrder": ["Payka","allimi","kan"]
+    },
+    {
+        "questionSpanish": "Nosotros somos perros.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q4.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["allkumi","Ñukanchikka","kanchik"],
+        "correctOrder": ["Ñukanchikka","allkumi","kanchik"]
+    },
+    {
+        "questionSpanish": "Ustedes están bien.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q5.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["(Kikinkunaka","kankichik","allimi"],
+        "correctOrder": ["(Kikinkunaka","allimi","kankichik"]
+    },
+    {
+        "questionSpanish": "Ellos son perros.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q4.png",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": ["allkumi","kankuna","Paykunaka"],
+        "correctOrder": ["Paykunaka","allkumi","kankuna"]
+    },
+    {
+        "questionSpanish": "¿Qué morfemas se añade a los sujetos como: ñuka, kan, kikin?",
+        "questionKichwa": "",
+        "correctAnswer": "ka",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q7.png",
+        "questionType": "multiple_choice",
+        "optionList": ["kuna","mi","ka", "ta"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál es el morfema que se utilizar para pluralizar?",
+        "questionKichwa": "",
+        "correctAnswer": "kuna",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q8.png",
+        "questionType": "multiple_choice",
+        "optionList": ["kuna","mi","ka", "ta"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál es el morfema para afirmar?",
+        "questionKichwa": "",
+        "correctAnswer": "mi",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q9.png",
+        "questionType": "multiple_choice",
+        "optionList": ["kuna","mi","ka", "ta"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál es el morfema que se utiliza para dar énfasis o enfatizar un sustantivo: perro, flor?",
+        "questionKichwa": "",
+        "correctAnswer": "ta",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q10.png",
+        "questionType": "multiple_choice",
+        "optionList": ["kuna","mi","ka", "ta"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "matching",
+        "words": [
+            "Ñuka","Kan","kikin","pay","nukanchik","kankuna","kikinkuna","paykuna"],
+        "optionList": [
+            "Yo","tu","usted","el/ella","nosotros","ustedes","ustedes (formal)","ellos/ellas"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "Verbo “Kana”= Ser/Estar",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q11.png",
+        "questionType": "matching",
+        "words": [
+            "Ñuka","Kan","kikin","pay","nukanchik","kikinkuna","Kankuna","paykuna"],
+        "optionList": [
+            "kani","kanki","kanki","kan","kanchik","kankichik","kankichik","kankuna"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "Verbo Mikuna= Comer",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q12.png",
+        "questionType": "matching",
+        "words": [
+            "Ñuka","Kan","kikin","pay","nukanchik","kikinkuna","Kankuna","paykuna"],
+        "optionList": [
+            "mikuni","mikunki","mikunki","mikun","mikunchik","mikunkichik","mikunkichik","mikunkuna"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "Verbo Rina= Ir",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q13.png",
+        "questionType": "matching",
+        "words": [
+            "Ñuka","Kan","kikin","pay","ñukanchik","kikinkuna","Kankuna","paykuna"],
+        "optionList": [
+            "rini","rinki","rinki","rin","rinchik","rinkichik","rinkichik","rinkuna"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Relacionar",
+        "questionKichwa": "Verbo Shamuna= Venir",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q14.png",
+        "questionType": "matching",
+        "words": [
+            "Ñuka","Kan","kikin","pay","ñukanchik","kikinkuna","Kankuna","paykuna"],
+        "optionList": [
+            "shamuni","shamunki","shamunki","shamun","shamunchik","shamunkichik","shamunkichik","shamunkuna"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Traducir: Ella está bien.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", ""],
+        "words": ["Paykunaka", "Payka", "alli", "allku", "kuna", "mi", "kani", "kanki", "kan"],
+        "correctOrder": ["Payka", "alli", "mi", "kan"]
+    },
+    {
+        "questionSpanish": "Traducir: Ellos comen frijoles.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q13.png",
+        "questionType": "complete",
+        "optionList": ["", "", ""],
+        "words": ["Paykunaka", "Payka", "yakuta", "purututa", "aychata", "mikunkichik", "mikuna", "mikunkuna"],
+        "correctOrder": ["Paykunaka", "purututa", "mikunkuna"]
+    },
+    {
+        "questionSpanish": "¿Hacia dónde te vas?",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", ""],
+        "words": ["May", "Pay", "pi", "man", "manta", "rin", "tak", "rini", "rinki"],
+        "correctOrder": ["May", "man", "tak", "rinki"]
+    },
+    {
+        "questionSpanish": "Nosotros venimos de la montaña.",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U4_L3_Q14.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", ""],
+        "words": ["Ñuka", "Kanka", "Ñukanchik", "hatunllakta", "ka", "shamunchik", "manta", "urku", "rinki"],
+        "correctOrder": ["Ñukanchik", "ka", "urku", "manta", "shamunchik"]
+    }
+]

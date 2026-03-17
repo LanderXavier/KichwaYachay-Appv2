@@ -364,7 +364,6 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
     _draggedWords = List.filled(optionLabels.length, '');
   }
 
-  // Siempre vertical, con imágenes o solo texto
   return [
     const SizedBox(height: 20),
     Row(
@@ -387,75 +386,19 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
             Expanded(
               flex: 1,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(availableWords.length, (index) {
-                  final word = availableWords[index];
-                  final isImage = word.endsWith('.png') || word.endsWith('.jpg') || word.endsWith('.jpeg');
-                  if (_draggedWords.contains(word)) return const SizedBox(width: 100, height: 100);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Draggable<String>(
-                      data: word,
-                        feedback: Material(
-                        color: Colors.transparent,
-                        child: isImage
-                            ? _safeImage(getImagePath(word), width: 100, height: 100, fit: BoxFit.cover)
-                            : Container(
-                                width: 100,
-                                height: 100,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[300],
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  word,
-                                  style: const TextStyle(color: Colors.black, fontSize: 20),
-                                ),
-                              ),
-                      ),
-                      childWhenDragging: Container(
-                        width: 100,
-                        height: 100,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                          child: isImage
-                          ? Container(
-                              width: 100,
-                              height: 100,
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.blue[100],
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: _safeImage(
-                                getImagePath(word),
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Container(
-                              key: Key(word),
-                              width: 100,
-                              height: 100,
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.blue[200],
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                word,
-                                style: const TextStyle(color: Colors.black, fontSize: 20),
-                              ),
-                            ),
+                children: availableWords.map((word) {
+                  return Draggable<String>(
+                    data: word,
+                    feedback: Material(
+                      child: _buildMatchItem(word),
                     ),
+                    childWhenDragging: Opacity(
+                      opacity: 0.5,
+                      child: _buildMatchItem(word),
+                    ),
+                    child: _buildMatchItem(word),
                   );
-                }),
+                }).toList(),
               ),
             ),
             const SizedBox(width: 24),
@@ -463,161 +406,34 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
             Expanded(
               flex: 1,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(optionLabels.length, (index) {
-                  final isImage = _draggedWords[index].isNotEmpty &&
-                      (_draggedWords[index].endsWith('.png') ||
-                          _draggedWords[index].endsWith('.jpg') ||
-                          _draggedWords[index].endsWith('.jpeg'));
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: DragTarget<String>(
-                      onWillAccept: (data) => true,
-                      onAccept: (data) {
-                        setState(() {
-                          int prevIndex = _draggedWords.indexOf(data);
-                          if (prevIndex != -1) {
-                            _draggedWords[prevIndex] = '';
-                          }
-                          _draggedWords[index] = data;
-                        });
-                      },
-                      onMove: (details) {
-                        // Auto-scroll when dragging near top/bottom edges.
-                        // Use the RenderBox local coordinates and jumpTo for immediate effect.
-                        try {
-                          if (!_matchScrollController.hasClients) return;
-                          final box = _matchScrollKey.currentContext?.findRenderObject() as RenderBox?;
-                          if (box == null) return;
-                          // Pointer relative to the scrollable box
-                          final local = box.globalToLocal(details.offset);
-                          final height = box.size.height;
-                          const edgeMargin = 120.0; // mayor margen para detectar borde
-                          const scrollStep = 120.0; // paso más grande para bajar de forma fiable
-                          final maxScroll = _matchScrollController.position.maxScrollExtent;
-                          double newOffset = _matchScrollController.offset;
-                          if (local.dy < edgeMargin) {
-                            newOffset = (_matchScrollController.offset - scrollStep).clamp(0.0, maxScroll) as double;
-                            _matchScrollController.jumpTo(newOffset);
-                          } else if (local.dy > height - edgeMargin) {
-                            newOffset = (_matchScrollController.offset + scrollStep).clamp(0.0, maxScroll) as double;
-                            _matchScrollController.jumpTo(newOffset);
-                          }
-                        } catch (e) {
-                          // ignore errors if layout not ready
-                        }
-                      },
-                      builder: (context, candidateData, rejectedData) {
-                        return Column(
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                      color: candidateData.isNotEmpty ? Colors.green : Colors.black,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  child: _draggedWords[index].isNotEmpty
-                                      ? isImage
-                                          ? Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  child: _safeImage(
-                                                    getImagePath(_draggedWords[index]),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  top: 4,
-                                                  right: 4,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.black.withOpacity(0.7),
-                                                      shape: BoxShape.circle,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black26,
-                                                          blurRadius: 4,
-                                                          offset: Offset(0, 2),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: IconButton(
-                                                      icon: const Icon(Icons.close, color: Colors.white, size: 18),
-                                                      padding: EdgeInsets.zero,
-                                                      constraints: const BoxConstraints(),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _draggedWords[index] = '';
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : Stack(
-                                              children: [
-                                                Center(
-                                                  child: Text(
-                                                    _draggedWords[index],
-                                                    style: const TextStyle(color: Colors.black, fontSize: 20),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  top: 4,
-                                                  right: 4,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.black.withOpacity(0.7),
-                                                      shape: BoxShape.circle,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black26,
-                                                          blurRadius: 4,
-                                                          offset: Offset(0, 2),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: IconButton(
-                                                      icon: const Icon(Icons.close, color: Colors.white, size: 18),
-                                                      padding: EdgeInsets.zero,
-                                                      constraints: const BoxConstraints(),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _draggedWords[index] = '';
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                      : const SizedBox.shrink(),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: Text(
-                                optionLabels[index].replaceAll(RegExp(r'\.(png|jpg|jpeg)?$'), ''),
-                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
+                children: optionLabels.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  String label = entry.value;
+                  return DragTarget<String>(
+                    builder: (context, candidateData, rejectedData) {
+                      return Container(
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                          color: _draggedWords[index].isEmpty ? Colors.white : Colors.green[100],
+                        ),
+                        child: Center(
+                          child: Text(
+                            _draggedWords[index].isEmpty ? label : _draggedWords[index],
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      );
+                    },
+                    onAccept: (data) {
+                      setState(() {
+                        _draggedWords[index] = data;
+                      });
+                    },
                   );
-                }),
+                }).toList(),
               ),
             ),
           ],
@@ -632,6 +448,16 @@ List<Widget> _buildMatch(List<String> words, List<String> correctOrder) {
     List<Widget> _buildVerticalSort(
         List<String> words, List<String> correctOrder) {
       return [
+        // Mostrar imagen si existe
+        if (_currentQuestion.imagePath.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: _safeImage(
+              'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+              height: 140,
+              fit: BoxFit.contain,
+            ),
+          ),
         const SizedBox(
           height: 20,
         ),
@@ -1131,62 +957,24 @@ List<Widget> _buildComplete(List<String> optionList, List<String> words, List<St
               onWillAccept: (data) => true,
               onAccept: (data) {
                 setState(() {
-                  int prevIndex = _draggedWords.indexOf(data);
-                  if (prevIndex != -1) {
-                    _draggedWords[prevIndex] = '';
-                  }
-                  if (currentIndex < _draggedWords.length) {
-                    _draggedWords[currentIndex] = data;
-                  }
+                  _draggedWords[currentIndex] = data;
                 });
               },
               builder: (context, candidateData, rejectedData) {
-                final isValid = currentIndex < _draggedWords.length;
                 return Container(
-                  width: 120, // Aumenta el ancho
+                  width: 80,
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: _draggedWords[currentIndex].isEmpty
+                        ? Colors.grey[300]
+                        : Colors.blue[100],
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: candidateData.isNotEmpty ? Colors.green : Colors.black,
-                      width: 2,
-                    ),
                   ),
-                  child: isValid && _draggedWords[currentIndex].isNotEmpty
-                      ? Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                _draggedWords[currentIndex],
-                                style: const TextStyle(color: Colors.black, fontSize: 16),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 8), // Espacio extra a la derecha
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                icon: const Icon(Icons.close, size: 16, color: Colors.white),
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                                onPressed: () {
-                                  setState(() {
-                                    if (currentIndex < _draggedWords.length) {
-                                      _draggedWords[currentIndex] = '';
-                                    }
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox.shrink(),
+                  child: Text(
+                    _draggedWords[currentIndex],
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 );
               },
             ),
@@ -1216,12 +1004,12 @@ List<Widget> _buildComplete(List<String> optionList, List<String> words, List<St
                 height: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.blue[300],
+                  color: Colors.blue[100],
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   word,
-                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -1230,7 +1018,7 @@ List<Widget> _buildComplete(List<String> optionList, List<String> words, List<St
               height: 40,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
@@ -1239,12 +1027,12 @@ List<Widget> _buildComplete(List<String> optionList, List<String> words, List<St
               height: 40,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.blue[200],
+                color: Colors.blue[100],
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
                 word,
-                style: const TextStyle(color: Colors.black, fontSize: 18),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           ),

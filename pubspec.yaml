@@ -85,7 +85,22 @@ flutter:
     - assets/audios/unity_2/lesson_1/
     # - assets/audios/unity_2/lesson_2/
     # - assets/audios/unity_2/lesson_3/
+         # Unity 4
+    - assets/audios/unity_4/lesson_1/
+    - assets/audios/unity_4/lesson_2/
+    - assets/audios/unity_4/lesson_3/
     
+    # Unity 5
+    - assets/audios/unity_5/lesson_1/
+    - assets/audios/unity_5/lesson_2/
+    - assets/audios/unity_5/lesson_3/
+    
+    # Unity 6
+    - assets/audios/unity_6/lesson_1/
+    - assets/audios/unity_6/lesson_2/
+    - assets/audios/unity_6/lesson_3/
+    - assets/audios/unity_6/lesson_4/
+
     # Images
       # Unity 1
     - assets/images/unity_1/lesson_1/
@@ -98,7 +113,19 @@ flutter:
       # Unity 3
     - assets/images/unity_3/lesson_1/
     - assets/images/unity_3/lesson_2/
-
+      #Unity 4 
+    - assets/images/unity_4/lesson_1/
+    - assets/images/unity_4/lesson_2/
+    - assets/images/unity_4/lesson_3/
+    # Unity 5
+    - assets/images/unity_5/lesson_1/
+    - assets/images/unity_5/lesson_2/
+    - assets/images/unity_5/lesson_3/
+    # Unity 6
+    - assets/images/unity_6/lesson_1/
+    - assets/images/unity_6/lesson_2/
+    - assets/images/unity_6/lesson_3/
+    - assets/images/unity_6/lesson_4/
     - assets/images/
     - assets/svg/
 
@@ -118,6 +145,16 @@ flutter:
      #       # Unity 4
     - assets/database/unity_4_lesson_1.json
     - assets/database/unity_4_lesson_2.json
+    - assets/database/unity_4_lesson_3.json
+    # Unity 5
+    - assets/database/unity_5_lesson_1.json
+    - assets/database/unity_5_lesson_2.json
+    - assets/database/unity_5_lesson_3.json
+    # Unity 6
+    - assets/database/unity_6_lesson_1.json
+    - assets/database/unity_6_lesson_2.json
+    - assets/database/unity_6_lesson_3.json
+    - assets/database/unity_6_lesson_4.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

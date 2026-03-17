@@ -1,116 +1,156 @@
 [
     {
-        "questionSpanish": "¿Cuál de los siguientes es agua?",
-        "questionKichwa": "",
-        "correctAnswer": "Yaku",
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Maykantak ciudad kan.",
+        "correctAnswer": "hatunllakta",
         "audioPath": "",
-        "imagePath": "Yaku",
+        "imagePath": "U4_L2_Q1.png",
         "questionType": "multiple_choice",
-        "optionList": [
-            "Yaku",
-            "Ñuñu",
-            "Tanta"
-        ],
+        "optionList": ["urku", "hatunllakt","wasi"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "¿Cuál de los siguientes es queso?",
-        "questionKichwa": "",
-        "correctAnswer": "Makinchu",
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Maykantak escuela kan.",
+        "correctAnswer": "yachana wasi",
         "audioPath": "",
-        "imagePath": "Makinchu",
+        "imagePath": "U4_L2_Q2.png",
         "questionType": "multiple_choice",
-        "optionList": [
-            "Tanta",
-            "Aycha",
-            "Makinchu"
-        ],
+        "optionList": ["urku", "wasi","yachana was"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "¿Cuál de los siguientes es carne?",
-        "questionKichwa": "",
-        "correctAnswer": "Aycha",
-        "audioPath": "",
-        "imagePath": "Aycha",
-        "questionType": "multiple_choice",
-        "optionList": [
-            "Tanta",
-            "Aycha",
-            "Purutu"
-        ],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Que come ella?",
-        "questionKichwa": "Imatak pay mikun",
-        "correctAnswer": "Tanta",
-        "audioPath": "",
-        "imagePath": "Imatak_pay_mikun",
-        "questionType": "multiple_choice",
-        "optionList": ["Tanta", "Lulun", "Yaku"],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Que bebe el?",
-        "questionKichwa": "Imatak pay upian",
-        "correctAnswer": "Tanta",
-        "audioPath": "",
-        "imagePath": "Imatak_pay_upian",
-        "questionType": "multiple_choice",
-        "optionList": ["Ñuñu", "Yaku", "Aycha"],
-        "words": [],
-        "correctOrder": []
-    },
-    {
-        "questionSpanish": "¿Cuál es fréjol?",
-        "questionKichwa": "",
-        "correctAnswer": "Purutu",
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "(Venir) kichwa shimipi kan Imatak “venir” kichwapi kan?",
+        "correctAnswer": "shamuna",
         "audioPath": "",
         "imagePath": "",
         "questionType": "multiple_choice",
-        "optionList": ["Ñuñu", "Purutu", "Palta"],
+        "optionList": ["shamuna","rina"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "¿Cuál es Aguacate?",
-        "questionKichwa": "",
-        "correctAnswer": "Palta",
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Imatak “ir” kichwapi kan?",
+        "correctAnswer": "rina",
         "audioPath": "",
         "imagePath": "",
         "questionType": "multiple_choice",
-        "optionList": ["Ñuñu", "Purutu", "Palta"],
+        "optionList": ["shamuna","rina"],
         "words": [],
         "correctOrder": []
     },
     {
-        "questionSpanish": "Traducir:",
-        "questionKichwa": "Payka paltami mikun",
-        "correctAnswer": "",
+        "questionSpanish": "¿A dónde te vas?",
+        "questionKichwa": "Maymantak rinki.",
+        "correctAnswer": "yachana wasiman",
         "audioPath": "",
+        "imagePath": "U4_L2_Q3.png",
+        "questionType": "multiple_choice",
+        "optionList": ["yachana wasiman","wasiman","ayllullaktaman"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿A dónde te vas?",
+        "questionKichwa": "Maymantak rinki.",
+        "correctAnswer": "ayllullaktaman",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q4.png",
+        "questionType": "multiple_choice",
+        "optionList": ["urkupiman","wasiman","ayllullaktaman"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿A dónde te vas?",
+        "questionKichwa": "Maymantak rinki.",
+        "correctAnswer": "hatunllaktaman",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q5.png",
+        "questionType": "multiple_choice",
+        "optionList": ["urkuman","hatunllaktaman","ayllu llaktaman"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿De dónde vienes?",
+        "questionKichwa": "Maymantatak shamunki.",
+        "correctAnswer": "urkumanta",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q6.png",
+        "questionType": "multiple_choice",
+        "optionList": ["urkumanta","hatunllaktamanta","ayllu llaktamanta"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿De dónde vienes?",
+        "questionKichwa": "Maymantatak shamunki.",
+        "correctAnswer": "hatunllaktamanta",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q7.png",
+        "questionType": "multiple_choice",
+        "optionList": ["urkumanta","hatunllaktamanta","ayllullaktamanta"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿De dónde vienes?",
+        "questionKichwa": "Maymantatak shamunki.",
+        "correctAnswer": "ayllullaktamanta",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q8.png",
+        "questionType": "multiple_choice",
+        "optionList": ["urkumanta","hatunllaktamanta","ayllullaktamanta"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Complete",
+        "questionKichwa": "",
+        "correctAnswer": "Sisa: Imanalla. Asiriri. Allimi kani. Kikinka. Sisa. Allimi kani. Maymantatak shamunki. Asiriri. Hatunllakta manta shamuni.",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q9.png",
+        "questionType": "complete",
+        "optionList": ["Sisa: Imanalla","Asiriri: Allimi kani. Kikinka.","Sisa. Allimi kani.","","shamunki","Asiri:","","manta shamuni"],
+        "words": ["Maymantak","Maymantatak","Urku","Hatunllakta"],
+        "correctOrder": ["Maymantatak","Hatunllakta"]
+    },
+    {
+        "questionSpanish": "Complete",
+        "questionKichwa": "",
+        "correctAnswer": "Rumi: Imanalla. Ñusta. Allimi kani. Kikinka. Rumi. Allimi kani. Maymantak rinki. Ñusta. Yachana Wasi man rini.",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q10.png",
+        "questionType": "complete",
+        "optionList": ["Rumi: Imanalla. Ñusta. Allimi kani. Kikinka. Rumi. Allimi kani. Maymantak","","Ñusta:","","man rini"],
+        "words": ["rinki","shamunki","wasi","Yachana Wasi"],
+        "correctOrder": ["rinki","Yachana Wasi"]
+    },
+    {
+        "questionSpanish": "Complete",
+        "questionKichwa": "",
+        "correctAnswer": "Sisa: Imanalla. Rumi: Allimi kani. Kikinka. Sisa: Allimi kani. May____ shamunki. Rumi: _____manta shamuni.",
+        "audioPath": "",
+        "imagePath": "U4_L2_Q11.png",
+        "questionType": "complete",
+        "optionList": ["Sisa: Imanalla. Rumi: Allimi kani. Kikinka. Sisa: Allimi kani. May","","shamunki. Rumi:","","manta shamuni."],
+        "words": ["mantak","mantatak","Ayllullakta","Wasi"],
+        "correctOrder": ["mantatak","Ayllullakta"]
+    },
+    {
+        "questionSpanish": "Escuche y elija la imagen correcta",
+        "questionKichwa": "Maymantatak shamunki.",
+        "correctAnswer": "U4_L2_Q12.png",
+        "audioPath": "U4_L2_P1.mp3",
         "imagePath": "",
-        "questionType": "translate",
-        "optionList": [],
-        "words": [
-            "ellos",
-            "ella",
-            "bebe",
-            "come",
-            "queso",
-            "aguacate"
-        ],
-        "correctOrder": [
-            false,
-            true,
-            false,
-            true,
-            false,
-            true
-        ]
+        "questionType": "listen_and_translate",
+        "optionList": ["U4_L2_Q12.png", "U4_L2_Q13.png"],
+        "words": [],
+        "correctOrder": []
     }
 ]

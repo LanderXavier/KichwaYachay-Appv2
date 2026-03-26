@@ -91,7 +91,24 @@ class Constants {
       points: "10",
       image: "assets/images/course-3.png",
       unity: 4,
-      lesson: const LessonScreen(unity: 3),
+      lesson: const LessonScreen(unity: 4),
+    ),
+    TopicModel(
+      color: Constants.yellowMustard,
+      boxShadow: [
+        const BoxShadow(
+          color: Color.fromRGBO(255, 99, 128, 0.6),
+          spreadRadius: 0,
+          blurRadius: 6,
+          offset: Offset(0, 2), // changes position of shadow
+        ),
+      ],
+      topic: "Unidad 9",
+      time: "2 Lecciones",
+      points: "10",
+      image: "assets/images/course-3.png",
+      unity: 5,
+      lesson: const LessonScreen(unity: 5),
     ),
   ];
 // Lista de Cursos: Intermedio
@@ -283,6 +300,22 @@ class Constants {
       lessonIndex: "2",
       imagePath: "assets/images/lesson.png",
       title: "Lección 03",
+      duration: "5 minutos",
+    ),
+
+    // Unity 9
+    LessonModel(
+      unityIndex: 5,
+      lessonIndex: "1",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 01",
+      duration: "5 minutos",
+    ),
+    LessonModel(
+      unityIndex: 5,
+      lessonIndex: "2",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 02",
       duration: "5 minutos",
     ),
   ];

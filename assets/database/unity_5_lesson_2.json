@@ -1,0 +1,294 @@
+[
+    {
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Esto, esta ",
+        "audioPath": "1 KAY",
+        "imagePath": "KAY",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Esto, esta ",
+            "Eso, esa "                  
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },{
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Eso, esa  ",
+        "audioPath": "2 CHAY",
+        "imagePath": "Chay",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Esto, esta ",
+            "Eso, esa "                  
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },{
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Estas, estos ",
+        "audioPath": "3 Kaykuna",
+        "imagePath": "Kaykuna ",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Estas, estos",
+            "Esas, esos"                  
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },{
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Esas, esos",
+        "audioPath": "4 Chaykuna",
+        "imagePath": "Chaykuna",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Estas, estos",
+            "Esas, esos"                  
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },{
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Esta casa",
+        "audioPath": "5 KAY",
+        "imagePath": "KAY",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Esta casa",
+            "Esas casas",
+            "Esa casa "    
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    }
+    ,{
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Esa casa",
+        "audioPath": "6 CHAY wasi",
+        "imagePath": "CHAY",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Esta casa",
+            "Esas casas",
+            "Esa casa"       
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    }
+    ,{
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Estas casa",
+        "audioPath": "7 KAY wasikuna",
+        "imagePath": "Kaykuna",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Estas casa",
+            "Esas casas",
+            "Esa casa"       
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    }
+    ,{
+        "questionSpanish": "Mira la imagen y selecciona la opción correcta  ",
+        "questionKichwa": "",
+        "correctAnswer": "Esas casas",
+        "audioPath": "8 CHAY wasikuna",
+        "imagePath": "Chaykuna",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Estas casa",
+            "Esas casas",
+            "Esa casa"       
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "RELACIONAR ",
+        "questionKichwa": "",
+        "correctAnswer": "Esas casas",
+        "audioPath": "9 Chay",
+        "imagePath": "Chaykuna",
+        "questionType": "multiple_choice",
+        "optionList": ["1. Chay","2. Kay","3. Chaykuna","4. Kaykuna","a. Eso, esa","b. Esos, esas","c. Esto, esta","d. Estos, estas"
+
+ 
+        ],
+        "words": [],
+        "correctOrder": ["Chay: Eso, esa", "Kay: Esto, esta", "Chaykuna: esos, esas", "kaykuna: estos, estas"]
+    },
+    {
+        "questionSpanish": "Selecciona la oración que mejor representa la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "Kay  allku",
+        "audioPath": "11 Kay allku",
+        "imagePath": "Kay allku",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Kay allku ",
+            "Chay  allku",
+            "Kay  allkukuna"       
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Selecciona la oración que mejor representa la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "Kay  allkukuna",
+        "audioPath": "13 Kay allkukuna",
+        "imagePath": "Kay allkukuna",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Kay allku ",
+            "Chay  allku",
+            "Kay  allkukuna"       
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Selecciona la oración que mejor representa la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "Chay antawa",
+        "audioPath": "15 Chay antawa",
+        "imagePath": "Chay antawa",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Kay antawa",
+            "Chay antawa",
+            "Kay antawakuna "       
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Selecciona la oración que mejor representa la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "Chay antawakuna",
+        "audioPath": "Chay antawakuna",
+        "imagePath": "Chay antawakuna",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Kay antawa",
+            "Chay antawa ",
+            "Kay antawakuna "       
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    }
+    ,
+    
+    {
+        "questionSpanish": "Traducir: ",
+        "questionKichwa": "Kay antawaka pukami kan",
+        "correctAnswer": "",
+        "audioPath": "16 Kay antawaka pukami kan",
+        "imagePath": "Misika kanllapimi kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": [],
+        "words": [
+            "Estos",
+            "Este",
+            "Eso",
+            "rojo",
+            "es","carro", " ", " ", " "],
+        "correctOrder": ["Este"," ", "carro"," ", "es"," ","rojo"]
+    },
+    
+    {
+        "questionSpanish": "Traducir: ",
+        "questionKichwa": "Chay allkukunaka yanami kan",
+        "correctAnswer": "",
+        "audioPath": "Chay allkukunaka yanami kan",
+        "imagePath": "Chay allkukunaka yanami kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": [],
+        "words": [
+            "Estos",
+            "Este",
+            "Eso",
+            "negros",
+            "son","perros", " ", " ", " "],
+        "correctOrder": ["Esos"," ", "perros"," ", "son"," ","negros"]
+    },
+    {
+        "questionSpanish": "Escucha y repite",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "Kay antawaka ñukapami kan",
+        "imagePath": "",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": [
+            "yana",
+            "Chay",
+            "wasi",
+            "kan",
+            "mi", " ", " ", " ", " "], 
+        "correctOrder": ["Kay"," " ,"antawaka"," ", "ñukapami", " ", "kan"]
+    },
+
+    {
+        "questionSpanish": "COMPLETAR: ",
+        "questionKichwa": "Kay _________ka yurak____ kan",
+        "correctAnswer": "Esta casa es blanca",
+        "audioPath": "Chay allkukunaka yanami kan",
+        "imagePath": "Chay allkukunaka yanami kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": [],
+        "words": [
+            "mi",
+            "wasi",
+            "kan"],
+        "correctOrder": ["...", "...", "..."]
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta de acuerdo a la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": [
+            "yana",
+            "kan",
+            "kuna",
+            "allku",
+            "mi","ka","kay", " ", " ", " "], 
+        "correctOrder": ["Kay", "allkukunaka","yanami", "kan"]
+    }
+]

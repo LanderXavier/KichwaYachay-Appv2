@@ -1,0 +1,287 @@
+[
+    {
+        "questionSpanish": "Observe la imagen y seleccione el significado correcto de acuerdo a la ubicación de la pelota. ",
+        "questionKichwa": "",
+        "correctAnswer": "Dentro",
+        "audioPath": "1 UKUPI __.mp3",
+        "imagePath": "Dentro.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Fuera",
+            "Dentro",
+            "En medio"                    
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Observe la imagen y seleccione el significado correcto de acuerdo a la ubicación de la pelota. ",
+        "questionKichwa": "",
+        "correctAnswer": "Sobre/Arriba",
+        "audioPath": "5 HAWAPI ______.mp3",
+        "imagePath": "hawapi.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Sobre/Arriba",
+            "Dentro",
+            "A lado"                    
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Observe la imagen y seleccione el significado correcto de acuerdo a la ubicación de la pelota. ",
+        "questionKichwa": "",
+        "correctAnswer": "Debajo/Abajo",
+        "audioPath": "2 URAPI ______.mp3",
+        "imagePath": "urapi.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Sobre/Arriba",
+            "Debajo/Abajo",
+            "Fuera"                    
+
+ 
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+
+
+
+
+    
+
+    {
+        "questionSpanish": "Escuchar y Selecciona la imagen correcta:",
+        "questionKichwa": "",
+        "correctAnswer": "Detrás/Atrás ",
+        "audioPath": "3 WASHAPI ______.mp3",
+        "imagePath": "washapi.png",
+        "questionType": "listen_and_translate",
+        "optionList": ["Detrás/Atrás ", "Arriba", "Abajo"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Escucha el diálogo y selecciona la imagen correcta. :",
+        "questionKichwa": "",
+        "correctAnswer": "Delante",
+        "audioPath": "6 ÑAWPI ______.mp3",
+        "imagePath": "ñawpapi.png",
+        "questionType": "listen_and_translate",
+        "optionList": ["Delante", "En medio", "Detrás"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Escucha el diálogo y selecciona la imagen correcta. :",
+        "questionKichwa": "",
+        "correctAnswer": "En medio",
+        "audioPath": "4 CHAWPI ______",
+        "imagePath": "chawpipi",
+        "questionType": "listen_and_translate",
+        "optionList": ["Delante", "En medio", "Detrás"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+
+    
+    {
+        "questionSpanish": "Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "",
+        "correctAnswer": "UKUPI-adentro",
+        "audioPath": "1 UKUPI __",
+        "imagePath": "Dentro",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Delante", "De bajo", "Detrás"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "",
+        "correctAnswer": "URAPI-abajo",
+        "audioPath": "2 URAPI ______",
+        "imagePath": "urapi",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Delante", "Abajo", "Detrás"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "",
+        "correctAnswer": "WASHAPI-atras",
+        "audioPath": "3 WASHAPI ______",
+        "imagePath": "washapi",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Delante", "Abajo", "Atrás"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "",
+        "correctAnswer": "CHAWPI-entre",
+        "audioPath": "4 CHAWPI ______",
+        "imagePath": "chawpipi",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Entre", "Abajo", "Atrás"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "",
+        "correctAnswer": "HAWAPI-arriba",
+        "audioPath": "5 HAWAPI ______",
+        "imagePath": "hawapi",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Entre", "Abajo", "Arriba"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "",
+        "correctAnswer": "ÑAWPI-enfrente",
+        "audioPath": "6 ÑAWPI ______",
+        "imagePath": "ñawpapi",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Enfrente", "Abajo", "Arriba"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+
+
+    
+    {
+        "questionSpanish": "Traducir: Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "Misika ukupimi kan",
+        "correctAnswer": "",
+        "audioPath": "7 Misika ukupimi kan",
+        "imagePath": "Misika ukupimi kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": [],
+        "words": [
+            "gato",
+            "el",
+            "perro",
+            "adentro",
+            "está","afuera", " ", " ", " "],
+        "correctOrder": ["el"," ", "gato"," ", "está"," ","adentro"]
+    },
+    {
+        "questionSpanish": "Traducir: Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "Misika kanllapimi kan",
+        "correctAnswer": "",
+        "audioPath": "8 Misika kanllapimi kan",
+        "imagePath": "Misika kanllapimi kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": [],
+        "words": [
+            "gato",
+            "el",
+            "perro",
+            "adentro",
+            "está","afuera", " ", " ", " "],
+        "correctOrder": ["el"," ", "gato"," ", "está"," ","afuera"]
+    },
+    {
+        "questionSpanish": "Traducir: Selecciona la imagen que representa a la palabra",
+        "questionKichwa": "Allkuka urapimi kan ",
+        "correctAnswer": "",
+        "audioPath": "9 Allkuka urapimi kan",
+        "imagePath": "Allkuka urapimi kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": [],
+        "words": [
+            "gato",
+            "el",
+            "perro",
+            "abajo",
+            "está","arriba", " ", " ", " "],
+        "correctOrder": ["el"," ", "perro"," ", "está"," ","abajo"]
+    },
+
+
+
+    
+    {
+        "questionSpanish": "Selecciona la oración que mejor representa la imagen",
+        "questionKichwa": "Misika maypitak kan [dónde está el gato]",
+        "correctAnswer": "Misika washapimi kan",
+        "audioPath": "10-b- Misika washapi mi kan",
+        "imagePath": "Misika washapimi kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Misika ñawpapimi kan", "Misika washapimi kan ", "Misika chawpimikan"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+    {
+        "questionSpanish": "Selecciona la oración que mejor representa la imagen",
+        "questionKichwa": "Misika maypitak kan [dónde está el gato]",
+        "correctAnswer": "Misika hawapimi kan",
+        "audioPath": "11-a- Misika hawapimi kan",
+        "imagePath": "Misika hawapimi kan",
+        "questionType": "Drag_and_Drop",
+        "optionList": ["Misika hawapimi kan", "Misika ñawpapi mi kan", "Misika ukupimikan"],
+        "words": [
+        ],
+        "correctOrder": [
+            
+        ]
+    },
+
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta de acuerdo a la imagen",
+        "questionKichwa": "",
+        "correctAnswer": "Allkuka wasihawapimi kan",
+        "audioPath": "13 Allkuka wasihawapimi kan",
+        "imagePath": "[Allkuka wasihawapimi kan",
+        "questionType": "vertical_sort",
+        "optionList": [],
+        "words": [
+            "kan",
+            "mi",
+            "pi",
+            "wasi",
+            "hawa","allkuka","ñawpa","misika", " ", " ", " "],
+        "correctOrder": ["Allkuka", "yanami", "kan"]
+    }
+]

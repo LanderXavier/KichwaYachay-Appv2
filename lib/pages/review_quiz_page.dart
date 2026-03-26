@@ -67,16 +67,25 @@ class _ReviewQuizPageState extends State<ReviewQuizPage> {
                     child: ListView.builder(
                         itemCount: quiz.questions.length,
                         itemBuilder: (_, index) {
+                          final q = quiz.questions[index];
+                          final ca = q.correctAnswer;
+                          // Helper para quitar extensiones de archivo al mostrar respuestas
+                          String _stripExtension(String s) {
+                            return s.replaceAll(RegExp(r'\.[^.\s]+$', caseSensitive: false), '');
+                          }
+                          final String correctText = ca is List
+                            ? (ca as List).map((e) => _stripExtension(e.toString())).join(' ')
+                            : _stripExtension(ca.toString());
+
                           return Card(
                             color: Constants.yellowaguitaKY,
                             child: ListTile(
                               leading: Text("${index + 1}"),
-                              title:
-                                  Text(quiz.questions[index].questionSpanish),
+                              title: Text(q.questionSpanish.isNotEmpty ? q.questionSpanish : q.questionKichwa),
                               trailing: SizedBox(
-                                  width: 100,
-                                  child: Text(
-                                      quiz.questions[index].correctAnswer)),
+                                width: 100,
+                                child: Text(correctText),
+                              ),
                             ),
                           );
                         }),

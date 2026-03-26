@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning_ui/constants.dart';
 import 'package:language_learning_ui/models/question_model.dart';
+import 'package:language_learning_ui/pages/lesson_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -23,17 +24,6 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   late int _questionIndex = 0;
   late Question _currentQuestion;
-  List<String> _matchLeft = [];
-  List<String> _matchRight = [];
-  final Set<int> _matchLeftDone = {};
-  final Set<int> _matchRightDone = {};
-  int? _matchSelectedLeft;
-  int? _matchSelectedRight;
-  Map<String, String> _matchPairs = {};
-  bool get _matchAllDone =>
-      _matchLeft.isNotEmpty &&
-      _matchLeftDone.length == _matchLeft.length &&
-      _matchRightDone.length == _matchRight.length;
   List<bool> _selectedOptions = [];
   // Multiple Option Variables
   int _selectedMultipleChoice = -1;
@@ -43,8 +33,42 @@ class _QuizScreenState extends State<QuizScreen> {
   List<String> _wordsList = [];
   // Audio Player
   final player = AudioPlayer();
+  // Scroll controller & key for auto-scroll during drag in match view
+  final ScrollController _matchScrollController = ScrollController();
+  final GlobalKey _matchScrollKey = GlobalKey();
   // Flashcard Variables
   String? _selectedFlashcardAnswer;
+  // Helper: carga segura de imágenes mostrando un espacio en blanco si no existe el asset
+  Widget _safeImage(String path,
+      {double? height, double? width, BoxFit fit = BoxFit.cover}) {
+    if (path.isEmpty) return SizedBox(height: height, width: width);
+    // Chequeo asíncrono del AssetManifest para evitar que Flutter intente
+    // cargar un asset que no existe (lo que lanza FlutterError y hace rethrow).
+    return FutureBuilder<String>(
+      future: DefaultAssetBundle.of(context).loadString('AssetManifest.json'),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          // Mientras cargamos el manifiesto, reservamos el espacio.
+          return SizedBox(height: height, width: width);
+        }
+        final manifest = snapshot.data!;
+        // El manifiesto contiene rutas en formato JSON, así que buscamos la ruta.
+        if (!manifest.contains('"$path"') && !manifest.contains(path)) {
+          return SizedBox(height: height, width: width);
+        }
+        // Si existe en el manifiesto, cargamos la imagen con errorBuilder por seguridad.
+        return Image.asset(
+          path,
+          height: height,
+          width: width,
+          fit: fit,
+          errorBuilder: (context, error, stackTrace) =>
+              SizedBox(height: height, width: width),
+        );
+      },
+    );
+  }
+
   Widget _buildMatchItem(String value) {
     bool isImage = value.endsWith('.png') ||
         value.endsWith('.jpg') ||
@@ -61,7 +85,7 @@ class _QuizScreenState extends State<QuizScreen> {
       child: isImage
           ? ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
+              child: _safeImage(
                 'assets/database/images/$value',
                 fit: BoxFit.cover,
                 width: 100,
@@ -85,48 +109,104 @@ class _QuizScreenState extends State<QuizScreen> {
   // Opción Múltiple
   List<Widget> _buildMultipleChoice(
       List<String> options, Function(int?) onChanged) {
-    List<Widget> widgets = [];
-    if (_currentQuestion.imagePath.isNotEmpty) {
-      widgets.add(
+    // Devuelve una lista con un Column que contiene (opcional) la imagen de la pregunta
+    // y una cuadrícula con las opciones (texto o imagen) estilizadas.
+    return [
+      if (_currentQuestion.imagePath.isNotEmpty)
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
-          child: Image.asset(
+          child: _safeImage(
             'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
             height: 140,
             fit: BoxFit.contain,
           ),
         ),
-      );
-    }
-    widgets.addAll(options.asMap().entries.map((entry) {
-      return Column(
+      Column(
         children: [
-          RadioListTile<int>(
-            title: Text(
-              options[entry.key],
-              style: const TextStyle(color: Colors.black, fontSize: 20),
-              textAlign: TextAlign.center,
+          Center(
+            child: SizedBox(
+              width: double.infinity,
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 1.6,
+                ),
+                itemCount: options.length,
+                itemBuilder: (context, idx) {
+                  final option = options[idx];
+                  final isImage = option.endsWith('.png') ||
+                      option.endsWith('.jpg') ||
+                      option.endsWith('.jpeg');
+                  final selected = _selectedMultipleChoice == idx;
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () {
+                      setState(() {
+                        _selectedMultipleChoice = idx;
+                        if (_selectedOptions.length <= idx) {
+                          _selectedOptions =
+                              List.generate(options.length, (i) => false);
+                        }
+                        for (int i = 0; i < _selectedOptions.length; i++)
+                          _selectedOptions[i] = false;
+                        _selectedOptions[idx] = true;
+                      });
+                      onChanged(idx);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 180),
+                      decoration: BoxDecoration(
+                        color: selected ? Colors.blue[400] : Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                            color: selected
+                                ? Colors.blueAccent
+                                : Colors.grey.shade300,
+                            width: selected ? 3 : 1),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 6,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(12),
+                      child: Center(
+                        child: isImage
+                            ? _safeImage(
+                                'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
+                                fit: BoxFit.contain,
+                                height: 80,
+                                width: 80,
+                              )
+                            : Text(
+                                option,
+                                style: TextStyle(
+                                  color:
+                                      selected ? Colors.white : Colors.black87,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-            value: entry.key,
-            groupValue: _selectedMultipleChoice,
-            // Imágen, activar cuando se tengan todas las imágenes sobre las opciones.
-            // Alternativamente, se puede ingresar una sola imágen fuera del RadioListTile
-            // La imágen que se usaría sería la que está en el Json
-            // secondary: Image(
-            //     image: AssetImage(
-            //         'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${options[entry.key]}.png')),
-            onChanged: (int? value) {
-              setState(() {
-                _selectedMultipleChoice = value!;
-              });
-              onChanged(value);
-            },
           ),
-          const Divider(height: 50),
+          const SizedBox(height: 8),
         ],
-      );
-    }));
-    return widgets;
+      ),
+    ];
   }
 
   // Seleccionar
@@ -178,7 +258,7 @@ class _QuizScreenState extends State<QuizScreen> {
           if (_currentQuestion.imagePath.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
-              child: Image.asset(
+              child: _safeImage(
                 'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
                 height: 140,
                 fit: BoxFit.contain,
@@ -197,7 +277,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 decoration: BoxDecoration(
                   color: Colors.blue[100],
                   shape: BoxShape.circle,
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 8,
@@ -247,7 +327,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       decoration: BoxDecoration(
                         color: isSelected ? Colors.blue[300] : Colors.blue[50],
                         borderRadius: BorderRadius.circular(24),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
                             color: Colors.black12,
                             blurRadius: 10,
@@ -264,7 +344,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(16),
                       child: isImage
-                          ? Image.asset(
+                          ? _safeImage(
                               'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
                               fit: BoxFit.contain,
                               height: 90,
@@ -307,21 +387,22 @@ class _QuizScreenState extends State<QuizScreen> {
       _draggedWords = List.filled(optionLabels.length, '');
     }
 
-    // Siempre vertical, con imágenes o solo texto
     return [
       const SizedBox(height: 20),
-      const Row(
+      Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.swap_vert, color: Colors.blue),
-          SizedBox(width: 8),
-          Text('Arrastra cada elemento a su lugar correcto:',
+          const SizedBox(width: 8),
+          const Text('Arrastra cada elemento a su lugar correcto:',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ],
       ),
       const SizedBox(height: 20),
       Expanded(
         child: SingleChildScrollView(
+          key: _matchScrollKey,
+          controller: _matchScrollController,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -329,85 +410,19 @@ class _QuizScreenState extends State<QuizScreen> {
               Expanded(
                 flex: 1,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: List.generate(availableWords.length, (index) {
-                    final word = availableWords[index];
-                    final isImage = word.endsWith('.png') ||
-                        word.endsWith('.jpg') ||
-                        word.endsWith('.jpeg');
-                    if (_draggedWords.contains(word)) {
-                      return const SizedBox(width: 100, height: 100);
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Draggable<String>(
-                        data: word,
-                        feedback: Material(
-                          color: Colors.transparent,
-                          child: isImage
-                              ? Image.asset(
-                                  getImagePath(word),
-                                  width: 100,
-                                  height: 100,
-                                )
-                              : Container(
-                                  width: 100,
-                                  height: 100,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue[300],
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Text(
-                                    word,
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 20),
-                                  ),
-                                ),
-                        ),
-                        childWhenDragging: Container(
-                          width: 100,
-                          height: 100,
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: isImage
-                            ? Container(
-                                width: 100,
-                                height: 100,
-                                margin: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[100],
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Image.asset(
-                                  getImagePath(word),
-                                  fit: BoxFit.cover,
-                                ),
-                              )
-                            : Container(
-                                key: Key(word),
-                                width: 100,
-                                height: 100,
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[200],
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  word,
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 20),
-                                ),
-                              ),
+                  children: availableWords.map((word) {
+                    return Draggable<String>(
+                      data: word,
+                      feedback: Material(
+                        child: _buildMatchItem(word),
                       ),
+                      childWhenDragging: Opacity(
+                        opacity: 0.5,
+                        child: _buildMatchItem(word),
+                      ),
+                      child: _buildMatchItem(word),
                     );
-                  }),
+                  }).toList(),
                 ),
               ),
               const SizedBox(width: 24),
@@ -415,162 +430,38 @@ class _QuizScreenState extends State<QuizScreen> {
               Expanded(
                 flex: 1,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: List.generate(optionLabels.length, (index) {
-                    final isImage = _draggedWords[index].isNotEmpty &&
-                        (_draggedWords[index].endsWith('.png') ||
-                            _draggedWords[index].endsWith('.jpg') ||
-                            _draggedWords[index].endsWith('.jpeg'));
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: DragTarget<String>(
-                        onWillAccept: (data) => true,
-                        onAccept: (data) {
-                          setState(() {
-                            int prevIndex = _draggedWords.indexOf(data);
-                            if (prevIndex != -1) {
-                              _draggedWords[prevIndex] = '';
-                            }
-                            _draggedWords[index] = data;
-                          });
-                        },
-                        builder: (context, candidateData, rejectedData) {
-                          return Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    height: 100,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: candidateData.isNotEmpty
-                                            ? Colors.green
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                    ),
-                                    child: _draggedWords[index].isNotEmpty
-                                        ? isImage
-                                            ? Stack(
-                                                children: [
-                                                  Positioned.fill(
-                                                    child: Image.asset(
-                                                      getImagePath(
-                                                          _draggedWords[index]),
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    top: 4,
-                                                    right: 4,
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black
-                                                            .withOpacity(0.7),
-                                                        shape: BoxShape.circle,
-                                                        boxShadow: const [
-                                                          BoxShadow(
-                                                            color:
-                                                                Colors.black26,
-                                                            blurRadius: 4,
-                                                            offset:
-                                                                Offset(0, 2),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: IconButton(
-                                                        icon: const Icon(
-                                                            Icons.close,
-                                                            color: Colors.white,
-                                                            size: 18),
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        constraints:
-                                                            const BoxConstraints(),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            _draggedWords[
-                                                                index] = '';
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            : Stack(
-                                                children: [
-                                                  Center(
-                                                    child: Text(
-                                                      _draggedWords[index],
-                                                      style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    top: 4,
-                                                    right: 4,
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black
-                                                            .withOpacity(0.7),
-                                                        shape: BoxShape.circle,
-                                                        boxShadow: const [
-                                                          BoxShadow(
-                                                            color:
-                                                                Colors.black26,
-                                                            blurRadius: 4,
-                                                            offset:
-                                                                Offset(0, 2),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: IconButton(
-                                                        icon: const Icon(
-                                                            Icons.close,
-                                                            color: Colors.white,
-                                                            size: 18),
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        constraints:
-                                                            const BoxConstraints(),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            _draggedWords[
-                                                                index] = '';
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                        : const SizedBox.shrink(),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 4.0),
-                                child: Text(
-                                  optionLabels[index].replaceAll(
-                                      RegExp(r'\.(png|jpg|jpeg)?$'), ''),
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                  children: optionLabels.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    String label = entry.value;
+                    return DragTarget<String>(
+                      builder: (context, candidateData, rejectedData) {
+                        return Container(
+                          height: 50,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8),
+                            color: _draggedWords[index].isEmpty
+                                ? Colors.white
+                                : Colors.green[100],
+                          ),
+                          child: Center(
+                            child: Text(
+                              _draggedWords[index].isEmpty
+                                  ? label
+                                  : _draggedWords[index],
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        );
+                      },
+                      onAccept: (data) {
+                        setState(() {
+                          _draggedWords[index] = data;
+                        });
+                      },
                     );
-                  }),
+                  }).toList(),
                 ),
               ),
             ],
@@ -585,6 +476,16 @@ class _QuizScreenState extends State<QuizScreen> {
   List<Widget> _buildVerticalSort(
       List<String> words, List<String> correctOrder) {
     return [
+      // Mostrar imagen si existe
+      if (_currentQuestion.imagePath.isNotEmpty)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: _safeImage(
+            'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+            height: 140,
+            fit: BoxFit.contain,
+          ),
+        ),
       const SizedBox(
         height: 20,
       ),
@@ -654,28 +555,14 @@ class _QuizScreenState extends State<QuizScreen> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Contenedor con tamaño fijo y proporción constante
-              Container(
-                width: 150,
+              // Mostrar la imagen
+              _safeImage(
+                imagePath, // Ruta de la imagen
                 height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color.fromARGB(255, 103, 202, 226)),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: AspectRatio(
-                    aspectRatio: 1, // Siempre cuadrado 1:1
-                    child: Image.asset(
-                      imagePath,
-                      fit: BoxFit.contain, // encaja sin recortar
-                    ),
-                  ),
-                ),
+                fit: BoxFit.cover,
               ),
               const SizedBox(height: 20),
-              // Texto de la pregunta
+              // Mostrar la pregunta
               Text(
                 questionText,
                 textAlign: TextAlign.center,
@@ -687,7 +574,7 @@ class _QuizScreenState extends State<QuizScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
               },
               child: const Text("Cerrar"),
             ),
@@ -706,106 +593,57 @@ class _QuizScreenState extends State<QuizScreen> {
       const Text(
         'Mira las flashcards:',
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+        style: TextStyle(fontSize: 16),
       ),
       const SizedBox(height: 10),
       Expanded(
-        child: Scrollbar(
-          thumbVisibility: true, // scrollbar siempre visible
-          thickness: 6,
-          radius: const Radius.circular(20),
-          child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: words.length,
-            itemBuilder: (context, index) {
-              final parts = words[index].split(':');
-              final imagePath = parts[0];
-              final label = parts[1];
+        child: ListView.builder(
+          itemCount: words.length,
+          itemBuilder: (context, index) {
+            final parts = words[index].split(':');
+            final imagePath = parts[0];
+            final label = parts[1];
 
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 90),
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 187, 247, 251),
-                            width: 2),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(0.10),
-                            blurRadius: 16,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
+            return Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey[400]!),
+                  ),
+                  child: Column(
+                    children: [
+                      _safeImage(
+                        imagePath,
+                        height: 150,
+                        fit: BoxFit.cover,
                       ),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(18),
-                            child: AspectRatio(
-                              aspectRatio: 1, // siempre cuadrado 1:1
-                              child: Image.asset(
-                                imagePath,
-                                fit: BoxFit.contain, // encaja sin recortar
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 18),
-                          Text(
-                            label,
-                            style: const TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      const SizedBox(height: 10),
+                      Text(
+                        label,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-
-                    // 👇 Contador de tarjetas
-                    Text(
-                      "Flashcard ${index + 1} de ${words.length}",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              );
-            },
-          ),
+              ],
+            );
+          },
         ),
       ),
 
-      const SizedBox(height: 10),
-      // Botón dinámico basado en "questionKichwa"
+      const SizedBox(height: 20),
+      // Botón dinámico basado en "questionSpanish"
       ElevatedButton(
         onPressed: () {
-          _showQuestionDialog(
-              context, question.questionKichwa, question.imagePath);
+          _showQuestionDialog(context, question.questionSpanish,
+              question.imagePath); // Mostrar imagen y pregunta
         },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1989F1),
-          foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          elevation: 4,
-          shadowColor: Colors.deepPurpleAccent,
-        ),
-        child: const Text(
-          "Mostrar pregunta",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        child: const Text("Mostrar pregunta"), // Texto del botón
       ),
 
       const SizedBox(height: 20),
@@ -820,9 +658,9 @@ class _QuizScreenState extends State<QuizScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: isSelected
-                    ? Colors.green
-                    : Colors.blue, // Color del texto
+                foregroundColor: Colors.white,
+                backgroundColor:
+                    isSelected ? Colors.green : Colors.blue, // Color del texto
               ),
               onPressed: () {
                 setState(() {
@@ -966,48 +804,60 @@ class _QuizScreenState extends State<QuizScreen> {
         _selectedOptions =
             List.generate(_currentQuestion.optionList.length, (index) => false);
         _selectedMultipleChoice = -1; // Reinicia si usas selección múltiple
-        // Reiniciar _draggedWords para el nuevo ejercicio
         _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+        _selectedTranslate =
+            List.generate(_currentQuestion.words.length, (index) => false);
+        _wordsList = List.from(_currentQuestion.words);
         _selectedFlashcardAnswer = null;
-
-        // matching: reiniciar
-        _initMatchingForCurrentQuestion();
       } else {
-        // Agregar alguna lógica adicional cuando se han recorrido todas las preguntas
-        print('Se han recorrido todas las preguntas');
+        // Cuando se terminan las preguntas, mostrar diálogo con opciones
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: const Text('Lección terminada'),
+              content:
+                  const Text('Has terminado la lección. ¿Qué deseas hacer?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    // Repetir: reiniciar el quiz desde el inicio
+                    setState(() {
+                      _questionIndex = 0;
+                      _currentQuestion = widget.questions[_questionIndex];
+                      _selectedOptions = List.generate(
+                          _currentQuestion.optionList.length, (index) => false);
+                      _selectedMultipleChoice = -1;
+                      _draggedWords =
+                          List.filled(_currentQuestion.correctOrder.length, '');
+                      _selectedTranslate = List.generate(
+                          _currentQuestion.words.length, (index) => false);
+                      _wordsList = List.from(_currentQuestion.words);
+                      _selectedFlashcardAnswer = null;
+                    });
+                    Navigator.of(context).pop(); // cerrar diálogo
+                  },
+                  child: const Text('Repetir'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // cerrar diálogo
+                    // Asegurar que volvemos a la pantalla de selección de lección
+                    // Primero vaciamos hasta la ruta inicial y luego navegamos a LessonScreen
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LessonScreen(unity: widget.unity),
+                    ));
+                  },
+                  child: const Text('Regresar'),
+                ),
+              ],
+            ),
+          );
+        });
       }
     });
-  }
-
-  void _initMatchingForCurrentQuestion() {
-    if (_currentQuestion.questionType != 'matching') {
-      _matchLeft = [];
-      _matchRight = [];
-      _matchLeftDone.clear();
-      _matchRightDone.clear();
-      _matchPairs = {};
-      _matchSelectedLeft = null;
-      _matchSelectedRight = null;
-      return;
-    }
-
-    _matchPairs = {};
-    final left = _currentQuestion.words;
-    final right = _currentQuestion.optionList;
-    final len = left.length < right.length ? left.length : right.length;
-    for (int i = 0; i < len; i++) {
-      _matchPairs[left[i]] = right[i];
-    }
-
-    _matchLeft = List<String>.from(left);
-    _matchRight = List<String>.from(right);
-    _matchLeft.shuffle();
-    _matchRight.shuffle();
-
-    _matchLeftDone.clear();
-    _matchRightDone.clear();
-    _matchSelectedLeft = null;
-    _matchSelectedRight = null;
   }
 
   @override
@@ -1035,9 +885,8 @@ class _QuizScreenState extends State<QuizScreen> {
             const SizedBox(
               height: 50,
             ),
-            // Asegurarse de que la pregunta no esté vacía y no mostrarla en flashcards
-            if (_currentQuestion.questionKichwa.isNotEmpty &&
-                _currentQuestion.questionType != 'flashcard_question')
+            // Asegurarse de que la pregunta no esté vacía
+            if (_currentQuestion.questionKichwa.isNotEmpty)
               Text(
                 _currentQuestion.questionKichwa,
                 style: const TextStyle(color: Colors.black, fontSize: 20),
@@ -1084,181 +933,50 @@ class _QuizScreenState extends State<QuizScreen> {
             // Carga la rutina de flashcards
             if (_currentQuestion.questionType == 'flashcard_question')
               ..._buildFlashcards(_currentQuestion),
-            // Carga la rutina de relacionar (match)
-            if (_currentQuestion.questionType == 'matching')
-              ..._buildPairMatching(),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _checkAnswer,
-        child: const Icon(Icons.check),
-      ),
-    );
-  }
-
-  // match
-
-  List<Widget> _buildPairMatching() {
-    return [
-      const SizedBox(height: 16),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // columna izquierda
-          Expanded(
-            child: Column(
-              children: List.generate(_matchLeft.length, (i) {
-                final value = _matchLeft[i];
-                final matched = _matchLeftDone.contains(i);
-                final selected = _matchSelectedLeft == i;
-                return _buildMatchingItem(
-                  value: value,
-                  index: i,
-                  isLeft: true,
-                  matched: matched,
-                  selected: selected,
-                  onTap: () {
-                    if (matched) return;
-                    setState(() {
-                      _matchSelectedLeft = (_matchSelectedLeft == i) ? null : i;
-                    });
-                    _maybeAttemptMatch();
-                  },
-                );
-              }),
-            ),
+          FloatingActionButton(
+            onPressed: _checkAnswer,
+            child: const Icon(Icons.check),
+            heroTag: 'check',
           ),
-          const SizedBox(width: 12),
-          // columna derecha
-          Expanded(
-            child: Column(
-              children: List.generate(_matchRight.length, (j) {
-                final value = _matchRight[j];
-                final matched = _matchRightDone.contains(j);
-                final selected = _matchSelectedRight == j;
-                return _buildMatchingItem(
-                  value: value,
-                  index: j,
-                  isLeft: false,
-                  matched: matched,
-                  selected: selected,
-                  onTap: () {
-                    if (matched) return;
-                    setState(() {
-                      _matchSelectedRight =
-                          (_matchSelectedRight == j) ? null : j;
-                    });
-                    _maybeAttemptMatch();
-                  },
-                );
-              }),
-            ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () async {
+              final shouldSkip = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title:
+                      const Text('¿Seguro que quieres saltar esta actividad?'),
+                  content: const Text('No se guardará tu respuesta.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text('Cancelar'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text('Saltar'),
+                    ),
+                  ],
+                ),
+              );
+              if (shouldSkip == true) {
+                _nextQuestion();
+              }
+            },
+            child: const Icon(Icons.skip_next),
+            backgroundColor: Colors.orange,
+            heroTag: 'skip',
+            tooltip: 'Saltar',
           ),
         ],
       ),
-      const SizedBox(height: 16),
-    ];
-  }
-
-  Widget _buildMatchingItem({
-    required String value,
-    required int index,
-    required bool isLeft,
-    required bool matched,
-    required bool selected,
-    required VoidCallback onTap,
-  }) {
-    final isImage = value.endsWith('.png') ||
-        value.endsWith('.jpg') ||
-        value.endsWith('.jpeg');
-    final imagePath =
-        'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$value';
-
-    final base = Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: selected ? Colors.blueAccent : Colors.grey.shade300,
-          width: selected ? 2 : 1,
-        ),
-        color: selected ? Colors.blue.withOpacity(0.08) : Colors.white,
-      ),
-      child: isImage
-          ? Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  imagePath,
-                  height: 72,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            )
-          : Center(
-              child: Text(
-                value,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                textAlign: TextAlign.center,
-              ),
-            ),
     );
-
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 250),
-      opacity: matched ? 0.35 : 1.0,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 12),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(24),
-          onTap: matched ? null : onTap,
-          child: base,
-        ),
-      ),
-    );
-  }
-
-  void _maybeAttemptMatch() {
-    if (_matchSelectedLeft == null || _matchSelectedRight == null) return;
-
-    final leftVal = _matchLeft[_matchSelectedLeft!];
-    final rightVal = _matchRight[_matchSelectedRight!];
-    final ok = _matchPairs[leftVal] == rightVal;
-
-    if (ok) {
-      setState(() {
-        _matchLeftDone.add(_matchSelectedLeft!);
-
-        _matchRightDone.add(_matchSelectedRight!);
-        _matchSelectedLeft = null;
-        _matchSelectedRight = null;
-      });
-
-      if (_matchAllDone) {
-        /*
-      showDialog(
-      context: context,
-      builder: (context) => const AlertDialog(
-      title: Text('Correcto!'),
-      content: Text('Has emparejado todo correctamente!'),
-      ),
-      ).then((_) => _nextQuestion());
-      */
-      }
-    } else {
-      // Feedback y reset de seleccion
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Emparejamiento incorrecto. Intenta de nuevo.')),
-      );
-      setState(() {
-        _matchSelectedLeft = null;
-        _matchSelectedRight = null;
-      });
-    }
   }
 
   //  Complete
@@ -1274,7 +992,7 @@ class _QuizScreenState extends State<QuizScreen> {
       if (_currentQuestion.imagePath.isNotEmpty)
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
-          child: Image.asset(
+          child: _safeImage(
             'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
             height: 140,
             fit: BoxFit.contain,
@@ -1293,67 +1011,24 @@ class _QuizScreenState extends State<QuizScreen> {
                 onWillAccept: (data) => true,
                 onAccept: (data) {
                   setState(() {
-                    int prevIndex = _draggedWords.indexOf(data);
-                    if (prevIndex != -1) {
-                      _draggedWords[prevIndex] = '';
-                    }
-                    if (currentIndex < _draggedWords.length) {
-                      _draggedWords[currentIndex] = data;
-                    }
+                    _draggedWords[currentIndex] = data;
                   });
                 },
                 builder: (context, candidateData, rejectedData) {
-                  final isValid = currentIndex < _draggedWords.length;
                   return Container(
-                    width: 120, // Aumenta el ancho
+                    width: 80,
                     height: 40,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: _draggedWords[currentIndex].isEmpty
+                          ? Colors.grey[300]
+                          : Colors.blue[100],
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: candidateData.isNotEmpty
-                            ? Colors.green
-                            : Colors.black,
-                        width: 2,
-                      ),
                     ),
-                    child: isValid && _draggedWords[currentIndex].isNotEmpty
-                        ? Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  _draggedWords[currentIndex],
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 16),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              const SizedBox(
-                                  width: 8), // Espacio extra a la derecha
-                              Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.black,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: IconButton(
-                                  icon: const Icon(Icons.close,
-                                      size: 16, color: Colors.white),
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (currentIndex < _draggedWords.length) {
-                                        _draggedWords[currentIndex] = '';
-                                      }
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
+                    child: Text(
+                      _draggedWords[currentIndex],
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   );
                 },
               ),
@@ -1385,12 +1060,12 @@ class _QuizScreenState extends State<QuizScreen> {
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.blue[300],
+                    color: Colors.blue[100],
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     word,
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ),
@@ -1399,7 +1074,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 height: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
@@ -1408,12 +1083,12 @@ class _QuizScreenState extends State<QuizScreen> {
                 height: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.blue[200],
+                  color: Colors.blue[100],
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   word,
-                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),

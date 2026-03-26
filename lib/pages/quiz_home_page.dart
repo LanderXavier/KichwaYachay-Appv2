@@ -15,26 +15,38 @@ class QuizHomePage extends StatelessWidget {
   Future<List<Question>> _loadQuestions(int unity, String lesson) async {
     final jsonString = await rootBundle
         .loadString('assets/database/unity_${unity}_lesson_$lesson.json');
-    final jsonData = json.decode(jsonString);
-    final List<Question> questions = (jsonData as List<dynamic>)
-        .map((question) => Question(
-              questionSpanish: question['questionSpanish'],
-              questionKichwa: question['questionKichwa'],
-              correctAnswer: question['correctAnswer'],
-              audioPath: question['audioPath'],
-              imagePath: question['imagePath'],
-              questionType: question['questionType'],
-              optionList: (question['optionList'] as List<dynamic>)
-                  .map((option) => option.toString())
-                  .toList(),
-              words: (question['words'] as List<dynamic>)
-                  .map((option) => option.toString())
-                  .toList(),
-              correctOrder: (question['correctOrder'] as List<dynamic>)
-                  .map((option) => option.toString())
-                  .toList(),
-            ))
-        .toList();
+    final jsonData = json.decode(jsonString) as List<dynamic>;
+
+    final List<Question> questions = jsonData.map((question) {
+      final caRaw = question['correctAnswer'];
+      final String correctAnswer = caRaw is List
+          ? (caRaw as List).map((e) => e.toString()).join(' ')
+          : (caRaw?.toString() ?? '');
+
+      return Question(
+        questionSpanish: question['questionSpanish']?.toString() ?? '',
+        questionKichwa: question['questionKichwa']?.toString() ?? '',
+        correctAnswer: correctAnswer,
+        audioPath: question['audioPath']?.toString() ?? '',
+        imagePath: question['imagePath']?.toString() ?? '',
+        questionType: question['questionType']?.toString() ?? '',
+        optionList: question['optionList'] != null
+            ? (question['optionList'] as List<dynamic>)
+                .map((option) => option.toString())
+                .toList()
+            : <String>[],
+        words: question['words'] != null
+            ? (question['words'] as List<dynamic>)
+                .map((option) => option.toString())
+                .toList()
+            : <String>[],
+        correctOrder: question['correctOrder'] != null
+            ? (question['correctOrder'] as List<dynamic>)
+                .map((option) => option.toString())
+                .toList()
+            : <String>[],
+      );
+    }).toList();
 
     return questions;
   }

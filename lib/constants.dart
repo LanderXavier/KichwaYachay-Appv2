@@ -87,14 +87,14 @@ class Constants {
         ),
       ],
       topic: "Unidad 4",
-      time: "2 Lecciones",
+      time: "3 Lecciones",
       points: "10",
       image: "assets/images/course-3.png",
       unity: 4,
       lesson: const LessonScreen(unity: 4),
     ),
     TopicModel(
-      color: Constants.yellowMustard,
+      color: Constants.redtortaKY,
       boxShadow: [
         const BoxShadow(
           color: Color.fromRGBO(255, 99, 128, 0.6),
@@ -103,12 +103,29 @@ class Constants {
           offset: Offset(0, 2), // changes position of shadow
         ),
       ],
-      topic: "Unidad 9",
-      time: "2 Lecciones",
-      points: "10",
-      image: "assets/images/course-3.png",
+      topic: "Unidad 5",
+      time: "3 Lecciones",
+      points: "15",
+      image: "assets/images/course-4.png",
       unity: 5,
       lesson: const LessonScreen(unity: 5),
+    ),
+    TopicModel(
+      color: Constants.yellowaguitaKY,
+      boxShadow: [
+        const BoxShadow(
+          color: Color.fromRGBO(255, 99, 128, 0.6),
+          spreadRadius: 0,
+          blurRadius: 6,
+          offset: Offset(0, 2), // changes position of shadow
+        ),
+      ],
+      topic: "Unidad 6",
+      time: "4 Lecciones",
+      points: "20",
+      image: "assets/images/course-5.png",
+      unity: 6,
+      lesson: const LessonScreen(unity: 6),
     ),
   ];
 // Lista de Cursos: Intermedio
@@ -284,7 +301,7 @@ class Constants {
       unityIndex: 3,
       lessonIndex: "2",
       imagePath: "assets/images/lesson.png",
-      title: "Lección 03",
+      title: "Lección 02",
       duration: "5 minutos",
     ),
     // UNITY 4
@@ -299,11 +316,17 @@ class Constants {
       unityIndex: 4,
       lessonIndex: "2",
       imagePath: "assets/images/lesson.png",
+      title: "Lección 02",
+      duration: "5 minutos",
+    ),
+    LessonModel(
+      unityIndex: 4,
+      lessonIndex: "3",
+      imagePath: "assets/images/lesson.png",
       title: "Lección 03",
       duration: "5 minutos",
     ),
-
-    // Unity 9
+    // UNITY 5
     LessonModel(
       unityIndex: 5,
       lessonIndex: "1",
@@ -316,6 +339,42 @@ class Constants {
       lessonIndex: "2",
       imagePath: "assets/images/lesson.png",
       title: "Lección 02",
+      duration: "5 minutos",
+    ),
+    LessonModel(
+      unityIndex: 5,
+      lessonIndex: "3",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 03",
+      duration: "5 minutos",
+    ),
+    // UNITY 6
+    LessonModel(
+      unityIndex: 6,
+      lessonIndex: "1",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 01",
+      duration: "5 minutos",
+    ),
+    LessonModel(
+      unityIndex: 6,
+      lessonIndex: "2",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 02",
+      duration: "5 minutos",
+    ),
+    LessonModel(
+      unityIndex: 6,
+      lessonIndex: "3",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 03",
+      duration: "5 minutos",
+    ),
+    LessonModel(
+      unityIndex: 6,
+      lessonIndex: "4",
+      imagePath: "assets/images/lesson.png",
+      title: "Lección 04",
       duration: "5 minutos",
     ),
   ];

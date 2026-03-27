@@ -12,6 +12,14 @@ class QuizHomePage extends StatelessWidget {
   const QuizHomePage({Key? key, required this.unity, required this.lesson})
       : super(key: key);
 
+  String _readStringOrFirstListValue(dynamic value) {
+    if (value is List && value.isNotEmpty) {
+      return value.first.toString();
+    }
+
+    return value?.toString() ?? '';
+  }
+
   Future<List<Question>> _loadQuestions(int unity, String lesson) async {
     final jsonString = await rootBundle
         .loadString('assets/database/unity_${unity}_lesson_$lesson.json');
@@ -28,7 +36,7 @@ class QuizHomePage extends StatelessWidget {
         questionKichwa: question['questionKichwa']?.toString() ?? '',
         correctAnswer: correctAnswer,
         audioPath: question['audioPath']?.toString() ?? '',
-        imagePath: question['imagePath']?.toString() ?? '',
+        imagePath: _readStringOrFirstListValue(question['imagePath']),
         questionType: question['questionType']?.toString() ?? '',
         optionList: question['optionList'] != null
             ? (question['optionList'] as List<dynamic>)

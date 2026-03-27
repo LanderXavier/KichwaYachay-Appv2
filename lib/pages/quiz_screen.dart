@@ -24,7 +24,6 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   late int _questionIndex = 0;
   late Question _currentQuestion;
-  List<bool> _selectedOptions = [];
   // Multiple Option Variables
   int _selectedMultipleChoice = -1;
   // Trasnlate Variables
@@ -38,6 +37,56 @@ class _QuizScreenState extends State<QuizScreen> {
   final GlobalKey _matchScrollKey = GlobalKey();
   // Flashcard Variables
   String? _selectedFlashcardAnswer;
+
+  bool _hasImageExtension(String value) {
+    return value.endsWith('.png') ||
+        value.endsWith('.jpg') ||
+        value.endsWith('.jpeg');
+  }
+
+  bool _looksLikeLessonImage(String value) {
+    return _hasImageExtension(value) ||
+        RegExp(r'^U\d+_L\d+_Q\d+(?:_\d+)?$').hasMatch(value);
+  }
+
+  String _normalizeImageFileName(String value) {
+    if (value.isEmpty) {
+      return value;
+    }
+
+    if (_hasImageExtension(value)) {
+      return value;
+    }
+
+    return '$value.png';
+  }
+
+  String _lessonImageAsset(String fileName) {
+    return 'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_normalizeImageFileName(fileName)}';
+  }
+
+  String _databaseImageAsset(String fileName) {
+    return 'assets/database/images/${_normalizeImageFileName(fileName)}';
+  }
+
+  String _resolveImageAsset(String fileName) {
+    if (fileName.isEmpty) {
+      return fileName;
+    }
+
+    if (fileName.startsWith('assets/')) {
+      return fileName;
+    }
+
+    return _lessonImageAsset(fileName);
+  }
+
+  bool get _isInformationalFlashcard {
+    return _currentQuestion.questionType == 'flashcard_question' &&
+        _currentQuestion.optionList.isEmpty &&
+        _currentQuestion.correctAnswer.isEmpty;
+  }
+
   // Helper: carga segura de imágenes mostrando un espacio en blanco si no existe el asset
   Widget _safeImage(String path,
       {double? height, double? width, BoxFit fit = BoxFit.cover}) {
@@ -70,9 +119,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Widget _buildMatchItem(String value) {
-    bool isImage = value.endsWith('.png') ||
-        value.endsWith('.jpg') ||
-        value.endsWith('.jpeg');
+    final isImage = _looksLikeLessonImage(value);
     return Container(
       width: 100,
       height: 100,
@@ -86,7 +133,7 @@ class _QuizScreenState extends State<QuizScreen> {
           ? ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: _safeImage(
-                'assets/database/images/$value',
+                _resolveImageAsset(value),
                 fit: BoxFit.cover,
                 width: 100,
                 height: 100,
@@ -99,11 +146,68 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedMultipleChoice = -1; // Inicializa el valor al crear la pantalla
     _currentQuestion = widget.questions[_questionIndex];
-    _selectedOptions =
-        List.generate(_currentQuestion.optionList.length, (index) => false);
+    _initializeQuestionState();
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    _matchScrollController.dispose();
+    super.dispose();
+  }
+
+  void _initializeQuestionState() {
+    _selectedMultipleChoice = -1;
+    _selectedTranslate =
+        List.generate(_currentQuestion.words.length, (_) => false);
+    _wordsList = List.from(_currentQuestion.words);
+    _selectedFlashcardAnswer = null;
     _initMatchingForCurrentQuestion();
+  }
+
+  void _initMatchingForCurrentQuestion() {
+    if (_currentQuestion.questionType == 'complete') {
+      final blankCount =
+          _currentQuestion.optionList.where((entry) => entry.isEmpty).length;
+      _draggedWords = List.filled(blankCount, '');
+      return;
+    }
+
+    if (_currentQuestion.questionType == 'matching') {
+      _draggedWords = List.filled(_currentQuestion.optionList.length, '');
+      return;
+    }
+
+    if (_currentQuestion.questionType == 'drag_and_drop') {
+      _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+      return;
+    }
+
+    _draggedWords = [];
+  }
+
+  bool get _matchAllDone {
+    if (_draggedWords.length != _currentQuestion.correctOrder.length) {
+      return false;
+    }
+
+    return List.generate(
+      _currentQuestion.correctOrder.length,
+      (index) => _draggedWords[index] == _currentQuestion.correctOrder[index],
+    ).every((matches) => matches);
+  }
+
+  bool get _matchingAllDone {
+    if (_draggedWords.length != _currentQuestion.optionList.length ||
+        _currentQuestion.words.length != _currentQuestion.optionList.length) {
+      return false;
+    }
+
+    return List.generate(
+      _currentQuestion.optionList.length,
+      (index) => _draggedWords[index] == _currentQuestion.words[index],
+    ).every((matches) => matches);
   }
 
   // Opción Múltiple
@@ -116,7 +220,7 @@ class _QuizScreenState extends State<QuizScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: _safeImage(
-            'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+            _resolveImageAsset(_currentQuestion.imagePath),
             height: 140,
             fit: BoxFit.contain,
           ),
@@ -140,22 +244,13 @@ class _QuizScreenState extends State<QuizScreen> {
                 itemCount: options.length,
                 itemBuilder: (context, idx) {
                   final option = options[idx];
-                  final isImage = option.endsWith('.png') ||
-                      option.endsWith('.jpg') ||
-                      option.endsWith('.jpeg');
+                  final isImage = _looksLikeLessonImage(option);
                   final selected = _selectedMultipleChoice == idx;
                   return InkWell(
                     borderRadius: BorderRadius.circular(16),
                     onTap: () {
                       setState(() {
                         _selectedMultipleChoice = idx;
-                        if (_selectedOptions.length <= idx) {
-                          _selectedOptions =
-                              List.generate(options.length, (i) => false);
-                        }
-                        for (int i = 0; i < _selectedOptions.length; i++)
-                          _selectedOptions[i] = false;
-                        _selectedOptions[idx] = true;
                       });
                       onChanged(idx);
                     },
@@ -181,7 +276,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       child: Center(
                         child: isImage
                             ? _safeImage(
-                                'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
+                                _resolveImageAsset(option),
                                 fit: BoxFit.contain,
                                 height: 80,
                                 width: 80,
@@ -210,8 +305,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   // Seleccionar
-  List<Widget> _buildSelectAndSort(
-      List<String> shuffledWords, List<String> correctWords) {
+  List<Widget> _buildSelectAndSort(List<String> shuffledWords) {
     // Initialize _selectedWords with all false values if it's not initialized yet
     if (_selectedTranslate.length != shuffledWords.length) {
       _selectedTranslate =
@@ -250,7 +344,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   // Escuchar y Traducir
   List<Widget> _buildListenAndTranslate(
-      String question, List<String> options, Function(int?) onChanged) {
+      List<String> options, Function(int?) onChanged) {
     return [
       Column(
         children: [
@@ -259,7 +353,7 @@ class _QuizScreenState extends State<QuizScreen> {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: _safeImage(
-                'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+                _resolveImageAsset(_currentQuestion.imagePath),
                 height: 140,
                 fit: BoxFit.contain,
               ),
@@ -311,9 +405,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 itemCount: options.length,
                 itemBuilder: (context, index) {
                   final option = options[index];
-                  final isImage = option.endsWith('.png') ||
-                      option.endsWith('.jpg') ||
-                      option.endsWith('.jpeg');
+                  final isImage = _looksLikeLessonImage(option);
                   final isSelected = _selectedMultipleChoice == index;
                   return InkWell(
                     borderRadius: BorderRadius.circular(24),
@@ -345,7 +437,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       padding: const EdgeInsets.all(16),
                       child: isImage
                           ? _safeImage(
-                              'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$option',
+                              _resolveImageAsset(option),
                               fit: BoxFit.contain,
                               height: 90,
                               width: 90,
@@ -379,10 +471,6 @@ class _QuizScreenState extends State<QuizScreen> {
     List<String> availableWords = List.from(words);
     List<String> optionLabels = correctOrder;
 
-    String getImagePath(String fileName) {
-      return 'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/$fileName';
-    }
-
     if (_draggedWords.length != optionLabels.length) {
       _draggedWords = List.filled(optionLabels.length, '');
     }
@@ -411,9 +499,14 @@ class _QuizScreenState extends State<QuizScreen> {
                 flex: 1,
                 child: Column(
                   children: availableWords.map((word) {
+                    if (_draggedWords.contains(word)) {
+                      return const SizedBox(width: 100, height: 100);
+                    }
+
                     return Draggable<String>(
                       data: word,
                       feedback: Material(
+                        color: Colors.transparent,
                         child: _buildMatchItem(word),
                       ),
                       childWhenDragging: Opacity(
@@ -431,32 +524,94 @@ class _QuizScreenState extends State<QuizScreen> {
                 flex: 1,
                 child: Column(
                   children: optionLabels.asMap().entries.map((entry) {
-                    int index = entry.key;
-                    String label = entry.value;
+                    final index = entry.key;
+                    final label = entry.value;
+                    final hasValue = _draggedWords[index].isNotEmpty;
+                    final candidateHighlightColor = Colors.green.shade400;
+
                     return DragTarget<String>(
                       builder: (context, candidateData, rejectedData) {
-                        return Container(
-                          height: 50,
-                          margin: const EdgeInsets.symmetric(vertical: 8),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8),
-                            color: _draggedWords[index].isEmpty
-                                ? Colors.white
-                                : Colors.green[100],
-                          ),
-                          child: Center(
-                            child: Text(
-                              _draggedWords[index].isEmpty
-                                  ? label
-                                  : _draggedWords[index],
-                              style: const TextStyle(fontSize: 16),
-                            ),
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    height: 100,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: hasValue
+                                          ? Colors.green[100]
+                                          : Colors.grey[200],
+                                      border: Border.all(
+                                        color: candidateData.isNotEmpty
+                                            ? candidateHighlightColor
+                                            : Colors.grey,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: hasValue
+                                        ? _buildMatchItem(_draggedWords[index])
+                                        : const SizedBox.shrink(),
+                                  ),
+                                  if (hasValue)
+                                    Positioned(
+                                      top: 4,
+                                      right: 4,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.7),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _draggedWords[index] = '';
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                            size: 18,
+                                          ),
+                                          padding: EdgeInsets.zero,
+                                          constraints:
+                                              const BoxConstraints.tightFor(
+                                            width: 28,
+                                            height: 28,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                label.replaceAll(
+                                  RegExp(r'\.(png|jpg|jpeg)$'),
+                                  '',
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
                         );
                       },
+                      onWillAccept: (_) => true,
                       onAccept: (data) {
                         setState(() {
+                          final previousIndex = _draggedWords.indexOf(data);
+                          if (previousIndex != -1) {
+                            _draggedWords[previousIndex] = '';
+                          }
+
                           _draggedWords[index] = data;
                         });
                       },
@@ -473,15 +628,14 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   // Ordenar verticalmente arrastrando
-  List<Widget> _buildVerticalSort(
-      List<String> words, List<String> correctOrder) {
+  List<Widget> _buildVerticalSort(List<String> words) {
     return [
       // Mostrar imagen si existe
       if (_currentQuestion.imagePath.isNotEmpty)
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: _safeImage(
-            'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+            _resolveImageAsset(_currentQuestion.imagePath),
             height: 140,
             fit: BoxFit.contain,
           ),
@@ -528,19 +682,18 @@ class _QuizScreenState extends State<QuizScreen> {
     ];
   }
 
-  bool _listEquals(List list1, List list2) {
-    int count = 0;
-    for (int i = 0; i < list1.length; i++) {
-      if (list1[i].toString() == list2[i].toString() &&
-          list1.length == list2.length) {
-        count++;
-      }
-    }
-    if (count == list2.length) {
-      return true;
-    } else {
+  bool _listEquals(List<dynamic> list1, List<dynamic> list2) {
+    if (list1.length != list2.length) {
       return false;
     }
+
+    for (int i = 0; i < list1.length; i++) {
+      if (list1[i].toString() != list2[i].toString()) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
 // FLASHCARDS
@@ -586,7 +739,29 @@ class _QuizScreenState extends State<QuizScreen> {
 
 // Construcción del contenido para las preguntas con botón adicional
   List<Widget> _buildFlashcards(Question question) {
-    final words = question.words;
+    final flashcardEntries = question.words
+        .map((entry) {
+          final parts = entry.split(':');
+          if (parts.length < 2) {
+            return null;
+          }
+
+          return {
+            'imagePath': _resolveImageAsset(parts[0]),
+            'label': parts.sublist(1).join(':'),
+          };
+        })
+        .whereType<Map<String, String>>()
+        .toList();
+
+    if (flashcardEntries.isEmpty && question.imagePath.isNotEmpty) {
+      flashcardEntries.add({
+        'imagePath': _resolveImageAsset(question.imagePath),
+        'label': question.questionKichwa.isNotEmpty
+            ? question.questionKichwa
+            : question.questionSpanish,
+      });
+    }
 
     return [
       const SizedBox(height: 10),
@@ -598,11 +773,10 @@ class _QuizScreenState extends State<QuizScreen> {
       const SizedBox(height: 10),
       Expanded(
         child: ListView.builder(
-          itemCount: words.length,
+          itemCount: flashcardEntries.length,
           itemBuilder: (context, index) {
-            final parts = words[index].split(':');
-            final imagePath = parts[0];
-            final label = parts[1];
+            final imagePath = flashcardEntries[index]['imagePath'] ?? '';
+            final label = flashcardEntries[index]['label'] ?? '';
 
             return Column(
               children: [
@@ -638,42 +812,40 @@ class _QuizScreenState extends State<QuizScreen> {
 
       const SizedBox(height: 20),
       // Botón dinámico basado en "questionSpanish"
-      ElevatedButton(
-        onPressed: () {
-          _showQuestionDialog(context, question.questionSpanish,
-              question.imagePath); // Mostrar imagen y pregunta
-        },
-        child: const Text("Mostrar pregunta"), // Texto del botón
-      ),
+      if (question.questionSpanish.isNotEmpty)
+        ElevatedButton(
+          onPressed: () {
+            _showQuestionDialog(context, question.questionSpanish,
+                _resolveImageAsset(question.imagePath));
+          },
+          child: const Text("Mostrar pregunta"),
+        ),
 
       const SizedBox(height: 20),
 
       // Opciones de respuesta
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: question.optionList.map((option) {
-          final isSelected = _selectedFlashcardAnswer ==
-              option; // Verificar si esta opción está seleccionada
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor:
-                    isSelected ? Colors.green : Colors.blue, // Color del texto
+      if (question.optionList.isNotEmpty)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: question.optionList.map((option) {
+            final isSelected = _selectedFlashcardAnswer == option;
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: isSelected ? Colors.green : Colors.blue,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedFlashcardAnswer = option;
+                  });
+                },
+                child: Text(option),
               ),
-              onPressed: () {
-                setState(() {
-                  _selectedFlashcardAnswer =
-                      option; // Guardar la respuesta seleccionada
-                });
-                print("Seleccionado: $option");
-              },
-              child: Text(option),
-            ),
-          );
-        }).toList(),
-      ),
+            );
+          }).toList(),
+        ),
     ];
   }
 
@@ -721,11 +893,7 @@ class _QuizScreenState extends State<QuizScreen> {
       }
       // Drag and Drop Handler
     } else if (_currentQuestion.questionType == 'drag_and_drop') {
-      isCorrect = _draggedWords.length ==
-              _currentQuestion.correctOrder.length &&
-          List.generate(_currentQuestion.correctOrder.length,
-                  (i) => _draggedWords[i] == _currentQuestion.correctOrder[i])
-              .every((element) => element);
+      isCorrect = _matchAllDone;
       if (!isCorrect) {
         setState(() {
           _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
@@ -733,28 +901,30 @@ class _QuizScreenState extends State<QuizScreen> {
       }
       // Flashcard Handler
     } else if (_currentQuestion.questionType == 'flashcard_question') {
-      isCorrect = _selectedFlashcardAnswer == _currentQuestion.correctAnswer;
+      isCorrect = _isInformationalFlashcard ||
+          _selectedFlashcardAnswer == _currentQuestion.correctAnswer;
       if (!isCorrect) {
         setState(() {
           _selectedFlashcardAnswer = null;
         });
       }
     } else if (_currentQuestion.questionType == 'complete') {
-      isCorrect = _draggedWords.length ==
-              _currentQuestion.correctOrder.length &&
-          List.generate(_currentQuestion.correctOrder.length,
-                  (i) => _draggedWords[i] == _currentQuestion.correctOrder[i])
-              .every((element) => element);
+      isCorrect = _matchAllDone;
       if (!isCorrect) {
         setState(() {
-          _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
+          _draggedWords = List.filled(
+            _currentQuestion.optionList.where((entry) => entry.isEmpty).length,
+            '',
+          );
         });
       }
       // match handler
     } else if (_currentQuestion.questionType == 'matching') {
-      isCorrect = _matchAllDone;
+      isCorrect = _matchingAllDone;
       if (!isCorrect) {
-        // el usuario debera seguir intentando
+        setState(() {
+          _draggedWords = List.filled(_currentQuestion.optionList.length, '');
+        });
       }
     }
 
@@ -801,14 +971,7 @@ class _QuizScreenState extends State<QuizScreen> {
       _questionIndex++;
       if (_questionIndex < widget.questions.length) {
         _currentQuestion = widget.questions[_questionIndex];
-        _selectedOptions =
-            List.generate(_currentQuestion.optionList.length, (index) => false);
-        _selectedMultipleChoice = -1; // Reinicia si usas selección múltiple
-        _draggedWords = List.filled(_currentQuestion.correctOrder.length, '');
-        _selectedTranslate =
-            List.generate(_currentQuestion.words.length, (index) => false);
-        _wordsList = List.from(_currentQuestion.words);
-        _selectedFlashcardAnswer = null;
+        _initializeQuestionState();
       } else {
         // Cuando se terminan las preguntas, mostrar diálogo con opciones
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -826,15 +989,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     setState(() {
                       _questionIndex = 0;
                       _currentQuestion = widget.questions[_questionIndex];
-                      _selectedOptions = List.generate(
-                          _currentQuestion.optionList.length, (index) => false);
-                      _selectedMultipleChoice = -1;
-                      _draggedWords =
-                          List.filled(_currentQuestion.correctOrder.length, '');
-                      _selectedTranslate = List.generate(
-                          _currentQuestion.words.length, (index) => false);
-                      _wordsList = List.from(_currentQuestion.words);
-                      _selectedFlashcardAnswer = null;
+                      _initializeQuestionState();
                     });
                     Navigator.of(context).pop(); // cerrar diálogo
                   },
@@ -894,41 +1049,28 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             // Carga la rutina de opción multiple
             if (_currentQuestion.questionType == 'multiple_choice')
-              ..._buildMultipleChoice(_currentQuestion.optionList, (value) {
-                setState(() {
-                  _selectedOptions[_selectedMultipleChoice] =
-                      value == _currentQuestion.correctAnswer;
-                });
-              }),
+              ..._buildMultipleChoice(_currentQuestion.optionList, (_) {}),
             // Carga la rutina de traducir
             if (_currentQuestion.questionType == 'translate')
-              ..._buildSelectAndSort(
-                  _currentQuestion.words, _currentQuestion.correctOrder),
+              ..._buildSelectAndSort(_currentQuestion.words),
             // Carga la rutina de ordenar verticalmente
             if (_currentQuestion.questionType == 'vertical_sort')
-              ..._buildVerticalSort(
-                  _currentQuestion.words, _currentQuestion.correctOrder),
+              ..._buildVerticalSort(_currentQuestion.words),
             // Carga la rutina de escuchar y traducir
             if (_currentQuestion.questionType == 'listen_and_translate')
-              ..._buildListenAndTranslate(
-                  _currentQuestion.questionSpanish, _currentQuestion.optionList,
-                  (value) {
-                setState(() {
-                  _selectedOptions[_selectedMultipleChoice] =
-                      // ignore: unrelated_type_equality_checks
-                      value == _currentQuestion.correctAnswer;
-                });
-              }),
+              ..._buildListenAndTranslate(_currentQuestion.optionList, (_) {}),
             // Carga la rutina de Drag and Drop para imágenes o solo texto
             if (_currentQuestion.questionType == 'drag_and_drop')
               ..._buildMatch(
                   _currentQuestion.words, _currentQuestion.correctOrder),
+            if (_currentQuestion.questionType == 'matching')
+              ..._buildMatch(
+                  _currentQuestion.words, _currentQuestion.optionList),
             // Carga la rutina de completar frases
             if (_currentQuestion.questionType == 'complete')
               ..._buildComplete(
                 _currentQuestion.optionList,
                 _currentQuestion.words,
-                _currentQuestion.correctOrder,
               ),
             // Carga la rutina de flashcards
             if (_currentQuestion.questionType == 'flashcard_question')
@@ -980,8 +1122,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   //  Complete
-  List<Widget> _buildComplete(
-      List<String> optionList, List<String> words, List<String> correctOrder) {
+  List<Widget> _buildComplete(List<String> optionList, List<String> words) {
     List<String> availableWords = List.from(words);
     if (_draggedWords.length != optionList.where((e) => e == '').length) {
       _draggedWords = List.filled(optionList.where((e) => e == '').length, '');
@@ -993,7 +1134,7 @@ class _QuizScreenState extends State<QuizScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: _safeImage(
-            'assets/images/unity_${widget.unity}/lesson_${widget.lesson}/${_currentQuestion.imagePath}',
+            _resolveImageAsset(_currentQuestion.imagePath),
             height: 140,
             fit: BoxFit.contain,
           ),
@@ -1008,7 +1149,7 @@ class _QuizScreenState extends State<QuizScreen> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: DragTarget<String>(
-                onWillAccept: (data) => true,
+                onWillAccept: (_) => true,
                 onAccept: (data) {
                   setState(() {
                     _draggedWords[currentIndex] = data;

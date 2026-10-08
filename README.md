@@ -54,6 +54,25 @@ Ver checklist con esqueletos copiables en **`docs/ACTIVIDADES.md` §8**:
 1 archivo en `play/` + 1 línea de registro + constante + ficha/validación +
 vista de repaso + ejemplo en docs. `quiz_screen.dart` no se toca.
 
+## 🧑‍💻 Flujo normal: descargar, modificar y probar (VS Code + Flutter + Android Studio)
+
+```bash
+git clone https://github.com/LanderXavier/KichwaYachay-Appv2.git
+cd KichwaYachay-Appv2
+flutter pub get
+dart run tool/validate_activities.dart   # contenido OK (0 errores)
+```
+
+- **VS Code**: abre la carpeta, instala las extensiones *Flutter* y *Dart*.
+  `F5` o `flutter run -d linux` para probar en escritorio,
+  `flutter run -d android` con el celular en depuración USB.
+- **Android Studio**: *Open* → la carpeta del proyecto (no la subcarpeta `android/`),
+  instala el plugin Flutter si falta, elige dispositivo y ▶ Run.
+  Para el APK: `flutter build apk --debug` → sale en
+  `build/app/outputs/flutter-apk/app-debug.apk`, cópialo al celular e instálalo.
+- **Solo contenido** (preguntas, sin programar): edita los JSON de
+  `assets/database/` siguiendo `docs/ACTIVIDADES.md` y valida antes de probar.
+
 ## 💻 Requisitos y cómo correr
 
 - Flutter SDK estable (`https://docs.flutter.dev/get-started/install`)

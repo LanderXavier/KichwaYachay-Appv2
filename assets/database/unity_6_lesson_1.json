@@ -49,13 +49,13 @@
     {
         "questionSpanish": "Selecciona la imagen que corresponde a la siguiente oración.",
         "questionKichwa": "Payka yakutami upyan.",
-        "correctAnswer": "U6_L1_Q1.png",
+        "correctAnswer": "U6_L1_Q1.jpg",
         "audioPath": "",
         "imagePath": "",
         "questionType": "multiple_choice",
         "optionList": [
-        "U6_L1_Q1.png",
-        "U6_L1_Q1_2.png"
+        "U6_L1_Q1.jpg",
+        "U6_L1_Q1_2.jpg"
         ],
         "words": [],
         "correctOrder": []
@@ -63,13 +63,13 @@
     {
         "questionSpanish": "Selecciona la imagen que corresponde a la siguiente oración.",
         "questionKichwa": "Payka mana yakuta upyanchu. ",
-        "correctAnswer": "U6_L1_Q1_2.png",
+        "correctAnswer": "U6_L1_Q1_2.jpg",
         "audioPath": "",
         "imagePath": "",
         "questionType": "multiple_choice",
         "optionList": [
-        "U6_L1_Q1.png",
-        "U6_L1_Q1_2.png"
+        "U6_L1_Q1.jpg",
+        "U6_L1_Q1_2.jpg"
         ],
         "words": [],
         "correctOrder": []
@@ -79,7 +79,7 @@
         "questionKichwa": "",
         "correctAnswer": "Ñukaka mana wasita charini chu",
         "audioPath": "",
-        "imagePath": "U6_L1_Q2.png",
+        "imagePath": "U6_L1_Q2.jpg",
         "questionType": "complete",
         "optionList": ["", "", "", "", ""],
         "words": ["charini", "Ñukaka", "chu", "wasita", "mana"],

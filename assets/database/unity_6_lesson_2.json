@@ -64,7 +64,7 @@
         "questionKichwa": "Mayaka allkuta charinchu ",
         "correctAnswer": "Ari",
         "audioPath": "",
-        "imagePath": "U6_L2_Q3.png",
+        "imagePath": "U6_L2_Q3.jpg",
         "questionType": "multiple_choice",
         "optionList": [
             "Ari","Mana"],
@@ -76,7 +76,7 @@
         "questionKichwa": "Mayaka misita charinchu",
         "correctAnswer": "Mana",
         "audioPath": "",
-        "imagePath": "U6_L2_Q4.png",
+        "imagePath": "U6_L2_Q4.jpg",
         "questionType": "multiple_choice",
         "optionList": [
             "Ari","Mana"],
@@ -88,7 +88,7 @@
         "questionKichwa": "",
         "correctAnswer": "Sisaka shuk misitami charin",
         "audioPath": "",
-        "imagePath": "U6_L2_Q5.png",
+        "imagePath": "U6_L2_Q5.jpg",
         "questionType": "multiple_choice",
         "optionList": [
             "Sisaka mana misita chanrinchu",

@@ -13,6 +13,15 @@ y pantalla de **repaso** por lección.
 - **Validación de contenido**: `dart run tool/validate_activities.dart` detecta errores en los JSON antes de probar.
 - **Linux + Android**: corre en escritorio KDE y en celular con el mismo código.
 
+### Screenshots (originales del autor)
+
+<img src="https://i.ibb.co/jTggZrT/img-01.png" width="420" height="800">
+<img src="https://i.ibb.co/ZGz9d1W/01-lessons.png" width="420" height="800">
+<img src="https://i.ibb.co/fYBj1Vm/04-quiz-screen.png" width="420" height="800">
+
+
+https://ibb.co/dgtRvkR
+
 ## 🗂️ Estructura del proyecto
 
 ```
@@ -63,3 +72,9 @@ Interfaz base: Language Learning Flutter UI de ariscybertech
 (`https://github.com/ariscybertech/aris_language_learning`),
 adaptada y extendida con contenido kichwa, nuevos tipos de actividad,
 repaso, validador y soporte Linux.
+
+### Built From Language Learning Flutter UI By ariscybertech
+
+https://github.com/ariscybertech/aris_language_learning
+
+![Main Page](https://res.cloudinary.com/olayemii/image/upload/v1611748849/assets/language-1_oestuf.png)

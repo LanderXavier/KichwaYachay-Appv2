@@ -1,0 +1,47 @@
+[
+    {
+        "questionSpanish": "¿Cuál es blanco?",
+        "questionKichwa": "",
+        "correctAnswer": "U1_L1_Q1_1.png",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["U1_L1_Q1_2.png","U1_L1_Q1_1.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál es negro?",
+        "questionKichwa": "",
+        "correctAnswer": "U1_L1_Q1_2.png",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["U1_L1_Q1_2.png","U1_L1_Q1_1.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuchar y Traducir",
+        "questionKichwa": "",
+        "correctAnswer": ["es negro"],
+        "audioPath": "U1_L1_Q1.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["es blanco","es negro","es rojo"],
+        "words": [],
+        "correctOrder": []
+        
+    },
+    {
+        "questionSpanish": "Escuchar y Traducir",
+        "questionKichwa": "",
+        "correctAnswer": ["es blanco"],
+        "audioPath": "U1_L1_Q2.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["es blanco","es negro","es rojo"],
+        "words": [],
+        "correctOrder": []
+        }
+]

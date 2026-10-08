@@ -1,0 +1,47 @@
+[
+  {
+    "questionSpanish": "Relaciona los números en kichwa con su valor",
+    "questionKichwa": "Yupaykuna: paktachiy",
+    "correctAnswer": "",
+    "audioPath": "",
+    "imagePath": "",
+    "questionType": "matching",
+    "words": [
+      "shuk",
+      "ishkay",
+      "kimsa",
+      "chusku",
+      "pichka"
+    ],
+    "optionList": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correctOrder": []
+  },
+      {
+        "questionSpanish": "¿Cómo se dice Negro?",
+        "questionKichwa": "",
+        "correctAnswer": "Yana",
+        "audioPath": "",
+        "imagePath": "Yana",
+        "questionType": "drag_and_drop",
+        "optionList":[
+
+        ],
+        "words": [
+            "Allku.png",
+            "Ankas.png",
+            "Curi.png"
+           
+        ],
+        "correctOrder": [
+            "Allku.png",
+            "Ankas.png",
+            "Curi.png"
+        ]
+    }
+]

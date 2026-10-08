@@ -1,0 +1,200 @@
+[
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Hatunllakta kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U5_L3_Q1",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Killu wasi kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U5_L3_Q2",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Mapa allku kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U5_L3_Q3",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Yana wakraka urkupi kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U5_L3_Q4",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Payka wasiman mana rinchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U5_L3_Q5",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Paykunaka mana alli kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U5_L3_Q6",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Maykan frase negativo pi kan.",
+        "correctAnswer": "...mana....chu",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["...mana....chu","...chu"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Maykan pregunta con repuesta “si” o “no” kan.",
+        "correctAnswer": "...chu",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["...mana....chu","...chu"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Ordenar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", ""],
+        "words": ["mana","wakraka","kanchu","Yana","wasipi"],
+        "correctOrder": ["Yana","wakraka","mana","wasipi","kanchu"]
+    },
+    {
+        "questionSpanish": "Ordenar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", ""],
+        "words": ["allyu","kanchu","tantaka","Yana","llaktapi"],
+        "correctOrder": ["Yana","tantaka","allyu","llaktapi","kanchu"]
+    },
+    {
+        "questionSpanish": "Ordenar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", ""],
+        "words": ["rinchu","mana","Paykunaka","urkuman"],
+        "correctOrder": ["Paykunaka","mana","urkuman","rinchu"]
+    },
+    {
+        "questionSpanish": "Ordenar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", ""],
+        "words": ["mana","Ñukanchikka","purututa","mikunchikchu"],
+        "correctOrder": ["Ñukanchikka","mana","purututa","mikunchikchu"]
+    },
+    {
+        "questionSpanish": "Ordenar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", "", ""],
+        "words": ["wasi","chu","pi","Kan","ka","puñunki"],
+        "correctOrder": ["Kan","ka","wasi","pi","puñunki","chu"]
+    },
+    {
+        "questionSpanish": "Ordenar",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", "", "", ""],
+        "words": ["upyani","chu","yaku","mana","ta","ka","Ñuka"],
+        "correctOrder": ["Ñuka","ka","mana","yaku","ta","upyani","chu"]
+    },
+    {
+        "questionSpanish": "Escuche y elija si es una pregunta o una frase en negativa",
+        "questionKichwa": "Killu allkuka urkupi kanchu",
+        "correctAnswer": "Pregunta",
+        "audioPath": "U5_L3_P1.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Pregunta","Frase negativa"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuche y elija si es una pregunta o una frase en negativa",
+        "questionKichwa": "Paykunaka mana wasipi kankunachu",
+        "correctAnswer": "Frase negativa",
+        "audioPath": "U5_L3_P2.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Pregunta","Frase negativa"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuche y elija si es una pregunta o una frase en negativa",
+        "questionKichwa": "Yana wakraka mana urkupi kanchu",
+        "correctAnswer": "Frase negativa",
+        "audioPath": "U5_L3_P3.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Pregunta","Frase negativa"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Escuche y elija si es una pregunta o una frase en negativa",
+        "questionKichwa": "Puka purutuka hatunllaktapi kanchu",
+        "correctAnswer": "Pregunta",
+        "audioPath": "U5_L3_P4.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Pregunta","Frase negativa"],
+        "words": [],
+        "correctOrder": []
+    }
+]

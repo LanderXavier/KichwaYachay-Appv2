@@ -1,0 +1,69 @@
+[
+    {
+        "questionSpanish": "¿Cuál es un perro?",
+        "questionKichwa": "",
+        "correctAnswer": ["U1_L2_Q1_1.png"],
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["U1_L2_Q1_1.png", "U1_L2_Q1_2.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál es una vaca?",
+        "questionKichwa": "",
+        "correctAnswer": ["U1_L2_Q1_2.png"],
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["U1_L2_Q1_2.png", "U1_L2_Q1_1.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Ordena Correctamente: El perro es negro",
+        "questionKichwa": "",
+        "correctAnswer": ["Allkuka yana kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_1.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["kan","yana","Allkuka"],
+        "correctOrder": ["Allkuka","yana","kan"]
+    },
+    {
+        "questionSpanish": "Ordena Correctamente: La serpiente es roja",
+        "questionKichwa": "",
+        "correctAnswer": ["Amaruka pukami kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_2.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["pukami", "kan","Amaruka"],
+        "correctOrder": ["Amaruka", "pukami", "kan"]
+    },
+     {
+        "questionSpanish": "Ordena Correctamente: La vaca es amarilla",
+        "questionKichwa": "",
+        "correctAnswer": ["Wakra killu kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_3.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["killu", "kan", "Wakaka"],
+        "correctOrder": ["Wakra", "killu", "kan"]
+    },
+     {
+        "questionSpanish": "Ordena Correctamente: El gato es blanco",
+        "questionKichwa": "",
+        "correctAnswer": ["Wakra killu kan"],
+        "audioPath": "",
+        "imagePath": "U1_L2_Q2_4.png",
+        "questionType": "complete",
+        "optionList": ["","",""],
+        "words": ["ka", "yurak","kan"],
+        "correctOrder": ["ka", "yurak","kan"]
+    }
+]
+

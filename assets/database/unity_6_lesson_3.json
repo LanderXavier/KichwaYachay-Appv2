@@ -1,0 +1,340 @@
+[
+    {
+        "questionSpanish": "",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath":["U6_L3_Q1.png"],
+        "questionType": "flashcard_question",
+        "optionList": [],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Atikka mapa kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q2.png",
+        "questionType": "multiple_choice",
+        "words": [],
+        "optionList": [
+            "Ari","Mana"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Apyuka chuya kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q3.png",
+        "questionType": "multiple_choice",
+        "words": [],
+        "optionList": [
+            "Ari","Mana"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Yakuka chuya kanchu?",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q4.png",
+        "questionType": "multiple_choice",
+        "words": [],
+        "optionList": [
+            "Ari","Mana"],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath":["U6_L3_Q5.png"],
+        "questionType": "flashcard_question",
+        "optionList": [],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Allkuka uchilla kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q6.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Misika hatun kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q6.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Ari","Mana"],
+        "words": [],
+        "correctOrder":[]
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Hatunllaktaka hatun kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q7.png",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Ari","Mana"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Kuchikunaka uchilla kankunachu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q8.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath":["U6_L3_Q9.png"],
+        "questionType": "flashcard_question",
+        "optionList": [],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Puka wasika sumak kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q10.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Sumak yachakukmi kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q11.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Chay wawaka sumak ushushi kanchu?",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q12.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "",
+        "questionKichwa": "",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath":["U6_L3_Q13.png"],
+        "questionType": "flashcard_question",
+        "optionList": [],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Rasuka mishki kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q14.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Paltaka mishki kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q15.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Purutuka mishki kanchu",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q16.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "",
+        "questionKichwa": "Kuyaylla",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath":"U6_L3_Q17.png",
+        "questionType": "flashcard_question",
+        "optionList": [],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "",
+        "questionKichwa": "Kuyaylla",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath":"U6_L3_Q17_1.png",
+        "questionType": "flashcard_question",
+        "optionList": [],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Misi wawakunaka kuyaylla kankunachu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q18.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Kay wambraka kuyaylla kanchu",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q19.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Kay pampaka kuyaylla kanchu?",
+        "correctAnswer": "Ari",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q20.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Seleccionar",
+        "questionKichwa": "Kay allkuka kuyaylla kanchu?",
+        "correctAnswer": "Mana",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q21.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari", "Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta “La casa es bonita.”",
+        "questionKichwa": "",
+        "correctAnswer": "Wasika kuyayllami kan",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q22.png",
+        "questionType": "complete",
+        "optionList": ["", "", ""],
+        "words": ["kan", "Wasita", "kuyayllami"],
+        "correctOrder": ["Wasita", "kuyayllami", "kan"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta “Ellos beben agua limpia.”",
+        "questionKichwa": "",
+        "correctAnswer": "Paykunaka chuya yakuta upyankuna",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q23.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", ""],
+        "words": ["yakuta", "Paykunaka", "chuya", "Upyankuna"],
+        "correctOrder": ["Paykunaka", "chuya", "yakuta", "Upyankuna"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta “Nosotros somos lo mejor.”",
+        "questionKichwa": "",
+        "correctAnswer": "Ñukanchik sumakmi kanchik",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q24.png",
+        "questionType": "complete",
+        "optionList": ["", "", ""],
+        "words": ["kanchik", "sumakmi", "Ñukanchik"],
+        "correctOrder": ["Ñukanchik", "sumakmi", "kanchik"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta “Los gatitos son pequeños.”",
+        "questionKichwa": "",
+        "correctAnswer": "Misi wawakunaka uchillami kankuna",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q25.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", "", "", ""],
+        "words": ["uchilla", "ka", "kuna", "mi", "Misi", "wawa", "kankuna"],
+        "correctOrder": ["Misi", "wawa", "kuna", "ka", "uchilla", "mi", "kankuna"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta “La ciudad no es grande.”",
+        "questionKichwa": "",
+        "correctAnswer": "Hatunllaktaka mana hatun kanchu",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q26.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", ""],
+        "words": ["chu", "mana", "kan", "hatun", "Hatunllaktaka"],
+        "correctOrder": ["Hatunllaktaka", "mana", "hatun", "kan", "chu"]
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta “Su hermano no está sucio.”",
+        "questionKichwa": "",
+        "correctAnswer": "Paypa wawkika mana mapa kanchu",
+        "audioPath": "",
+        "imagePath": "U6_L3_Q27.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", "", "", "", ""],
+        "words": ["mana", "Pay", "wawki", "ka", "chu", "pa", "kan", "mapa"],
+        "correctOrder": ["Pay", "pa", "wawki", "ka", "mana", "mapa", "kan", "chu"]
+    },
+    {
+        "questionSpanish": "Selecciona la oración que escuchas.",
+        "questionKichwa": "Su bebito es bonito",
+        "correctAnswer": "Kikinpa wawakuka kuyayllami kan",
+        "audioPath": "Kikinpa wawakuka kuyayllami kan",
+        "imagePath": "U6_L3_Q28.png",
+        "questionType": "listen_and_translate",
+        "optionList": ["Kikinpa wawakuka kuyayllami kan", "Kikinpa wawaka kitillami kan"],
+        "words": [],
+        "correctOrder": []
+    }
+]

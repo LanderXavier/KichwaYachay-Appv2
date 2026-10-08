@@ -1,0 +1,79 @@
+[
+    {
+        "questionSpanish": "¿A dónde se va él?",
+        "questionKichwa": "Maymantak payka rin",
+        "correctAnswer": "Yachana wasiman",
+        "audioPath": "",
+        "imagePath": "U5_L1_Q1.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Wasiman","Yachana wasiman","Mikuna wasiman"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Maykan yachanawasita kan",
+        "correctAnswer": "U5_L1_Q2_1.png",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["U5_L1_Q2.png","U5_L1_Q2_1.png","U5_L1_Q2_2.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "SELECCIONAR",
+        "questionKichwa": "Maykan mikunawasita kan",
+        "correctAnswer": "U5_L1_Q2_2.png",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["U5_L1_Q2.png","U5_L1_Q2_1.png","U5_L1_Q2_2.png"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Traducir",
+        "questionKichwa": "Payka mikunawasipimi mikun.",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U5_L1_Q3.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", ""],
+        "words": ["come","restaurante","casa","yo","él","en","el"],
+        "correctOrder": ["él","come","en","el","restaurante"]
+    },
+    {
+        "questionSpanish": "Traducir",
+        "questionKichwa": "Ñukanchikka yachanawasimanmi rinchik.",
+        "correctAnswer": "",
+        "audioPath": "",
+        "imagePath": "U5_L1_Q4.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", ""],
+        "words": ["comemos","nosotros","a la","escuela","a la casa","vamos"],
+        "correctOrder": ["nosotros","vamos","a la","escuela"]
+    },
+    {
+        "questionSpanish": "Traducir",
+        "questionKichwa": "ñukaka wasimanmi rini.",
+        "correctAnswer": "Yo voy a la casa",
+        "audioPath": "",
+        "imagePath": "U5_L1_Q5.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Él va a la casa","Yo voy a la casa","Nosotros vamos a la casa"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Traducir",
+        "questionKichwa": "Ñukanchikka mikunawasimanmi rinchik.",
+        "correctAnswer": "Nosotros vamos al restaurante",
+        "audioPath": "",
+        "imagePath": "U5_L1_Q5.png",
+        "questionType": "multiple_choice",
+        "optionList": ["Él va al restaurante","Yo voy al restaurante","Nosotros vamos al restaurante"],
+        "words": [],
+        "correctOrder": []
+    }
+]

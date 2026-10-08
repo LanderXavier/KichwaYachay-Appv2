@@ -1,0 +1,100 @@
+[
+    {
+        "questionSpanish": "Selecciona la oración que está en negativo",
+        "questionKichwa": "",
+        "correctAnswer": "Payka mana wasita charinchu",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Payka mana wasita charinchu","Payka wasitami charin"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál de las siguientes palabras significa “no”?",
+        "questionKichwa": "",
+        "correctAnswer": "Mana",
+        "audioPath": "", 
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": ["Ari","Mana"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál de las siguientes palabras se usa para indicar afirmación o para destacar?",
+        "questionKichwa": "",
+        "correctAnswer": "Mi",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "chu","Mi","Pi"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "¿Cuál de las siguientes palabras se usa para indicar negación?",
+        "questionKichwa": "",
+        "correctAnswer": "Mana...chu",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": [
+            "Mana...chu","Mi","Pi"],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Selecciona la imagen que corresponde a la siguiente oración.",
+        "questionKichwa": "Payka yakutami upyan.",
+        "correctAnswer": "U6_L1_Q1.png",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": [
+        "U6_L1_Q1.png",
+        "U6_L1_Q1_2.png"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Selecciona la imagen que corresponde a la siguiente oración.",
+        "questionKichwa": "Payka mana yakuta upyanchu. ",
+        "correctAnswer": "U6_L1_Q1_2.png",
+        "audioPath": "",
+        "imagePath": "",
+        "questionType": "multiple_choice",
+        "optionList": [
+        "U6_L1_Q1.png",
+        "U6_L1_Q1_2.png"
+        ],
+        "words": [],
+        "correctOrder": []
+    },
+    {
+        "questionSpanish": "Ordena las palabras para formar la oración correcta: No tengo casa.",
+        "questionKichwa": "",
+        "correctAnswer": "Ñukaka mana wasita charini chu",
+        "audioPath": "",
+        "imagePath": "U6_L1_Q2.png",
+        "questionType": "complete",
+        "optionList": ["", "", "", "", ""],
+        "words": ["charini", "Ñukaka", "chu", "wasita", "mana"],
+        "correctOrder": ["Ñukaka", "mana", "wasita", "charini", "chu"]
+    },
+
+    {
+        "questionSpanish": "Selecciona la oración que escuchas.",
+        "questionKichwa": "Ella no come papa.",
+        "correctAnswer": "Payka mana papata mikunchu.",
+        "audioPath": "U6_L1_P1.mp3",
+        "imagePath": "",
+        "questionType": "listen_and_translate",
+        "optionList": ["Payka mana papatami mikun.", "Payka mana papata mikunchu."],
+        "words": [],
+        "correctOrder": []
+    }
+]
